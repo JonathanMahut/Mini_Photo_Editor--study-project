@@ -34,6 +34,7 @@ import javax.swing.JScrollPane;
 import java.awt.FlowLayout;
 import java.awt.CardLayout;
 import java.awt.GridLayout;
+import java.awt.Color;
 
 
 //add refresh button
@@ -76,12 +77,13 @@ public class PhotoEdit {
 		frame = new JFrame();
 		frame.setBounds(100, 100, 450, 300);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+			frame.getContentPane().setLayout(new GridLayout(0, 3, 0, 0));
 			JPanel panel = new JPanel();
+			panel.setBackground(Color.WHITE);
 		
 		
 		JScrollPane scrollPane = new JScrollPane(panel);		
-		panel.setLayout(new GridLayout(0, 5, 0,0));			// problem when number of img is <25 !
-		scrollPane.setBounds(0, 0, 222, 240);
+		panel.setLayout(new GridLayout(0, 5, 0,0));
 		frame.getContentPane().add(scrollPane);
 		
 		JMenuBar menuBar = new JMenuBar();
@@ -235,25 +237,22 @@ public class PhotoEdit {
 		});
 		mnFile.add(mntmSave);
 		mnFile.add(mntmExit);
-		frame.getContentPane().setLayout(null);
 		
 		JPanel panel_1 = new JPanel();
-		panel_1.setBounds(223, 0, 211, 240);
 		frame.getContentPane().add(panel_1);
 		panel_1.setLayout(null);
 		
+		JPanel panel_2 = new JPanel();
+		frame.getContentPane().add(panel_2);
+		panel_2.setLayout(null);
+		
 		JButton btnMerge = new JButton("Merge");
-		btnMerge.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				LayeredImage mergeImage = new LayeredImage(all_chosen_images); 
-				//z ostatniego folderu
-				
-			}
-		});
-		btnMerge.setBounds(10, 206, 89, 23);
-		panel_1.add(btnMerge);
+		btnMerge.setBounds(28, 179, 89, 23);
+		panel_2.add(btnMerge);
 		
 		JButton btnRefresh = new JButton("Refresh");
+		btnRefresh.setBounds(28, 126, 89, 23);
+		panel_2.add(btnRefresh);
 		btnRefresh.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				frame.repaint(); //works only when item is deleted
@@ -261,8 +260,13 @@ public class PhotoEdit {
 				
 			}
 		});
-		btnRefresh.setBounds(112, 206, 89, 23);
-		panel_1.add(btnRefresh);
+		btnMerge.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				LayeredImage mergeImage = new LayeredImage(all_chosen_images); 
+				//z ostatniego folderu
+				
+			}
+		});
 		
 		
 		

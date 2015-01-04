@@ -34,6 +34,9 @@ import javax.swing.JScrollPane;
 import java.awt.FlowLayout;
 import java.awt.CardLayout;
 import java.awt.GridLayout;
+import java.awt.Color;
+import javax.swing.JRadioButton;
+import javax.swing.JList;
 
 
 //add refresh button
@@ -74,14 +77,15 @@ public class PhotoEdit {
 	 */
 	private void initialize() {
 		frame = new JFrame();
-		frame.setBounds(100, 100, 450, 300);
+		frame.setBounds(100, 100, 472, 358);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+			frame.getContentPane().setLayout(new GridLayout(0, 3, 0, 0));
 			JPanel panel = new JPanel();
+			panel.setBackground(Color.WHITE);
 		
 		
 		JScrollPane scrollPane = new JScrollPane(panel);		
-		panel.setLayout(new GridLayout(0, 5, 0,0));			// problem when number of img is <25 !
-		scrollPane.setBounds(0, 0, 222, 240);
+		panel.setLayout(new GridLayout(0, 5, 0,0));
 		frame.getContentPane().add(scrollPane);
 		
 		JMenuBar menuBar = new JMenuBar();
@@ -235,14 +239,22 @@ public class PhotoEdit {
 		});
 		mnFile.add(mntmSave);
 		mnFile.add(mntmExit);
-		frame.getContentPane().setLayout(null);
 		
 		JPanel panel_1 = new JPanel();
-		panel_1.setBounds(223, 0, 211, 240);
 		frame.getContentPane().add(panel_1);
 		panel_1.setLayout(null);
 		
+		JPanel panel_2 = new JPanel();
+		frame.getContentPane().add(panel_2);
+		panel_2.setLayout(null);
+		
+		JButton btnRefresh = new JButton("Refresh");
+		btnRefresh.setBounds(21, 264, 71, 23);
+		panel_2.add(btnRefresh);
+		
 		JButton btnMerge = new JButton("Merge");
+		btnMerge.setBounds(42, 230, 71, 23);
+		panel_2.add(btnMerge);
 		btnMerge.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				LayeredImage mergeImage = new LayeredImage(all_chosen_images); 
@@ -250,10 +262,6 @@ public class PhotoEdit {
 				
 			}
 		});
-		btnMerge.setBounds(10, 206, 89, 23);
-		panel_1.add(btnMerge);
-		
-		JButton btnRefresh = new JButton("Refresh");
 		btnRefresh.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				frame.repaint(); //works only when item is deleted
@@ -261,8 +269,6 @@ public class PhotoEdit {
 				
 			}
 		});
-		btnRefresh.setBounds(112, 206, 89, 23);
-		panel_1.add(btnRefresh);
 		
 		
 		

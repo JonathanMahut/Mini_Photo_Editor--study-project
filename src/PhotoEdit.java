@@ -242,6 +242,10 @@ public class PhotoEdit {
 		frame.getContentPane().add(panel_1);
 		panel_1.setLayout(null);
 		
+		JButton btnHwdp = new JButton("hwdp");
+		btnHwdp.setBounds(10, 48, 89, 23);
+		panel_1.add(btnHwdp);
+		
 		JPanel panel_2 = new JPanel();
 		frame.getContentPane().add(panel_2);
 		panel_2.setLayout(null);

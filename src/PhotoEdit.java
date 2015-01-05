@@ -261,10 +261,6 @@ public class PhotoEdit {
 		btnMerge.setBounds(28, 192, 89, 23);
 		panel_2.add(btnMerge);
 		
-		JButton btndde = new JButton("Mlbbl");
-		btndde.setBounds(28, 220, 89, 23);
-		panel_2.add(btndde);
-		
 		JButton btnRefresh = new JButton("Refresh");
 		btnRefresh.setBounds(28, 158, 89, 23);
 		panel_2.add(btnRefresh);
@@ -277,7 +273,7 @@ public class PhotoEdit {
 				which_merge_mode_was_chose = 1;
 			}
 		});
-		rdbtnNewRadioButton.setBounds(8, 65, 109, 23);
+		rdbtnNewRadioButton.setBounds(78, 67, 47, 23);
 		panel_2.add(rdbtnNewRadioButton);
 		
 		JRadioButton rdbtnNewRadioButton_1 = new JRadioButton("XOR");
@@ -286,7 +282,7 @@ public class PhotoEdit {
 				which_merge_mode_was_chose = 2;
 			}
 		});
-		rdbtnNewRadioButton_1.setBounds(8, 91, 109, 23);
+		rdbtnNewRadioButton_1.setBounds(78, 92, 47, 23);
 		panel_2.add(rdbtnNewRadioButton_1);
 		
 		JRadioButton rdbtnNewRadioButton_2 = new JRadioButton("OR");
@@ -295,7 +291,7 @@ public class PhotoEdit {
 				which_merge_mode_was_chose = 3;
 			}
 		});
-		rdbtnNewRadioButton_2.setBounds(8, 39, 109, 23);
+		rdbtnNewRadioButton_2.setBounds(78, 41, 60, 23);
 		panel_2.add(rdbtnNewRadioButton_2);
 		
 		ButtonGroup group = new ButtonGroup();

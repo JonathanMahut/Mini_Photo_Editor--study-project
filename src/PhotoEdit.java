@@ -4,6 +4,7 @@ import java.awt.EventQueue;
 import java.awt.Image;
 
 import javax.imageio.ImageIO;
+import javax.swing.ButtonGroup;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
@@ -19,6 +20,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -36,6 +38,9 @@ import java.awt.CardLayout;
 import java.awt.GridLayout;
 import java.awt.Color;
 
+import javax.swing.JComboBox;
+import javax.swing.JRadioButton;
+
 
 //add refresh button
 //add enlarge button
@@ -45,7 +50,7 @@ public class PhotoEdit {
 	private JFrame frame;
 	
 	static HashMap<JButton,File> all_chosen_images = new HashMap<JButton,File>(); //storing path to all images 
-	
+	static int which_merge_mode_was_chose =0;
 	ArrayList<JButton> buttonList = new ArrayList<JButton>();			// list where all loaded images are as buttons
 	/**
 	 * Launch the application.
@@ -253,7 +258,7 @@ public class PhotoEdit {
 		panel_2.setLayout(null);
 		
 		JButton btnMerge = new JButton("Merge");
-		btnMerge.setBounds(28, 179, 89, 23);
+		btnMerge.setBounds(28, 192, 89, 23);
 		panel_2.add(btnMerge);
 		
 		JButton btndde = new JButton("Mlbbl");
@@ -261,8 +266,42 @@ public class PhotoEdit {
 		panel_2.add(btndde);
 		
 		JButton btnRefresh = new JButton("Refresh");
-		btnRefresh.setBounds(28, 126, 89, 23);
+		btnRefresh.setBounds(28, 158, 89, 23);
 		panel_2.add(btnRefresh);
+		
+		
+		
+		JRadioButton rdbtnNewRadioButton = new JRadioButton("AND");
+		rdbtnNewRadioButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				which_merge_mode_was_chose = 1;
+			}
+		});
+		rdbtnNewRadioButton.setBounds(8, 65, 109, 23);
+		panel_2.add(rdbtnNewRadioButton);
+		
+		JRadioButton rdbtnNewRadioButton_1 = new JRadioButton("XOR");
+		rdbtnNewRadioButton_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				which_merge_mode_was_chose = 2;
+			}
+		});
+		rdbtnNewRadioButton_1.setBounds(8, 91, 109, 23);
+		panel_2.add(rdbtnNewRadioButton_1);
+		
+		JRadioButton rdbtnNewRadioButton_2 = new JRadioButton("OR");
+		rdbtnNewRadioButton_2.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				which_merge_mode_was_chose = 3;
+			}
+		});
+		rdbtnNewRadioButton_2.setBounds(8, 39, 109, 23);
+		panel_2.add(rdbtnNewRadioButton_2);
+		
+		ButtonGroup group = new ButtonGroup();
+		group.add(rdbtnNewRadioButton);
+		group.add(rdbtnNewRadioButton_1);
+		group.add(rdbtnNewRadioButton_2);
 		
 		btnRefresh.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -273,7 +312,25 @@ public class PhotoEdit {
 		});
 		btnMerge.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				LayeredImage mergeImage = new LayeredImage(all_chosen_images); 
+			
+	            
+	           switch(which_merge_mode_was_chose)
+	           {
+	        	   case 1:
+	        		    MergeImageAND mergeImage1 = new MergeImageAND(all_chosen_images);
+						break;
+	        	   case 2:
+						
+						MergeImageXOR mergeImage = new MergeImageXOR(all_chosen_images);
+						break;
+	        	   case 3:
+						MergeImageOR mergeImage2 = new MergeImageOR(all_chosen_images);
+						break;
+	           }
+				
+			
+				
+				//LayeredImage mergeImage = new LayeredImage(all_chosen_images); 
 				//z ostatniego folderu
 				
 			}

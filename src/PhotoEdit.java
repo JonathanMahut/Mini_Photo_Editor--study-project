@@ -167,8 +167,6 @@ public class PhotoEdit {
 
 							                	    	  panel.remove(myButton);
 							                	    	  i.remove();
-							                	    	  frame.repaint(); //works only when item is deleted
-							                	    	  frame.validate();
 							                	    	 
 							                	    	  break;
 							                	      }

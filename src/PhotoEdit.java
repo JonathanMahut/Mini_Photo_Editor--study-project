@@ -99,8 +99,9 @@ public class PhotoEdit {
 					String chooser_title;
 					File file_from_given_directory[];
 					
+					
 				public void actionPerformed(ActionEvent e) {
-				    
+					
 				        
 				    FileFilter imageFilter = new FileNameExtensionFilter(
 				    	    "Image files", ImageIO.getReaderFileSuffixes());
@@ -216,7 +217,8 @@ public class PhotoEdit {
 				    else { 
 				      System.out.println("No Selection ");
 				      }
-				    
+				      frame.repaint(); 
+	  				  frame.validate();
 				     }
 				
 				
@@ -254,9 +256,14 @@ public class PhotoEdit {
 		btnMerge.setBounds(28, 179, 89, 23);
 		panel_2.add(btnMerge);
 		
+		JButton btndde = new JButton("Mlbbl");
+		btndde.setBounds(28, 220, 89, 23);
+		panel_2.add(btndde);
+		
 		JButton btnRefresh = new JButton("Refresh");
 		btnRefresh.setBounds(28, 126, 89, 23);
 		panel_2.add(btnRefresh);
+		
 		btnRefresh.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				frame.repaint(); //works only when item is deleted

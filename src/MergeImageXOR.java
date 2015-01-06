@@ -88,7 +88,7 @@ public class MergeImageXOR {
 			if(input[0].getHeight()  > input[1].getHeight())	
 				input[1]=resizeImage(input[1],input[1].getType(),input[1].getWidth(),input[0].getHeight());
 			if(input[0].getHeight() < input[1].getHeight())	
-			input[0]=resizeImage(input[0],input[0].getType(),input[0].getWidth(),input[1].getHeight());
+				input[0]=resizeImage(input[0],input[0].getType(),input[0].getWidth(),input[1].getHeight());
 			if(input[0].getWidth() > input[1].getWidth())
 				input[1]=resizeImage(input[1], input[1].getType(), input[0].getWidth(),input[1].getHeight());
 			if(input[0].getWidth() < input[1].getWidth())

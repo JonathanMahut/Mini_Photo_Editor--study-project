@@ -42,20 +42,7 @@ public class MergeImageXOR {
             }  
         }  
 	}
-	private static BufferedImage makeImagesEqual(BufferedImage source_image, int imageType, int destinationWidht, int destinationHeight) 
-	{	
-		double fWidth = 1;
-		double fHeight = 1;
-		
-	    BufferedImage dbi = null;
-	    if(source_image != null) {
-	        dbi = new BufferedImage(destinationWidht, destinationHeight, imageType);
-	        Graphics2D g = dbi.createGraphics();
-	        AffineTransform at = AffineTransform.getScaleInstance(fWidth, fHeight);
-	        g.drawRenderedImage(source_image, at);
-	    }
-	    return dbi;
-	}
+	
 	
 	private static BufferedImage xorImages(BufferedImage img1,BufferedImage img2)
 	{
@@ -82,6 +69,15 @@ public class MergeImageXOR {
 		return img_merged;
 		      
 	}
+	 private static BufferedImage resizeImage(BufferedImage originalImage, int type,int destination_Widht,int destination_Height)
+	  {
+			BufferedImage resizedImage = new BufferedImage(destination_Widht, destination_Height, type);
+			Graphics2D g = resizedImage.createGraphics();
+			g.drawImage(originalImage, 0, 0, destination_Widht, destination_Height, null);
+			g.dispose();
+		 
+			return resizedImage;
+	  }
 	
 	private static BufferedImage mergeAll()
 	{
@@ -89,10 +85,11 @@ public class MergeImageXOR {
 		// check for the first two images if they are same resolution
 		if(input[0].getHeight() * input[0].getWidth() != input[1].getHeight() * input[1].getWidth()) // check if images have same resolution
 			if(input[0].getHeight() * input[0].getWidth() > input[1].getHeight() * input[1].getWidth()) // check if the first image is bigger than second
-				input[1]=makeImagesEqual(input[1],input[1].getType(),input[0].getWidth(),input[0].getHeight()); // enlarge smaller image to resolution of second image
+				input[1]=resizeImage(input[1],input[1].getType(),input[0].getWidth(),input[0].getHeight());
+				//input[1].getScaledInstance(input[0].getWidth(), input[0].getHeight(), input[1].SCALE_DEFAULT);// enlarge smaller image to resolution of second image
 			else
-				input[0]=makeImagesEqual(input[0],input[0].getType(),input[1].getWidth(),input[1].getHeight());
-				
+				input[0]=resizeImage(input[0],input[0].getType(),input[1].getWidth(),input[1].getHeight());
+				//input[0].getScaledInstance(input[1].getWidth(), input[1].getHeight(), input[0].SCALE_DEFAULT);
 		//make merge for first two images
 		image = xorImages(input[0],input[1]);
 	
@@ -101,15 +98,14 @@ public class MergeImageXOR {
 			if(image.getHeight() * image.getWidth() != input[i].getHeight() * input[i].getWidth()) // check if images have same resolution
 			{	
 				if(image.getHeight() * image.getWidth() > input[i].getHeight() * input[i].getWidth()) // check if the first image is bigger than second
-					input[i]=makeImagesEqual(input[i],input[i].getType(),image.getWidth(),image.getHeight()); // enlarge smaller image to resolution of second image
+					input[i]=resizeImage(input[i],input[i].getType(),image.getWidth(),image.getHeight()); // enlarge smaller image to resolution of second image
 				else
-					image=makeImagesEqual(image,image.getType(),input[i].getWidth(),input[i].getHeight());
+					image=resizeImage(image,image.getType(),input[i].getWidth(),input[i].getHeight());
 			}
 			image = xorImages(image,input[i]);
 		}
 		return image;
 	}
-	
 	 public static void main(String[] args) 
 	 {  
 		BufferedImage final_img;

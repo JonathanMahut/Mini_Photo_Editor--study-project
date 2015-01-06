@@ -108,12 +108,16 @@ public class MergeImageAND {
 		image = andImages(input[0],input[1]);
 		for(int i = 2; i<input.length-1;i++ ) 
 		{	
-			if(image.getHeight() * image.getWidth() != input[i].getHeight() * input[i].getWidth()) // check if images have same resolution
+			if(image.getHeight()  != input[i].getHeight() || image.getWidth() != input[i].getHeight())	// check if images have same resolution
 			{	
-				if(image.getHeight() * image.getWidth() > input[i].getHeight() * input[i].getWidth()) // check if the first image is bigger than second
-					input[i]=resizeImage(input[i],input[i].getType(),image.getWidth(),image.getHeight()); // enlarge smaller image to resolution of second image
-				else
-					image=resizeImage(image,image.getType(),input[i].getWidth(),input[i].getHeight());
+				if(image.getHeight() > input[i].getHeight()) // check if the first image is bigger than second
+					input[i]=resizeImage(input[i],input[i].getType(),input[i].getWidth(),image.getHeight()); // enlarge smaller image to resolution of second image
+				if(image.getHeight() < input[i].getHeight())
+					image=resizeImage(image,image.getType(),image.getWidth(),input[i].getHeight());
+				if(image.getWidth() > input[i].getWidth())
+					input[i]=resizeImage(input[1], input[1].getType(), image.getWidth(),input[i].getHeight());
+				if(image.getWidth() < input[i].getWidth())
+					image=resizeImage(input[0], input[0].getType(), input[i].getWidth(),image.getHeight());
 			}
 			image = andImages(image,input[i]);
 		}

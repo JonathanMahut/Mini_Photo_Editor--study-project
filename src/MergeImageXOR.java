@@ -83,16 +83,19 @@ public class MergeImageXOR {
 	{
 		BufferedImage image = null;
 		// check for the first two images if they are same resolution
-		if(input[0].getHeight() * input[0].getWidth() != input[1].getHeight() * input[1].getWidth()) // check if images have same resolution
-			if(input[0].getHeight() * input[0].getWidth() > input[1].getHeight() * input[1].getWidth()) // check if the first image is bigger than second
-				input[1]=resizeImage(input[1],input[1].getType(),input[0].getWidth(),input[0].getHeight());
-				//input[1].getScaledInstance(input[0].getWidth(), input[0].getHeight(), input[1].SCALE_DEFAULT);// enlarge smaller image to resolution of second image
-			else
-				input[0]=resizeImage(input[0],input[0].getType(),input[1].getWidth(),input[1].getHeight());
-				//input[0].getScaledInstance(input[1].getWidth(), input[1].getHeight(), input[0].SCALE_DEFAULT);
+		
+		if(input[0].getHeight() != input[1].getHeight() || input[0].getWidth() != input[1].getWidth())
+			if(input[0].getHeight()  > input[1].getHeight())	
+				input[1]=resizeImage(input[1],input[1].getType(),input[1].getWidth(),input[0].getHeight());
+			if(input[0].getHeight() < input[1].getHeight())	
+			input[0]=resizeImage(input[0],input[0].getType(),input[0].getWidth(),input[1].getHeight());
+			if(input[0].getWidth() > input[1].getWidth())
+				input[1]=resizeImage(input[1], input[1].getType(), input[0].getWidth(),input[1].getHeight());
+			if(input[0].getWidth() < input[1].getWidth())
+				input[0]=resizeImage(input[0], input[0].getType(), input[1].getWidth(),input[0].getHeight());
+		
 		//make merge for first two images
 		image = xorImages(input[0],input[1]);
-	
 		for(int i = 2; i<input.length-1;i++ ) 
 		{	
 			if(image.getHeight() * image.getWidth() != input[i].getHeight() * input[i].getWidth()) // check if images have same resolution

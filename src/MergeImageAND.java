@@ -124,6 +124,17 @@ public class MergeImageAND {
 		return image;
 	}
 	
+	public static File getF() {
+		return f;
+	}
+
+	public static void setF(File f) {
+		MergeImageAND.f = f;
+	}
+
+	private static File f;
+	
+	
 	 public static void main(String[] args) 
 	 {  
 		BufferedImage final_img;
@@ -131,15 +142,15 @@ public class MergeImageAND {
 		 
 		final_img=mergeAll();
 		 
-		File f = new File( "image.png" );  
+		setF(new File( "image.png" ));  
          try {  
-             ImageIO.write( final_img, "PNG", f );  
+             ImageIO.write( final_img, "PNG", getF() );  
              
          }  
          catch ( IOException x ) {  
              // Complain if there was any problem writing   
              // the output file.  
              x.printStackTrace();  
-         }         
+         }  
 	 }
 }

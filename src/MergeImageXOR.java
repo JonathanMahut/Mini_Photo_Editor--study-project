@@ -113,6 +113,18 @@ public class MergeImageXOR {
 		}
 		return image;
 	}	 
+
+	public static File getF() {
+		return f;
+	}
+
+	public static void setF(File f) {
+		MergeImageXOR.f = f;
+	}
+
+	private static File f;
+	
+	
 	public static void main(String[] args) 
 	 {  
 		BufferedImage final_img;
@@ -120,7 +132,7 @@ public class MergeImageXOR {
 		 
 		final_img=mergeAll();
 		 
-		File f = new File( "image.png" );  
+		f = new File( "image.png" );  
          try {  
              ImageIO.write( final_img, "PNG", f );  
              

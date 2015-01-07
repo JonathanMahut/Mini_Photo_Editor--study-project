@@ -3,7 +3,10 @@ import java.awt.Dimension;
 import java.awt.EventQueue;
 import java.awt.Image;
 
+import javax.swing.JDesktopPane;
 import javax.imageio.ImageIO;
+import javax.swing.BorderFactory;
+import javax.swing.BoxLayout;
 import javax.swing.ButtonGroup;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -15,6 +18,8 @@ import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPopupMenu;
+import javax.swing.JTextField;
+import javax.swing.ScrollPaneConstants;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -26,6 +31,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 
 import javax.swing.JPanel;
+import javax.swing.border.EtchedBorder;
 import javax.swing.filechooser.FileFilter;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
@@ -80,13 +86,13 @@ public class PhotoEdit {
 	 */
 	private void initialize() {
 		frame = new JFrame();
-		frame.setBounds(100, 100, 450, 300);
+		frame.setBounds(200, 200, 900, 500);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 			frame.getContentPane().setLayout(new GridLayout(0, 3, 0, 0));
 			JPanel panel = new JPanel();
 			panel.setBackground(Color.WHITE);
 		
-		
+		//I think that we shouldn't add scrollpane to the frame
 		JScrollPane scrollPane = new JScrollPane(panel);		
 		panel.setLayout(new GridLayout(0, 5, 0,0));
 		frame.getContentPane().add(scrollPane);
@@ -247,25 +253,34 @@ public class PhotoEdit {
 		mnFile.add(mntmSave);
 		mnFile.add(mntmExit);
 		
+		JDesktopPane center= new JDesktopPane();
+		frame.getContentPane().add(BorderLayout.CENTER, center);
+		center.setBackground(Color.darkGray);
+		
 		JPanel panel_1 = new JPanel();
-		frame.getContentPane().add(panel_1);
+		frame.getContentPane().add(BorderLayout.WEST, panel_1);
+		panel_1.setSize(30, 10);
 		panel_1.setLayout(null);
 		
-	
+		// why it's not working?
+		JScrollPane scroller= new JScrollPane(panel_1);
+		
+		scroller.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+		scroller.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 		
 		JPanel panel_2 = new JPanel();
-		frame.getContentPane().add(panel_2);
-		panel_2.setLayout(null);
+		frame.getContentPane().add(BorderLayout.EAST, panel_2);
+		panel_2.setLayout(new BoxLayout(panel_2, BoxLayout.Y_AXIS));
 		
-		JButton btnMerge = new JButton("Merge");
-		btnMerge.setBounds(28, 192, 89, 23);
-		panel_2.add(btnMerge);
-		
-		JButton btnRefresh = new JButton("Refresh");
-		btnRefresh.setBounds(28, 158, 89, 23);
-		panel_2.add(btnRefresh);
+		JPanel panel_2a = new JPanel();
+		panel_2a.setOpaque(true);
+		panel_2a.setBorder(BorderFactory.createTitledBorder(BorderFactory.createEtchedBorder(EtchedBorder.RAISED, Color.GRAY, Color.DARK_GRAY), "Merge options"));
+		panel_2a.setLayout(new BoxLayout(panel_2a, BoxLayout.Y_AXIS));
+		panel_2.add(panel_2a);
 		
 		
+		JPanel radiopanel =new JPanel();
+		radiopanel.setLayout(new BoxLayout(radiopanel, BoxLayout.Y_AXIS));
 		
 		JRadioButton rdbtnNewRadioButton = new JRadioButton("AND");
 		rdbtnNewRadioButton.addActionListener(new ActionListener() {
@@ -274,7 +289,7 @@ public class PhotoEdit {
 			}
 		});
 		rdbtnNewRadioButton.setBounds(78, 67, 47, 23);
-		panel_2.add(rdbtnNewRadioButton);
+		radiopanel.add(rdbtnNewRadioButton);
 		
 		JRadioButton rdbtnNewRadioButton_1 = new JRadioButton("XOR");
 		rdbtnNewRadioButton_1.addActionListener(new ActionListener() {
@@ -283,7 +298,7 @@ public class PhotoEdit {
 			}
 		});
 		rdbtnNewRadioButton_1.setBounds(78, 92, 47, 23);
-		panel_2.add(rdbtnNewRadioButton_1);
+		radiopanel.add(rdbtnNewRadioButton_1);
 		
 		JRadioButton rdbtnNewRadioButton_2 = new JRadioButton("OR");
 		rdbtnNewRadioButton_2.addActionListener(new ActionListener() {
@@ -291,56 +306,120 @@ public class PhotoEdit {
 				which_merge_mode_was_chose = 3;
 			}
 		});
+		
 		rdbtnNewRadioButton_2.setBounds(78, 41, 60, 23);
-		panel_2.add(rdbtnNewRadioButton_2);
+		radiopanel.add(rdbtnNewRadioButton_2);
+		
+		panel_2a.add(radiopanel);
 		
 		ButtonGroup group = new ButtonGroup();
 		group.add(rdbtnNewRadioButton);
 		group.add(rdbtnNewRadioButton_1);
 		group.add(rdbtnNewRadioButton_2);
 		
-		btnRefresh.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				frame.repaint(); //works only when item is deleted
-				frame.validate(); //works only when item is created WTF?x2
-				
-			}
-		});
+		
+		JPanel MergeButtons =new JPanel(); // Panel for buttons from merge options
+		MergeButtons.setLayout(new BoxLayout(MergeButtons, BoxLayout.Y_AXIS));
+		
+		JButton btnMerge = new JButton("Merge");
+		btnMerge.setBounds(28, 192, 89, 23);
+		
+		JPanel BasicMerge=new JPanel();
+		BasicMerge.add(radiopanel);
+		BasicMerge.add(btnMerge);
+		
+		panel_2a.add(BasicMerge);
+		panel_2a.add(MergeButtons); //end of Panel for buttons from merge options
+		
 		btnMerge.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 			
-	            
+				OptionFrame.main(null);  // ask if user wants to see?
+				OptionFrame quest=new OptionFrame(); // get answer from OptionFrame class
+    		    Display disp= new Display(); // invoke Display class
+				
 	           switch(which_merge_mode_was_chose)
 	           {
 	        	   case 1:
 	        		    MergeImageAND mergeImage1 = new MergeImageAND(all_chosen_images);
+	        		    if (quest.GetSelectedOption() == JOptionPane.YES_OPTION) {
+	        		    File one= MergeImageAND.getF().getAbsoluteFile();
+	        		    disp.createFrame(center, one); //create new frame with image
+	        		    } 
 						break;
 	        	   case 2:
-						
 						MergeImageXOR mergeImage = new MergeImageXOR(all_chosen_images);
+	        		    if (quest.GetSelectedOption() == JOptionPane.YES_OPTION) {
+	        		    File two= MergeImageXOR.getF().getAbsoluteFile();
+	        		    disp.createFrame(center, two); //create new frame with image
+	        		    } 
 						break;
 	        	   case 3:
 						MergeImageOR mergeImage2 = new MergeImageOR(all_chosen_images);
+	        		    if (quest.GetSelectedOption() == JOptionPane.YES_OPTION) {
+	        		    File three= MergeImageOR.getF().getAbsoluteFile();
+	        		    disp.createFrame(center, three); //create new frame with image
+	        		    } 
 						break;
 	           }
-				
-			
 				
 				//LayeredImage mergeImage = new LayeredImage(all_chosen_images); 
 				//z ostatniego folderu
 				
 			}
+			
 		});
 		
 		
 		
+		//Frames
 		
-		
-		
-		
+		JPanel panel_2b = new JPanel();
+	panel_2b.setOpaque(true);
+	panel_2b.setBorder(BorderFactory.createTitledBorder(BorderFactory.createEtchedBorder(EtchedBorder.RAISED, Color.GRAY, Color.DARK_GRAY), "Frame options"));
+	panel_2b.setLayout(new BoxLayout(panel_2b, BoxLayout.Y_AXIS));
+	panel_2.add(panel_2b);
+	JButton frame_button = new JButton("ADD FRAME");
+	panel_2b.add(frame_button);
+	JLabel Set  = new JLabel("Set treshold");
+	JPanel SetPanel   = new JPanel();
+	JTextField inSet  = new JTextField( 7 );
+	JButton SetButton = new JButton("SET");
+	SetPanel.add(Set);
+	SetPanel.add(inSet);
+	SetPanel.add(SetButton);
+	panel_2b.add(SetPanel);
+	//panel_2.setLayout(new BoxLayout(panel_2, BoxLayout.PAGE_AXIS));
 		
 	
+	// Refresh button
+	JPanel panel_2c = new JPanel();
+	JButton btnRefresh = new JButton("Refresh");
+	btnRefresh.setBounds(28, 158, 89, 23);
+	panel_2c.add(btnRefresh);
+	JButton btnClear = new JButton("Clear");
+	btnRefresh.setBounds(28, 158, 89, 23);
+	panel_2c.add(btnClear);
+	
+	panel_2.add(panel_2c);
+	
+	btnClear.addActionListener(new ActionListener() {
+		public void actionPerformed(ActionEvent e) {
+			//remove all components in panel.
+			center.removeAll(); 
+			// refresh the panel.
+			center.updateUI();
+		}
+	});
+	
+	btnRefresh.addActionListener(new ActionListener() {
+		public void actionPerformed(ActionEvent e) {
+			frame.repaint(); //works only when item is deleted
+			frame.validate(); //works only when item is created WTF?x2
+		}
 		
 		
-	}	
+	});
+	
+	}
 }

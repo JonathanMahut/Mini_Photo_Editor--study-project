@@ -125,6 +125,13 @@ public class MergeImageXOR {
 	private static File f;
 	
 	
+	public static BufferedImage returnImage() // 
+	{
+		getImagesFromHashmapIntoArray();
+		BufferedImage img = mergeAll();
+		return img;
+	}
+	
 	public static void main(String[] args) 
 	 {  
 		BufferedImage final_img;

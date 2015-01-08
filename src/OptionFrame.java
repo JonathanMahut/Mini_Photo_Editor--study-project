@@ -7,6 +7,8 @@ public class OptionFrame {
 
 	static int option;
 	
+	//public OptionFrame()
+	
 	int GetSelectedOption(){
 		return option;
 	}

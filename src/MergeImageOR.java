@@ -130,22 +130,26 @@ public class MergeImageOR {
 	public static File getF() {
 		return f;
 	}
-
 	public static void setF(File f) {
 		MergeImageOR.f = f;
 	}
-
 	private static File f;
 	
-	
+
+	public static BufferedImage returnImage() // 
+	{
+		getImagesFromHashmapIntoArray();
+		BufferedImage img = mergeAll();
+		return img;
+	}
 	 public static void main(String[] args) 
 	 {  
 		BufferedImage final_img;
-		 getImagesFromHashmapIntoArray();
+		getImagesFromHashmapIntoArray();
 		 
 		final_img=mergeAll();
 		 
-		f = new File( "image.png" );  
+		File f = new File( "image.png" );  //// DELETE THIS LATER!! AND STUFF BELOW
          try {  
              ImageIO.write( final_img, "PNG", f );  
              

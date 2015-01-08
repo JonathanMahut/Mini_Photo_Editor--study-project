@@ -310,7 +310,7 @@ public class PhotoEdit {
 		rdbtnNewRadioButton_2.setBounds(78, 41, 60, 23);
 		radiopanel.add(rdbtnNewRadioButton_2);
 		
-		panel_2a.add(radiopanel);
+		//panel_2a.add(radiopanel);
 		
 		ButtonGroup group = new ButtonGroup();
 		group.add(rdbtnNewRadioButton);

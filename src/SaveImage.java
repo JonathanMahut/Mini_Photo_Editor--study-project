@@ -38,11 +38,14 @@ public class SaveImage extends JFrame {
   private static BufferedImage image_to_save;
   private JButton save = new JButton("Save");
   private final JPanel panel = new JPanel();
+  private static String chosen_type = "png";
 
   SaveImage(BufferedImage merged_image) {
 	  image_to_save=merged_image;
+	 
 	    
     JPanel p = new JPanel();
+    
     p.add(save);
     Container cp = getContentPane();
     cp.add(p, BorderLayout.SOUTH);
@@ -62,80 +65,86 @@ public class SaveImage extends JFrame {
     lblTypeOfImage.setBounds(184, 11, 68, 50);
     panel.add(lblTypeOfImage);
     JComboBox<String> comboBox =new JComboBox<String>();
+    
     panel.add(comboBox);
     comboBox.setBounds(0, 0, 217, 20);
     comboBox.addItem("png");
     comboBox.addItem("jpeg");
     comboBox.addItem("jpg");
-    save.addActionListener(new SaveL((String) comboBox.getSelectedItem()));
+    comboBox.addActionListener(new ActionListener() {
+    	public void actionPerformed(ActionEvent arg0) {
+    		chosen_type =(String) comboBox.getSelectedItem();
+    	}
+    });
+    System.out.println("Variable after exiting actionlistner" + chosen_type);
+    save.addActionListener(new ActionListener() {
+    	public void actionPerformed(ActionEvent arg0) {
+    		  JFileChooser c = new JFileChooser();
+    	      // Demonstrate "Save" dialog:
+    	      int rVal = c.showSaveDialog(SaveImage.this);
+    	      if (rVal == JFileChooser.APPROVE_OPTION) {
+    	        filename.setText(c.getSelectedFile().getName());
+    	        dir.setText(c.getCurrentDirectory().toString());
+    	        
+    	    	  if(chosen_type  == "jpeg")
+    	          {
+    	  		  	
+
+    	          	  try 
+    	                {  
+    	          		  	ImageIO.write(image_to_save, "JPEG", new File(c.getCurrentDirectory().toString()+ '\\' +c.getSelectedFile().getName()+".jpeg"));  
+
+    	                }  
+    	                catch ( IOException x ) {  
+    	                    // Complain if there was any problem writing   
+    	                    // the output file.  
+    	                    x.printStackTrace();  
+    	                }         
+    	          }
+    	    	  else if(chosen_type == "jpg")
+    	    	  {
+
+    	    		  try 
+    	              {  
+    	    			    ImageIO.write(image_to_save, "JPG", new File(c.getCurrentDirectory().toString()+ '\\' +c.getSelectedFile().getName()+".jpg"));  
+    	    			     
+
+    	                  
+    	              }  
+    	              catch ( IOException x ) {  
+    	                  // Complain if there was any problem writing   
+    	                  // the output file.  
+    	                  x.printStackTrace();  
+    	              } 
+    	    	  }
+    	    	  else if(chosen_type == "png")
+    	    	  {
+    	    	        try 			
+    	    	        {  
+    	    	            ImageIO.write(image_to_save, "PNG", new File(c.getCurrentDirectory().toString()+ '\\' +c.getSelectedFile().getName()+".png"));  
+    	     
+    	    	        }  
+    	    	        catch ( IOException x ) {  
+    	    	            // Complain if there was any problem writing   
+    	    	            // the output file.  
+    	    	            x.printStackTrace();  
+    	    	        }         
+    	    	  }
+    	        
+    	        
+    	      }
+    	      if (rVal == JFileChooser.CANCEL_OPTION) {
+    	        filename.setText("You pressed cancel");
+    	        dir.setText("");
+    	      }
+    	}
+    });
+ 
   }
+  
+  
 
-  class SaveL implements ActionListener {
-	  String choosen_type_of_image;
-	  SaveL(String image_type){
-		  choosen_type_of_image = image_type; 
-	  }
-    public void actionPerformed(ActionEvent e) {
-      JFileChooser c = new JFileChooser();
-      // Demonstrate "Save" dialog:
-      int rVal = c.showSaveDialog(SaveImage.this);
-      if (rVal == JFileChooser.APPROVE_OPTION) {
-        filename.setText(c.getSelectedFile().getName());
-        dir.setText(c.getCurrentDirectory().toString());
-    	  if(choosen_type_of_image  == "jpeg")
-          {
-          	  try 
-                {  
-          		  	ImageIO.write(image_to_save, "PNG", new File(c.getCurrentDirectory().toString()+ '\\' +c.getSelectedFile().getName()+".jpeg"));  
-          	     
-                    
-                    
-                }  
-                catch ( IOException x ) {  
-                    // Complain if there was any problem writing   
-                    // the output file.  
-                    x.printStackTrace();  
-                }         
-          }
-    	  else if(choosen_type_of_image == "jpg")
-    	  {
-    		  try 
-              {  
-    			    ImageIO.write(image_to_save, "PNG", new File(c.getCurrentDirectory().toString()+ '\\' +c.getSelectedFile().getName()+".jpg"));  
-    			     
-                  
-                  
-              }  
-              catch ( IOException x ) {  
-                  // Complain if there was any problem writing   
-                  // the output file.  
-                  x.printStackTrace();  
-              } 
-    	  }
-    	  else if(choosen_type_of_image == "png")
-    	  {
-
-    	        try 			
-    	        {  
-    	            ImageIO.write(image_to_save, "PNG", new File(c.getCurrentDirectory().toString()+ '\\' +c.getSelectedFile().getName()+".png"));  
-     
-    	        }  
-    	        catch ( IOException x ) {  
-    	            // Complain if there was any problem writing   
-    	            // the output file.  
-    	            x.printStackTrace();  
-    	        }         
-    	  }
-        
-        
-      }
-      if (rVal == JFileChooser.CANCEL_OPTION) {
-        filename.setText("You pressed cancel");
-        dir.setText("");
-      }
-    }
-  }
-
+ 
   public static void main(BufferedImage image_to_save1) {
     run(new SaveImage(image_to_save1), 400, 200);
   }

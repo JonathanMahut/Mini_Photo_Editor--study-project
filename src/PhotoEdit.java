@@ -23,6 +23,8 @@ import javax.swing.ScrollPaneConstants;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -88,7 +90,36 @@ public class PhotoEdit {
 	private void initialize() {
 		frame = new JFrame();
 		frame.setBounds(200, 200, 900, 500);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		//
+		
+		//////////////////
+		// Ask before close if user want to save image
+		
+			frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+			frame.addWindowListener(new WindowAdapter() {
+			@Override
+			public void windowClosing(WindowEvent we)
+			{ 
+				if(merged_image!=null)
+				{
+					 String ObjButtons[] = {"Yes","No"};
+					 int PromptResult = JOptionPane.showOptionDialog(null,"Do you want to save image before exit?","Question",JOptionPane.DEFAULT_OPTION,JOptionPane.WARNING_MESSAGE,null,ObjButtons,ObjButtons[1]);
+					  if(PromptResult==JOptionPane.YES_OPTION)
+					  {
+      		    		SaveImage.main(merged_image);
+					  }
+					  else
+						  System.exit(0);
+				}
+				
+			  else
+			  {
+				  
+				  frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+			  }
+			}
+			});
+		
 			frame.getContentPane().setLayout(new GridLayout(0, 3, 0, 0));
 			JPanel panel = new JPanel();
 			panel.setBackground(Color.WHITE);
@@ -242,7 +273,21 @@ public class PhotoEdit {
 		JMenuItem mntmExit= new JMenuItem("Exit");
 		mntmExit.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				frame.dispose();
+				
+				if(merged_image != null )
+				{
+					 String ObjButtons[] = {"Yes","No"};
+					 int PromptResult = JOptionPane.showOptionDialog(null,"Do you want to save image before exit?","Question",JOptionPane.DEFAULT_OPTION,JOptionPane.WARNING_MESSAGE,null,ObjButtons,ObjButtons[1]);
+					  if(PromptResult==JOptionPane.YES_OPTION)
+					  {
+      		    		SaveImage.main(merged_image);
+					  }
+					  else
+						  System.exit(0);
+				}
+				else
+					frame.dispose();
+				
 			}
 		});
 		

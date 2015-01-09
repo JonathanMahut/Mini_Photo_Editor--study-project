@@ -62,12 +62,12 @@ public class SaveImage extends JFrame {
     panel.setLayout(null);
     
     JLabel lblTypeOfImage = new JLabel("Type of image");
-    lblTypeOfImage.setBounds(184, 11, 68, 50);
+    lblTypeOfImage.setBounds(157, 11, 112, 50);
     panel.add(lblTypeOfImage);
     JComboBox<String> comboBox =new JComboBox<String>();
     
     panel.add(comboBox);
-    comboBox.setBounds(0, 0, 217, 20);
+    comboBox.setBounds(97, 58, 217, 20);
     comboBox.addItem("png");
     comboBox.addItem("jpeg");
     comboBox.addItem("jpg");

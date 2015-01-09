@@ -1,3 +1,4 @@
+import java.awt.GridLayout;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -9,6 +10,8 @@ import javax.swing.JFrame;
 import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.ScrollPaneConstants;
 import javax.swing.SwingUtilities;
 
 public class Display extends JFrame {
@@ -28,6 +31,15 @@ public class Display extends JFrame {
 	
 	void createFrame(JDesktopPane where, File what) {
         MyInternalFrame frame = new MyInternalFrame();
+        //JScrollPane pane = new JScrollPane(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+        //frame.setContentPane(pane);
+        
+        JPanel image= new JPanel();
+        JPanel container = new JPanel();
+        container.add(image);
+        JScrollPane jsp = new JScrollPane(container);
+        frame.add(jsp);
+        
         BufferedImage img = null;
 		try {
 			img = ImageIO.read(what);
@@ -37,14 +49,14 @@ public class Display extends JFrame {
     	        ImageIcon icon=new ImageIcon(img);;
     	        JLabel lbl=new JLabel();
     	        lbl.setIcon(icon);
-    	        frame.add(lbl);
+    	        image.add(lbl);
         frame.setVisible(true);
         where.add(frame);
         try {
             frame.setSelected(true);
         } catch (java.beans.PropertyVetoException e) {
         }
-        frame.repaint(); 
-		frame.validate();
+        image.repaint(); 
+		image.validate();
     }
 }

@@ -57,6 +57,7 @@ public class PhotoEdit {
 	
 	static HashMap<JButton,File> all_chosen_images = new HashMap<JButton,File>(); //storing path to all images 
 	static int which_merge_mode_was_chose =0;
+	static BufferedImage merged_image=null;
 	ArrayList<JButton> buttonList = new ArrayList<JButton>();			// list where all loaded images are as buttons
 	/**
 	 * Launch the application.
@@ -334,32 +335,60 @@ public class PhotoEdit {
 		btnMerge.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 			
-				OptionFrame.main(null);  // ask if user wants to see?
-				OptionFrame quest=new OptionFrame(); // get answer from OptionFrame class
-    		    Display disp= new Display(); // invoke Display class
+
+				OptionFrame.main(null); // ask if user wants to see?
+				OptionFrame quest_see_the_result=new OptionFrame(); // get answer from OptionFrame class
+				Display disp= new Display(); // invoke Display class
+				
+				
 				
 	           switch(which_merge_mode_was_chose)
 	           {
 	        	   case 1:
 	        		    MergeImageAND mergeImage1 = new MergeImageAND(all_chosen_images);
-	        		    if (quest.GetSelectedOption() == JOptionPane.YES_OPTION) {
+	        		    if (quest_see_the_result.GetSelectedOption() == JOptionPane.YES_OPTION) {
 	        		    File one= MergeImageAND.getF().getAbsoluteFile();
 	        		    disp.createFrame(center, one); //create new frame with image
 	        		    } 
+	        		    else
+	        		    {	
+	        		    	OptionFrame2.main(null);
+	        				OptionFrame2 quest_save_the_result= new OptionFrame2();
+	        		    	if(quest_save_the_result.GetSelectedOption()==JOptionPane.YES_OPTION)
+	        		    		SaveImage.main(merged_image);
+	        		    }
 						break;
 	        	   case 2:
 						MergeImageXOR mergeImage = new MergeImageXOR(all_chosen_images);
-	        		    if (quest.GetSelectedOption() == JOptionPane.YES_OPTION) {
+						merged_image = mergeImage.returnImage();
+	        		    if (quest_see_the_result.GetSelectedOption() == JOptionPane.YES_OPTION) {
+	        		    	
 	        		    File two= MergeImageXOR.getF().getAbsoluteFile();
+	        		    
 	        		    disp.createFrame(center, two); //create new frame with image
 	        		    } 
+	        		    else
+	        		    {	
+	        		    	OptionFrame2.main(null);
+	        				OptionFrame2 quest_save_the_result= new OptionFrame2();
+	        		    	if(quest_save_the_result.GetSelectedOption()==JOptionPane.YES_OPTION)
+	        		    		SaveImage.main(merged_image);
+	        		    }
+	        		 
 						break;
 	        	   case 3:
 						MergeImageOR mergeImage2 = new MergeImageOR(all_chosen_images);
-	        		    if (quest.GetSelectedOption() == JOptionPane.YES_OPTION) {
+	        		    if (quest_see_the_result.GetSelectedOption() == JOptionPane.YES_OPTION) {
 	        		    File three= MergeImageOR.getF().getAbsoluteFile();
 	        		    disp.createFrame(center, three); //create new frame with image
 	        		    } 
+	        		    else
+	        		    {	
+	        		    	OptionFrame2.main(null);
+	        				OptionFrame2 quest_save_the_result= new OptionFrame2();
+	        		    	if(quest_save_the_result.GetSelectedOption()==JOptionPane.YES_OPTION)
+	        		    		SaveImage.main(merged_image);
+	        		    }
 						break;
 	           }
 				

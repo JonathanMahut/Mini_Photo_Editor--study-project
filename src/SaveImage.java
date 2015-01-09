@@ -31,6 +31,7 @@ import java.io.File;
 import java.io.IOException;
 
 import javax.swing.JCheckBox;
+import javax.swing.JLabel;
 
 public class SaveImage extends JFrame {
   private JTextField filename = new JTextField(), dir = new JTextField();
@@ -40,8 +41,8 @@ public class SaveImage extends JFrame {
 
   SaveImage(BufferedImage merged_image) {
 	  image_to_save=merged_image;
+	    
     JPanel p = new JPanel();
-    save.addActionListener(new SaveL());
     p.add(save);
     Container cp = getContentPane();
     cp.add(p, BorderLayout.SOUTH);
@@ -51,17 +52,29 @@ public class SaveImage extends JFrame {
     p.setLayout(new GridLayout(2, 1));
     p.add(filename);
     p.add(dir);
+    p.setBounds(200, 200, 900, 500);
     cp.add(p, BorderLayout.NORTH);
     
     getContentPane().add(panel, BorderLayout.CENTER);
     panel.setLayout(null);
     
-    JComboBox comboBox =new JComboBox();
-    comboBox.setBounds(259, 33, 28, 20);
+    JLabel lblTypeOfImage = new JLabel("Type of image");
+    lblTypeOfImage.setBounds(184, 11, 68, 50);
+    panel.add(lblTypeOfImage);
+    JComboBox<String> comboBox =new JComboBox<String>();
     panel.add(comboBox);
+    comboBox.setBounds(0, 0, 217, 20);
+    comboBox.addItem("png");
+    comboBox.addItem("jpeg");
+    comboBox.addItem("jpg");
+    save.addActionListener(new SaveL((String) comboBox.getSelectedItem()));
   }
 
   class SaveL implements ActionListener {
+	  String choosen_type_of_image;
+	  SaveL(String image_type){
+		  choosen_type_of_image = image_type; 
+	  }
     public void actionPerformed(ActionEvent e) {
       JFileChooser c = new JFileChooser();
       // Demonstrate "Save" dialog:
@@ -69,17 +82,51 @@ public class SaveImage extends JFrame {
       if (rVal == JFileChooser.APPROVE_OPTION) {
         filename.setText(c.getSelectedFile().getName());
         dir.setText(c.getCurrentDirectory().toString());
+    	  if(choosen_type_of_image  == "jpeg")
+          {
+          	  try 
+                {  
+          		  	ImageIO.write(image_to_save, "PNG", new File(c.getCurrentDirectory().toString()+ '\\' +c.getSelectedFile().getName()+".jpeg"));  
+          	     
+                    
+                    
+                }  
+                catch ( IOException x ) {  
+                    // Complain if there was any problem writing   
+                    // the output file.  
+                    x.printStackTrace();  
+                }         
+          }
+    	  else if(choosen_type_of_image == "jpg")
+    	  {
+    		  try 
+              {  
+    			    ImageIO.write(image_to_save, "PNG", new File(c.getCurrentDirectory().toString()+ '\\' +c.getSelectedFile().getName()+".jpg"));  
+    			     
+                  
+                  
+              }  
+              catch ( IOException x ) {  
+                  // Complain if there was any problem writing   
+                  // the output file.  
+                  x.printStackTrace();  
+              } 
+    	  }
+    	  else if(choosen_type_of_image == "png")
+    	  {
+
+    	        try 			
+    	        {  
+    	            ImageIO.write(image_to_save, "PNG", new File(c.getCurrentDirectory().toString()+ '\\' +c.getSelectedFile().getName()+".png"));  
+     
+    	        }  
+    	        catch ( IOException x ) {  
+    	            // Complain if there was any problem writing   
+    	            // the output file.  
+    	            x.printStackTrace();  
+    	        }         
+    	  }
         
-        
-        try {  
-            ImageIO.write( image_to_save, "PNG", new File(c.getCurrentDirectory().toString()) );  
-            
-        }  
-        catch ( IOException x ) {  
-            // Complain if there was any problem writing   
-            // the output file.  
-            x.printStackTrace();  
-        }         
         
       }
       if (rVal == JFileChooser.CANCEL_OPTION) {
@@ -89,12 +136,12 @@ public class SaveImage extends JFrame {
     }
   }
 
-  public static void main(String[] args) {
-    run(new SaveImage(image_to_save), 250, 110);
+  public static void main(BufferedImage image_to_save1) {
+    run(new SaveImage(image_to_save1), 400, 200);
   }
 
   public static void run(JFrame frame, int width, int height) {
-    frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
     frame.setSize(width, height);
     frame.setVisible(true);
   }

@@ -6,6 +6,7 @@ import java.awt.Image;
 import javax.swing.JDesktopPane;
 import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
+import javax.swing.BoundedRangeModel;
 import javax.swing.BoxLayout;
 import javax.swing.ButtonGroup;
 import javax.swing.ImageIcon;
@@ -18,11 +19,14 @@ import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPopupMenu;
+import javax.swing.JScrollBar;
+import javax.swing.JTabbedPane;
 import javax.swing.JTextField;
 import javax.swing.ScrollPaneConstants;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.event.KeyEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.awt.image.BufferedImage;
@@ -57,6 +61,7 @@ public class PhotoEdit {
 
 	private JFrame frame;
 	
+	int directory_counter=0;
 	static HashMap<JButton,File> all_chosen_images = new HashMap<JButton,File>(); //storing path to all images 
 	static int which_merge_mode_was_chose =0;
 	static BufferedImage merged_image=null;
@@ -120,10 +125,50 @@ public class PhotoEdit {
 			}
 			});
 		
-			frame.getContentPane().setLayout(new GridLayout(0, 3, 0, 0));
-			JPanel panel = new JPanel();
+			frame.getContentPane().setLayout(new BoxLayout(frame.getContentPane(),BoxLayout.X_AXIS));			JPanel panel = new JPanel();
 			panel.setBackground(Color.WHITE);
 		
+			//LEFT SIDE
+			JTabbedPane tabbedPane = new JTabbedPane();
+			frame.getContentPane().add(BorderLayout.WEST,tabbedPane);
+		
+			JPanel left_panel_1 = new JPanel();
+			left_panel_1.setBackground(Color.WHITE);
+			left_panel_1.setLayout(new BoxLayout(left_panel_1, BoxLayout.Y_AXIS));
+			tabbedPane.setPreferredSize(new Dimension(200, 400));// hardCoded sizing
+			tabbedPane.setMaximumSize(new Dimension(200, 700));  // hardCoded sizing
+			tabbedPane.setMinimumSize(new Dimension(200, 300));  // hardCoded sizing
+
+			tabbedPane.addTab("Directories", left_panel_1);
+			tabbedPane.setMnemonicAt(0, KeyEvent.VK_1);
+
+			JPanel left_panel_2 = new JPanel();
+			left_panel_2.setBackground(Color.WHITE);
+			left_panel_2.setLayout(new GridLayout(0, 5, 0,0));
+			tabbedPane.addTab("Selected", left_panel_2);
+			tabbedPane.setMnemonicAt(1, KeyEvent.VK_2);
+
+
+			JPanel direct_1=new JPanel();
+			direct_1.setBorder(BorderFactory.createEtchedBorder(EtchedBorder.RAISED, Color.GRAY, Color.DARK_GRAY));
+			JPanel image_1=new JPanel();
+			JPanel direct_2=new JPanel();
+			JPanel image_2=new JPanel();
+			direct_2.setBorder(BorderFactory.createEtchedBorder(EtchedBorder.RAISED, Color.GRAY, Color.DARK_GRAY));
+			JPanel direct_3=new JPanel();
+			JPanel image_3=new JPanel();
+			direct_3.setBorder(BorderFactory.createEtchedBorder(EtchedBorder.RAISED, Color.GRAY, Color.DARK_GRAY));
+			JPanel direct_4=new JPanel();
+			JPanel image_4=new JPanel();
+			direct_4.setBorder(BorderFactory.createEtchedBorder(EtchedBorder.RAISED, Color.GRAY, Color.DARK_GRAY));
+			JPanel direct_5=new JPanel();
+			JPanel image_5=new JPanel();
+			direct_5.setBorder(BorderFactory.createEtchedBorder(EtchedBorder.RAISED, Color.GRAY, Color.DARK_GRAY));
+
+
+			//END OF LEFT SIDE
+			
+			
 		//I think that we shouldn't add scrollpane to the frame
 		JScrollPane scrollPane = new JScrollPane(panel);		
 		panel.setLayout(new GridLayout(0, 5, 0,0));
@@ -174,8 +219,9 @@ public class PhotoEdit {
 				    			    "Error",
 				    			    JOptionPane.ERROR_MESSAGE);
 				      }
-				      
-				      
+				      else				      {directory_counter++;}  // increase counter by one
+				     if(directory_counter<=5)
+				     {
 				      for(int i =0; i<file_from_given_directory.length; i++)
 				      {	
 				    	  
@@ -208,8 +254,24 @@ public class PhotoEdit {
 							                		  JButton o = i.next();
 							                	      if(o==myButton)
 							                	      {
-
-							                	    	  panel.remove(myButton);
+							                	    	  switch (directory_counter)
+							                	    	  {
+							                	    	  case 1:
+							                	    		  direct_1.remove(myButton);
+							                	    		  break;
+							                	    	  case 2:
+							                	    		  direct_2.remove(myButton);
+							                	    		  break;
+							                	    	  case 3:
+							                	    		  direct_3.remove(myButton);
+							                	    		  break;
+							                	    	  case 4:
+							                	    		  direct_4.remove(myButton);
+							                	    		  break;
+							                	    	  case 5:
+							                	    		  direct_5.remove(myButton);
+							                	    		  break;
+							                	    	  } 
 							                	    	  i.remove();
 							                	    	  frame.repaint(); //works only when item is deleted
 							              				  frame.validate(); 
@@ -252,10 +314,55 @@ public class PhotoEdit {
 					            
 								}
 							});
-						      buttonList.add(myButton);
-						      panel.add(buttonList.get(buttonList.size()-1));
-				      }
-    
+							switch (directory_counter)
+              	    	  {           
+							case 1:
+								buttonList.add(myButton); image_1.add(buttonList.get(buttonList.size()-1));
+								break;
+							case 2:
+								buttonList.add(myButton); image_2.add(buttonList.get(buttonList.size()-1));
+							    break;
+							case 3:
+								buttonList.add(myButton); image_3.add(buttonList.get(buttonList.size()-1));
+							    break;
+							case 4:
+								 buttonList.add(myButton); image_4.add(buttonList.get(buttonList.size()-1));
+								 break;
+							case 5:
+								buttonList.add(myButton); image_5.add(buttonList.get(buttonList.size()-1));
+							    break;
+              	    	  }
+					}
+				      switch (directory_counter)
+                	    	  {
+                	    	  case 1:
+                	    		  AddDirectory first=new AddDirectory();
+                	    		  first.AddDirect(left_panel_1, direct_1, chooser,image_1);    
+                	    		  break;
+                	    	  case 2:
+                	    		  AddDirectory second=new AddDirectory();
+                	    		  second.AddDirect(left_panel_1, direct_2, chooser,image_2);
+                	    		  break;
+                	    	  case 3:
+                	    		  AddDirectory third=new AddDirectory();
+                	    		  third.AddDirect(left_panel_1, direct_3, chooser,image_3);
+                	    		  break;
+                	    	  case 4:
+                	    		  AddDirectory fourth=new AddDirectory();
+                	    		  fourth.AddDirect(left_panel_1, direct_4, chooser,image_4);
+                	    		  break;
+                	    	  case 5:
+                	    		  AddDirectory fifth=new AddDirectory();
+                	    		  fifth.AddDirect(left_panel_1, direct_5, chooser,image_5);
+                	    		  break;		                
+
+                	    	  }
+				    }
+				     else
+				     { JOptionPane.showMessageDialog(frame,
+			    			    "You cannot add more than 5 directories",
+			    			    "Error",
+			    			    JOptionPane.ERROR_MESSAGE);}
 				      }
 				    else { 
 				      System.out.println("No Selection ");
@@ -375,7 +482,7 @@ public class PhotoEdit {
 		BasicMerge.add(btnMerge);
 		
 		panel_2a.add(BasicMerge);
-		panel_2a.add(MergeButtons); //end of Panel for buttons from merge options
+		panel_2a.add(MergeButtons); //end of Panel for buttons from merge
 		
 		btnMerge.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {

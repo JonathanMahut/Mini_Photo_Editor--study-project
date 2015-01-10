@@ -7,6 +7,7 @@ import javax.swing.JDesktopPane;
 import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
 import javax.swing.BoundedRangeModel;
+import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.ButtonGroup;
 import javax.swing.ImageIcon;
@@ -136,10 +137,17 @@ public class PhotoEdit{
 			left_panel_1.setBackground(Color.WHITE);
 			left_panel_1.setLayout(new BoxLayout(left_panel_1, BoxLayout.Y_AXIS));
 			tabbedPane.setPreferredSize(new Dimension(210, 400));// hardCoded sizing
-			tabbedPane.setMaximumSize(new Dimension(210, 700));  // hardCoded sizing
+			tabbedPane.setMaximumSize(new Dimension(210, 740));  // hardCoded sizing
 			tabbedPane.setMinimumSize(new Dimension(210, 300));  // hardCoded sizing
 
-			tabbedPane.addTab("Directories", left_panel_1);
+			JPanel tab=new JPanel();
+			tab.setLayout(new BoxLayout(tab, BoxLayout.Y_AXIS));
+			  JScrollPane scrollPanel1 = new JScrollPane(left_panel_1);
+			  scrollPanel1.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+			  scrollPanel1.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
+			  tab.add(scrollPanel1,BorderLayout.CENTER);
+			
+			tabbedPane.addTab("Directories", tab);
 			tabbedPane.setMnemonicAt(0, KeyEvent.VK_1);
 
 			JPanel left_panel_2_main=new JPanel(new BorderLayout());
@@ -469,16 +477,12 @@ public class PhotoEdit{
 		rdbtnNewRadioButton_2.setBounds(78, 41, 60, 23);
 		radiopanel.add(rdbtnNewRadioButton_2);
 		
-		//panel_2a.add(radiopanel);
 		
 		ButtonGroup group = new ButtonGroup();
 		group.add(rdbtnNewRadioButton);
 		group.add(rdbtnNewRadioButton_1);
 		group.add(rdbtnNewRadioButton_2);
 		
-		
-		JPanel MergeButtons =new JPanel(); // Panel for buttons from merge options
-		MergeButtons.setLayout(new BoxLayout(MergeButtons, BoxLayout.Y_AXIS));
 		
 		JButton btnMerge = new JButton("Merge");
 		btnMerge.setBounds(28, 192, 89, 23);
@@ -488,7 +492,6 @@ public class PhotoEdit{
 		BasicMerge.add(btnMerge);
 		
 		panel_2a.add(BasicMerge);
-		panel_2a.add(MergeButtons); //end of Panel for buttons from merge
 		
 		btnMerge.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -598,19 +601,75 @@ public class PhotoEdit{
 	SetPanel.add(inSet);
 	SetPanel.add(SetButton);
 	panel_2b.add(SetPanel);
-	//panel_2.setLayout(new BoxLayout(panel_2, BoxLayout.PAGE_AXIS));
-		
+	
+	
+	JPanel panel_2c = new JPanel();
+	panel_2c.setOpaque(true);
+	panel_2c.setBorder(BorderFactory.createTitledBorder(BorderFactory.createEtchedBorder(EtchedBorder.RAISED, Color.GRAY, Color.DARK_GRAY), "Cutouts options"));
+	panel_2c.setLayout(new BoxLayout(panel_2c, BoxLayout.Y_AXIS));
+	
+	JPanel MergeButtons =new JPanel(); // Panel for buttons from merge options TUTAJ KUBA
+	MergeButtons.setLayout(new BoxLayout(MergeButtons, BoxLayout.X_AXIS));
+	
+	JPanel MergeButtons_left=new JPanel();
+	MergeButtons_left.setLayout(new BoxLayout(MergeButtons_left, BoxLayout.Y_AXIS));
+	
+	JPanel mergepanel =new JPanel();
+	mergepanel.setLayout(new BoxLayout(mergepanel, BoxLayout.Y_AXIS));
+	
+	JRadioButton Merge_Button = new JRadioButton("HORIZONTAL");
+	rdbtnNewRadioButton.addActionListener(new ActionListener() {
+		public void actionPerformed(ActionEvent e) {
+		//
+		}
+	});
+	Merge_Button.setBounds(78, 67, 47, 23);
+	mergepanel.add(Merge_Button);
+	
+	JRadioButton Merge_Button_1 = new JRadioButton("VERTICAL");
+	rdbtnNewRadioButton_1.addActionListener(new ActionListener() {
+		public void actionPerformed(ActionEvent e) {
+			//
+		}
+	});
+	Merge_Button_1.setBounds(78, 67, 47, 23);
+	mergepanel.add(Merge_Button_1);
+	
+	
+	
+	JPanel Stripes =new JPanel();
+	//Stripes.setLayout(new BoxLayout(Stripes, BoxLayout.Y_AXIS));
+	
+	JLabel Set1  = new JLabel("Number of stripes");
+	JTextField inSet1  = new JTextField( 7 );
+	JButton SetButton1 = new JButton("SET");
+	Stripes.add(Set1);
+	Stripes.add(inSet1);
+	//Stripes.add(SetButton1);
+	MergeButtons_left.add(mergepanel);
+	MergeButtons_left.add(Stripes);
+	
+	  SetButton1.setBounds(28, 158, 89, 23);
+	  MergeButtons_left.add(SetButton1);
+
+	MergeButtons.add(MergeButtons_left);
+
+	panel_2c.add(MergeButtons); //end of Panel for buttons from merge
+	panel_2.add(panel_2c);
+
+	
+	// koniec
 	
 	// Refresh button
-	JPanel panel_2c = new JPanel();
+	JPanel panel_2d = new JPanel();
 	JButton btnRefresh = new JButton("Refresh");
 	btnRefresh.setBounds(28, 158, 89, 23);
-	panel_2c.add(btnRefresh);
+	panel_2d.add(btnRefresh);
 	JButton btnClear = new JButton("Clear");
 	btnRefresh.setBounds(28, 158, 89, 23);
-	panel_2c.add(btnClear);
+	panel_2d.add(btnClear);
 	
-	panel_2.add(panel_2c);
+	panel_2.add(panel_2d);
 	
 	btnClear.addActionListener(new ActionListener() {
 		public void actionPerformed(ActionEvent e) {

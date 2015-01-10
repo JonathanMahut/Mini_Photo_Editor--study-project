@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import javax.swing.BoundedRangeModel;
+import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
@@ -26,19 +27,25 @@ public class AddDirectory {
 	void AddDirect(JPanel where, JPanel directory, JFileChooser chooser, JPanel image, JPanel where2,HashMap<JButton, File> all_chosen_images){
 		JTextField label1 = new JTextField(); 
 		label1.setPreferredSize( new Dimension( 150, 20 ) );;
+		label1.setMaximumSize(new Dimension( 150, 20 ));
 		JScrollBar sb1 = new JScrollBar(JScrollBar.HORIZONTAL);  
 		label1.add(sb1);
 		BoundedRangeModel brm = label1.getHorizontalVisibility();
 		sb1.setModel(brm);
+
+		directory.setPreferredSize(new Dimension(where.getWidth(), 140));
+		directory.setMaximumSize( directory.getPreferredSize() );
+		directory.setLayout(new BoxLayout(directory, BoxLayout.Y_AXIS));
 		
 		JButton select1= new JButton("Select");
 		JButton delete1= new JButton("Delete");
 
 		JPanel image_main= new JPanel(new BorderLayout());
 		image.setLayout(new GridLayout(1,0));
+		image.setMaximumSize(new Dimension(where.getWidth(), 150));
 		
 		JScrollPane scrollPanel = new JScrollPane(image);
-	    scrollPanel.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
+	    scrollPanel.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 	    scrollPanel.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_NEVER);
 	    image_main.add(scrollPanel,BorderLayout.CENTER);
 		
@@ -47,10 +54,14 @@ public class AddDirectory {
 		  directory.add(label1);
 		  directory.add(sb1);
 		  directory.add(image_main);
-		  directory.add(select1);
-		  directory.add(delete1);
-		   where.add(directory);
+		  JPanel buttons=new JPanel();
+		  buttons.setLayout(new BoxLayout(buttons, BoxLayout.X_AXIS));
+		  buttons.add(select1);
+		  buttons.add(delete1);
+		  directory.add(buttons);
+		  where.add(directory);
 		   
+		
 		 File file_from_given_directory[]=chooser.getSelectedFile().listFiles(new ImageFileFilter());	
 		 
 		  

@@ -57,7 +57,7 @@ import javax.swing.JRadioButton;
 //add refresh button
 //add enlarge button
 
-public class PhotoEdit {
+public class PhotoEdit{
 
 	private JFrame frame;
 	
@@ -144,7 +144,7 @@ public class PhotoEdit {
 
 			JPanel left_panel_2 = new JPanel();
 			left_panel_2.setBackground(Color.WHITE);
-			left_panel_2.setLayout(new GridLayout(0, 5, 0,0));
+			left_panel_2.setLayout(new BoxLayout(left_panel_2, BoxLayout.X_AXIS));
 			tabbedPane.addTab("Selected", left_panel_2);
 			tabbedPane.setMnemonicAt(1, KeyEvent.VK_2);
 
@@ -337,23 +337,23 @@ public class PhotoEdit {
                 	    	  {
                 	    	  case 1:
                 	    		  AddDirectory first=new AddDirectory();
-                	    		  first.AddDirect(left_panel_1, direct_1, chooser,image_1);    
+                	    		  first.AddDirect(left_panel_1, direct_1, chooser,image_1,left_panel_2);    
                 	    		  break;
                 	    	  case 2:
                 	    		  AddDirectory second=new AddDirectory();
-                	    		  second.AddDirect(left_panel_1, direct_2, chooser,image_2);
+                	    		  second.AddDirect(left_panel_1, direct_2, chooser,image_2,left_panel_2);
                 	    		  break;
                 	    	  case 3:
                 	    		  AddDirectory third=new AddDirectory();
-                	    		  third.AddDirect(left_panel_1, direct_3, chooser,image_3);
+                	    		  third.AddDirect(left_panel_1, direct_3, chooser,image_3,left_panel_2);
                 	    		  break;
                 	    	  case 4:
                 	    		  AddDirectory fourth=new AddDirectory();
-                	    		  fourth.AddDirect(left_panel_1, direct_4, chooser,image_4);
+                	    		  fourth.AddDirect(left_panel_1, direct_4, chooser,image_4,left_panel_2);
                 	    		  break;
                 	    	  case 5:
                 	    		  AddDirectory fifth=new AddDirectory();
-                	    		  fifth.AddDirect(left_panel_1, direct_5, chooser,image_5);
+                	    		  fifth.AddDirect(left_panel_1, direct_5, chooser,image_5,left_panel_2);
                 	    		  break;		                
 
                 	    	  }

@@ -6,6 +6,7 @@
 import java.awt.BorderLayout;
 import java.awt.Container;
 import java.awt.GridLayout;
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -39,6 +40,7 @@ public class SaveImage extends JFrame {
   private JButton save = new JButton("Save");
   private final JPanel panel = new JPanel();
   private static String chosen_type = "png";
+  private  int chosen_depth = 0;
 
   SaveImage(BufferedImage merged_image) {
 	  image_to_save=merged_image;
@@ -62,15 +64,37 @@ public class SaveImage extends JFrame {
     panel.setLayout(null);
     
     JLabel lblTypeOfImage = new JLabel("Type of image");
-    lblTypeOfImage.setBounds(157, 11, 112, 50);
+    lblTypeOfImage.setBounds(97, 11, 112, 50);
     panel.add(lblTypeOfImage);
     JComboBox<String> comboBox =new JComboBox<String>();
     
     panel.add(comboBox);
-    comboBox.setBounds(97, 58, 217, 20);
+    comboBox.setBounds(97, 58, 100, 20);
     comboBox.addItem("png");
     comboBox.addItem("jpeg");
     comboBox.addItem("jpg");
+    comboBox.addItem("bmp");
+    
+    JComboBox<String> comboBox2 = new JComboBox<String>();
+    comboBox2.setBounds(207, 58, 112, 20);
+    comboBox2.addItem("1");
+    comboBox2.addItem("2");
+    comboBox2.addItem("4");
+    comboBox2.addItem("8");
+    comboBox2.addItem("24");
+    comboBox2.addItem("16");
+    comboBox2.addItem("32");
+    
+    comboBox2.addActionListener(new ActionListener() {
+    	public void actionPerformed(ActionEvent arg0) {
+    		chosen_depth =(int) comboBox2.getSelectedItem();
+    	}
+    });
+    panel.add(comboBox2);
+    
+    JLabel lblDepth = new JLabel("Depth");
+    lblDepth.setBounds(242, 29, 46, 14);
+    panel.add(lblDepth);
     comboBox.addActionListener(new ActionListener() {
     	public void actionPerformed(ActionEvent arg0) {
     		chosen_type =(String) comboBox.getSelectedItem();
@@ -119,6 +143,7 @@ public class SaveImage extends JFrame {
     	    	  }
     	    	  else if(chosen_type == "png")
     	    	  {
+    	    		  
     	    	        try 			
     	    	        {  
     	    	            ImageIO.write(image_to_save, "PNG", new File(c.getCurrentDirectory().toString()+ '\\' +c.getSelectedFile().getName()+".png"));  
@@ -129,6 +154,14 @@ public class SaveImage extends JFrame {
     	    	            // the output file.  
     	    	            x.printStackTrace();  
     	    	        }         
+    	    	  }
+    	    	  else if(chosen_type == "bmp")
+    	    	  {	
+    	    		  
+    	    	      BMPFile a  = new BMPFile();
+    	    		  String path = c.getCurrentDirectory().toString()+ '\\' +c.getSelectedFile().getName()+".bmp";
+    	    	        a.saveBitmap(path, (Image)image_to_save, image_to_save.getWidth(), image_to_save.getHeight(),chosen_depth);
+    	    	        
     	    	  }
     	        
     	        

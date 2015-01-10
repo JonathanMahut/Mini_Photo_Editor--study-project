@@ -135,17 +135,23 @@ public class PhotoEdit{
 			JPanel left_panel_1 = new JPanel();
 			left_panel_1.setBackground(Color.WHITE);
 			left_panel_1.setLayout(new BoxLayout(left_panel_1, BoxLayout.Y_AXIS));
-			tabbedPane.setPreferredSize(new Dimension(200, 400));// hardCoded sizing
-			tabbedPane.setMaximumSize(new Dimension(200, 700));  // hardCoded sizing
-			tabbedPane.setMinimumSize(new Dimension(200, 300));  // hardCoded sizing
+			tabbedPane.setPreferredSize(new Dimension(210, 400));// hardCoded sizing
+			tabbedPane.setMaximumSize(new Dimension(210, 700));  // hardCoded sizing
+			tabbedPane.setMinimumSize(new Dimension(210, 300));  // hardCoded sizing
 
 			tabbedPane.addTab("Directories", left_panel_1);
 			tabbedPane.setMnemonicAt(0, KeyEvent.VK_1);
 
-			JPanel left_panel_2 = new JPanel();
+			JPanel left_panel_2_main=new JPanel(new BorderLayout());
+			
+			JPanel left_panel_2 = new JPanel(new GridLayout(0,3));
 			left_panel_2.setBackground(Color.WHITE);
-			left_panel_2.setLayout(new BoxLayout(left_panel_2, BoxLayout.X_AXIS));
-			tabbedPane.addTab("Selected", left_panel_2);
+			JScrollPane scrollPanel = new JScrollPane(left_panel_2);
+		    scrollPanel.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+		    scrollPanel.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+		    left_panel_2_main.add(scrollPanel,BorderLayout.CENTER);
+			
+			tabbedPane.addTab("Selected", left_panel_2_main);
 			tabbedPane.setMnemonicAt(1, KeyEvent.VK_2);
 
 
@@ -170,9 +176,9 @@ public class PhotoEdit{
 			
 			
 		//I think that we shouldn't add scrollpane to the frame
-		JScrollPane scrollPane = new JScrollPane(panel);		
-		panel.setLayout(new GridLayout(0, 5, 0,0));
-		frame.getContentPane().add(scrollPane);
+		//JScrollPane scrollPane = new JScrollPane(panel);		
+		//panel.setLayout(new GridLayout(0, 5, 0,0));
+		//frame.getContentPane().add(scrollPane);
 		
 		JMenuBar menuBar = new JMenuBar();
 		frame.setJMenuBar(menuBar);
@@ -337,23 +343,23 @@ public class PhotoEdit{
                 	    	  {
                 	    	  case 1:
                 	    		  AddDirectory first=new AddDirectory();
-                	    		  first.AddDirect(left_panel_1, direct_1, chooser,image_1,left_panel_2);    
+                	    		  first.AddDirect(left_panel_1, direct_1, chooser,image_1,left_panel_2,all_chosen_images);    
                 	    		  break;
                 	    	  case 2:
                 	    		  AddDirectory second=new AddDirectory();
-                	    		  second.AddDirect(left_panel_1, direct_2, chooser,image_2,left_panel_2);
+                	    		  second.AddDirect(left_panel_1, direct_2, chooser,image_2,left_panel_2,all_chosen_images);
                 	    		  break;
                 	    	  case 3:
                 	    		  AddDirectory third=new AddDirectory();
-                	    		  third.AddDirect(left_panel_1, direct_3, chooser,image_3,left_panel_2);
+                	    		  third.AddDirect(left_panel_1, direct_3, chooser,image_3,left_panel_2,all_chosen_images);
                 	    		  break;
                 	    	  case 4:
                 	    		  AddDirectory fourth=new AddDirectory();
-                	    		  fourth.AddDirect(left_panel_1, direct_4, chooser,image_4,left_panel_2);
+                	    		  fourth.AddDirect(left_panel_1, direct_4, chooser,image_4,left_panel_2,all_chosen_images);
                 	    		  break;
                 	    	  case 5:
                 	    		  AddDirectory fifth=new AddDirectory();
-                	    		  fifth.AddDirect(left_panel_1, direct_5, chooser,image_5,left_panel_2);
+                	    		  fifth.AddDirect(left_panel_1, direct_5, chooser,image_5,left_panel_2,all_chosen_images);
                 	    		  break;		                
 
                 	    	  }

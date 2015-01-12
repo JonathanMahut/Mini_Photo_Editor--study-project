@@ -437,6 +437,19 @@ public class PhotoEdit{
 		JMenuItem mntmSave = new JMenuItem("Save");
 		mntmSave.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				if(merged_image != null)
+				SaveImage.main(merged_image,0);
+				else
+				{
+					  Object[] options = {"OK"};
+					    int n = JOptionPane.showOptionDialog(frame,
+					    		"Please first merge images","No source",
+					                   JOptionPane.PLAIN_MESSAGE,
+					                   JOptionPane.QUESTION_MESSAGE,
+					                   null,
+					                   options,
+					                   options[0]);
+				}
 			}
 		});
 		mnFile.add(mntmSave);

@@ -79,6 +79,7 @@ public class SaveImage extends JFrame {
     comboBox.addItem("jpeg");
     comboBox.addItem("jpg");
     comboBox.addItem("bmp");
+    comboBox.addItem("tiff");
     
     JComboBox<String> comboBox2 = new JComboBox<String>();
     comboBox2.setBounds(207, 58, 112, 20);

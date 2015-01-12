@@ -130,26 +130,42 @@ public class PhotoEdit{
 			panel.setBackground(Color.WHITE);
 		
 			//LEFT SIDE
+			JPanel left_main=new JPanel();
+			left_main.setLayout(new BoxLayout(left_main,BoxLayout.Y_AXIS));
 			JTabbedPane tabbedPane = new JTabbedPane();
-			frame.getContentPane().add(BorderLayout.WEST,tabbedPane);
-		
+			left_main.add(tabbedPane);
+			frame.getContentPane().add(BorderLayout.WEST,left_main);
+			
 			JPanel left_panel_1 = new JPanel();
+			
 			left_panel_1.setBackground(Color.WHITE);
 			left_panel_1.setLayout(new BoxLayout(left_panel_1, BoxLayout.Y_AXIS));
 			tabbedPane.setPreferredSize(new Dimension(210, 400));// hardCoded sizing
-			tabbedPane.setMaximumSize(new Dimension(210, 740));  // hardCoded sizing
+			tabbedPane.setMaximumSize(new Dimension(210, 720));  // hardCoded sizing
 			tabbedPane.setMinimumSize(new Dimension(210, 300));  // hardCoded sizing
 
 			JPanel tab=new JPanel();
-			tab.setLayout(new BoxLayout(tab, BoxLayout.Y_AXIS));
+			tab.setLayout(new BorderLayout());
 			  JScrollPane scrollPanel1 = new JScrollPane(left_panel_1);
 			  scrollPanel1.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-			  scrollPanel1.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
+			  scrollPanel1.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
 			  tab.add(scrollPanel1,BorderLayout.CENTER);
 			
 			tabbedPane.addTab("Directories", tab);
 			tabbedPane.setMnemonicAt(0, KeyEvent.VK_1);
-
+			
+			JButton btnClearAll = new JButton("Clear all");
+			btnClearAll.setBounds(28, 158, 89, 23);
+			left_main.add(btnClearAll);
+			tab.add(btnClearAll,BorderLayout.SOUTH);
+			
+			btnClearAll.addActionListener(new ActionListener() {
+			      public void actionPerformed(ActionEvent e) {
+			    	  left_panel_1.removeAll(); 
+			    	  left_panel_1.updateUI();		
+			      }
+			    });
+			
 			JPanel left_panel_2_main=new JPanel(new BorderLayout());
 			
 			JPanel left_panel_2 = new JPanel(new GridLayout(0,3));
@@ -179,7 +195,17 @@ public class PhotoEdit{
 			JPanel image_5=new JPanel();
 			direct_5.setBorder(BorderFactory.createEtchedBorder(EtchedBorder.RAISED, Color.GRAY, Color.DARK_GRAY));
 
-
+			JButton btnClearAll2 = new JButton("Clear all");
+			btnClearAll2.setBounds(28, 158, 89, 23);
+			left_main.add(btnClearAll2);
+			left_panel_2_main.add(btnClearAll2,BorderLayout.SOUTH);
+			
+			btnClearAll2.addActionListener(new ActionListener() {
+			      public void actionPerformed(ActionEvent e) {
+			    	  left_panel_2.removeAll(); 
+			    	  left_panel_2.updateUI();		
+			      }
+			    });
 			//END OF LEFT SIDE
 			
 			
@@ -243,7 +269,9 @@ public class PhotoEdit{
 				    	    final String pathToImage = file_from_given_directory[i].getAbsolutePath(); 
 							JButton myButton = new JButton(new ImageIcon(((new ImageIcon(pathToImage)).getImage()).		//resizing img to fit with the button size
 									  getScaledInstance(40, 40, java.awt.Image.SCALE_SMOOTH)));
-							
+							myButton.setOpaque(false);
+							myButton.setContentAreaFilled(false);
+							myButton.setBorderPainted(false);
 							myButton.setPreferredSize(new Dimension(40, 40));		//size of the image icon
 							
 							all_chosen_images.put(myButton,file_from_given_directory[i]); // path of image -->the button
@@ -351,23 +379,23 @@ public class PhotoEdit{
                 	    	  {
                 	    	  case 1:
                 	    		  AddDirectory first=new AddDirectory();
-                	    		  first.AddDirect(left_panel_1, direct_1, chooser,image_1,left_panel_2,all_chosen_images);    
+                	    		  first.AddDirect(left_panel_1, direct_1, chooser,image_1,left_panel_2,all_chosen_images,btnClearAll2);    
                 	    		  break;
                 	    	  case 2:
                 	    		  AddDirectory second=new AddDirectory();
-                	    		  second.AddDirect(left_panel_1, direct_2, chooser,image_2,left_panel_2,all_chosen_images);
+                	    		  second.AddDirect(left_panel_1, direct_2, chooser,image_2,left_panel_2,all_chosen_images,btnClearAll2);
                 	    		  break;
                 	    	  case 3:
                 	    		  AddDirectory third=new AddDirectory();
-                	    		  third.AddDirect(left_panel_1, direct_3, chooser,image_3,left_panel_2,all_chosen_images);
+                	    		  third.AddDirect(left_panel_1, direct_3, chooser,image_3,left_panel_2,all_chosen_images,btnClearAll2);
                 	    		  break;
                 	    	  case 4:
                 	    		  AddDirectory fourth=new AddDirectory();
-                	    		  fourth.AddDirect(left_panel_1, direct_4, chooser,image_4,left_panel_2,all_chosen_images);
+                	    		  fourth.AddDirect(left_panel_1, direct_4, chooser,image_4,left_panel_2,all_chosen_images,btnClearAll2);
                 	    		  break;
                 	    	  case 5:
                 	    		  AddDirectory fifth=new AddDirectory();
-                	    		  fifth.AddDirect(left_panel_1, direct_5, chooser,image_5,left_panel_2,all_chosen_images);
+                	    		  fifth.AddDirect(left_panel_1, direct_5, chooser,image_5,left_panel_2,all_chosen_images,btnClearAll2);
                 	    		  break;		                
 
                 	    	  }
@@ -493,10 +521,12 @@ public class PhotoEdit{
 		
 		panel_2a.add(BasicMerge);
 		
+		
+		
 		btnMerge.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-			
-				if(merged_image != null)
+				int CHECK=AddDirectory.all_chosen.size();
+				if(CHECK>0)
 				{
 					OptionFrame.main(null); // ask if user wants to see?
 					OptionFrame quest_see_the_result=new OptionFrame(); // get answer from OptionFrame class
@@ -507,7 +537,7 @@ public class PhotoEdit{
 		           switch(which_merge_mode_was_chose)
 		           {
 		        	   case 1:
-		        		    MergeImageAND mergeImage1 = new MergeImageAND(all_chosen_images);
+		        		    MergeImageAND mergeImage1 = new MergeImageAND(AddDirectory.all_chosen);
 		        		    if (quest_see_the_result.GetSelectedOption() == JOptionPane.YES_OPTION) {
 		        		    File one= MergeImageAND.getF().getAbsoluteFile();
 		        		    disp.createFrame(center, one); //create new frame with image
@@ -524,7 +554,7 @@ public class PhotoEdit{
 		        		    }
 							break;
 		        	   case 2:
-							MergeImageXOR mergeImage = new MergeImageXOR(all_chosen_images);
+							MergeImageXOR mergeImage = new MergeImageXOR(AddDirectory.all_chosen);
 							merged_image = mergeImage.returnImage();
 		        		    if (quest_see_the_result.GetSelectedOption() == JOptionPane.YES_OPTION) {
 		        		    	
@@ -545,7 +575,7 @@ public class PhotoEdit{
 		        		 
 							break;
 		        	   case 3:
-							MergeImageOR mergeImage2 = new MergeImageOR(all_chosen_images);
+							MergeImageOR mergeImage2 = new MergeImageOR(AddDirectory.all_chosen);
 		        		    if (quest_see_the_result.GetSelectedOption() == JOptionPane.YES_OPTION) {
 		        		    File three= MergeImageOR.getF().getAbsoluteFile();
 		        		    disp.createFrame(center, three); //create new frame with image

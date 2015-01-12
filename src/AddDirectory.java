@@ -23,8 +23,8 @@ import javax.swing.JTextField;
 
 
 public class AddDirectory {
-	
-	void AddDirect(JPanel where, JPanel directory, JFileChooser chooser, JPanel image, JPanel where2,HashMap<JButton, File> all_chosen_images){
+	static HashMap<JButton,File> all_chosen = new HashMap<JButton,File>();
+	void AddDirect(JPanel where, JPanel directory, JFileChooser chooser, JPanel image, JPanel where2,HashMap<JButton, File> all_chosen_images,JButton btnClearAll2){
 		JTextField label1 = new JTextField(); 
 		label1.setPreferredSize( new Dimension( 150, 20 ) );;
 		label1.setMaximumSize(new Dimension( 150, 20 ));
@@ -73,13 +73,16 @@ public class AddDirectory {
 		    		 final String pathToImage = file_from_given_directory[i].getAbsolutePath(); 
 			JButton myButton = new JButton(new ImageIcon(((new ImageIcon(pathToImage)).getImage()).		//resizing img to fit with the button size
 					  getScaledInstance(40, 40, java.awt.Image.SCALE_SMOOTH)));
-			
+			myButton.setOpaque(false);
+			myButton.setContentAreaFilled(false);
+			myButton.setBorderPainted(false);
 			myButton.setSize(new Dimension(40, 40));		//size of the image icon
 
 			all_chosen_images.put(myButton,file_from_given_directory[i]); // path of image -->the button
 		    		where2.add(myButton);
 		    		}
-	    		//where.updateUI();	    		
+		   all_chosen.putAll(all_chosen_images);
+	    		where.updateUI();	    		
 		      }
 		    });
 		  
@@ -90,5 +93,17 @@ public class AddDirectory {
 		      }
 		    });
 		  
+		  btnClearAll2.addActionListener(new ActionListener() {
+		      public void actionPerformed(ActionEvent e) {
+		    	  all_chosen.clear();
+		    	  where.removeAll(); 
+		    	  where.updateUI();		
+		      }
+		    });
+		  
+	}
+	
+	HashMap<JButton, File> getAll(){
+		return all_chosen;
 	}
 }

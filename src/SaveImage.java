@@ -43,10 +43,13 @@ public class SaveImage extends JFrame {
   private final JPanel panel = new JPanel();
   private static String chosen_type = "png";
   private  int chosen_depth = 0;
+  private int which_mode;  /// this variable is to inform from which place the class was started. If just before exiting the program it will be equal 1 else 0 .
+  																									//It'll informal outer class that after execution of this class the program
+  																									//must be closed.
 
-  SaveImage(BufferedImage merged_image) {
+  SaveImage(BufferedImage merged_image,int mode) {
 	  image_to_save=merged_image;
-	 
+	 which_mode = mode;
 	    
     JPanel p = new JPanel();
     
@@ -117,7 +120,11 @@ public class SaveImage extends JFrame {
     	          	  try 
     	                {  
     	          		  	ImageIO.write(image_to_save, "JPEG", new File(c.getCurrentDirectory().toString()+ '\\' +c.getSelectedFile().getName()+".jpeg"));  
-
+    	          		  	
+    	          		  	if(which_mode == 1)
+    	          		  	{
+    	          		  		System.exit(0);
+    	          		  	}
     	                }  
     	                catch ( IOException x ) {  
     	                    // Complain if there was any problem writing   
@@ -131,7 +138,11 @@ public class SaveImage extends JFrame {
     	    		  try 
     	              {  
     	    			    ImageIO.write(image_to_save, "JPG", new File(c.getCurrentDirectory().toString()+ '\\' +c.getSelectedFile().getName()+".jpg"));  
-    	    			     
+    	    			    
+    	    			    if(which_mode == 1)
+    	          		  	{
+    	          		  		System.exit(0);
+    	          		  	}
 
     	                  
     	              }  
@@ -147,7 +158,11 @@ public class SaveImage extends JFrame {
     	    	        try 			
     	    	        {  
     	    	            ImageIO.write(image_to_save, "PNG", new File(c.getCurrentDirectory().toString()+ '\\' +c.getSelectedFile().getName()+".png"));  
-    	     
+    	    	            
+    	    	            if(which_mode == 1)
+    	          		  	{
+    	          		  		System.exit(0);
+    	          		  	}
     	    	        }  
     	    	        catch ( IOException x ) {  
     	    	            // Complain if there was any problem writing   
@@ -164,7 +179,13 @@ public class SaveImage extends JFrame {
 	    	    	     {
 	    	    	    	 try {
 	    							ImageIO.write(ConvertUtil.convert1(image_to_save), "BMP", new File(c.getCurrentDirectory().toString()+ '\\' +c.getSelectedFile().getName()+".bmp"));
-	    						} catch (IOException e) {
+	    							if(which_mode == 1)
+	        	          		  	{
+	        	          		  		System.exit(0);
+	        	          		  	}
+	    							
+	    	    	    	 } 
+	    	    	    	 catch (IOException e) {
 	    							// TODO Auto-generated catch block
 	    							e.printStackTrace();
 	    						}
@@ -175,7 +196,12 @@ public class SaveImage extends JFrame {
 	    	    	     {
 	    	    	    	 try {
 	    							ImageIO.write(ConvertUtil.convert8(image_to_save), "BMP", new File(c.getCurrentDirectory().toString()+ '\\' +c.getSelectedFile().getName()+".bmp"));
-	    						} catch (IOException e) {
+	    							if(which_mode == 1)
+	        	          		  	{
+	        	          		  		System.exit(0);
+	        	          		  	}
+	    	    	    	 } 
+	    	    	    	 catch (IOException e) {
 	    							// TODO Auto-generated catch block
 	    							e.printStackTrace();
 	    						}
@@ -185,7 +211,11 @@ public class SaveImage extends JFrame {
 	    	    	     {
 	    	    	    	 try {
 	    							ImageIO.write(ConvertUtil.convert32(image_to_save), "BMP", new File(c.getCurrentDirectory().toString()+ '\\' +c.getSelectedFile().getName()+".bmp"));
-	    						} catch (IOException e) {
+	    							if(which_mode == 1)
+	        	          		  	{
+	        	          		  		System.exit(0);
+	        	          		  	}
+	    	    	    	 } catch (IOException e) {
 	    							// TODO Auto-generated catch block
 	    							e.printStackTrace();
 	    						}
@@ -200,7 +230,10 @@ public class SaveImage extends JFrame {
     	    		  try 			
   	    	        {  
   	    	            ImageIO.write(image_to_save, "TIFF", new File(c.getCurrentDirectory().toString()+ '\\' +c.getSelectedFile().getName()+".tiff"));  
-  	     
+  	    	          if(which_mode == 1)
+	          		  	{
+	          		  		System.exit(0);
+	          		  	}
   	    	        }  
   	    	        catch ( IOException x ) {  
   	    	            // Complain if there was any problem writing   
@@ -223,8 +256,8 @@ public class SaveImage extends JFrame {
   
 
  
-  public static void main(BufferedImage image_to_save1) {
-    run(new SaveImage(image_to_save1), 400, 200);
+  public static void main(BufferedImage image_to_save1,int mode) {
+    run(new SaveImage(image_to_save1,mode), 400, 200);
   }
 
   public static void run(JFrame frame, int width, int height) {

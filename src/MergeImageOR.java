@@ -149,9 +149,9 @@ public class MergeImageOR {
 		 
 		final_img=mergeAll();
 		 
-		File f = new File( "image.png" );  //// DELETE THIS LATER!! AND STUFF BELOW
+		setF( new File( "image.png" ));  //// DELETE THIS LATER!! AND STUFF BELOW
          try {  
-             ImageIO.write( final_img, "PNG", f );  
+             ImageIO.write( final_img, "PNG", getF());  
              
          }  
          catch ( IOException x ) {  

@@ -1,5 +1,4 @@
 import java.awt.Component;
-import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.EventQueue;
 import java.awt.Image;
@@ -113,7 +112,7 @@ public class PhotoEdit{
 					 int PromptResult = JOptionPane.showOptionDialog(null,"Do you want to save image before exit?","Question",JOptionPane.DEFAULT_OPTION,JOptionPane.WARNING_MESSAGE,null,ObjButtons,ObjButtons[1]);
 					  if(PromptResult==JOptionPane.YES_OPTION)
 					  {
-      		    		SaveImage.main(merged_image);
+      		    		SaveImage.main(merged_image,1);
 					  }
 					  else
 						  System.exit(0);
@@ -290,13 +289,27 @@ public class PhotoEdit{
 							                	   {							//searching for given button on the list of buttons to remove from it
 							                		  JButton o = i.next();
 							                	      if(o==myButton)
-							                	      {		  Container temp=myButton.getParent().getParent();
-							                	    		  myButton.getParent().remove(myButton);
-							                	    		  if(all_chosen_images.size()<=0)  // not working
-							                	    		  {left_panel_1.remove(temp);}
-							                	    	left_panel_1.updateUI();	
+							                	      {
+							                	    	  switch (directory_counter)
+							                	    	  {
+							                	    	  case 1:
+							                	    		  direct_1.remove(myButton);
+							                	    		  break;
+							                	    	  case 2:
+							                	    		  direct_2.remove(myButton);
+							                	    		  break;
+							                	    	  case 3:
+							                	    		  direct_3.remove(myButton);
+							                	    		  break;
+							                	    	  case 4:
+							                	    		  direct_4.remove(myButton);
+							                	    		  break;
+							                	    	  case 5:
+							                	    		  direct_5.remove(myButton);
+							                	    		  break;
+							                	    	  } 
 							                	    	  i.remove();
-							                	    	  frame.repaint(); //works only when item is deleted
+							                	    	  frame.repaint(); 
 							              				  frame.validate(); 
 							                	    	  
 							                	    	  break;
@@ -410,7 +423,7 @@ public class PhotoEdit{
 					 int PromptResult = JOptionPane.showOptionDialog(null,"Do you want to save image before exit?","Question",JOptionPane.DEFAULT_OPTION,JOptionPane.WARNING_MESSAGE,null,ObjButtons,ObjButtons[1]);
 					  if(PromptResult==JOptionPane.YES_OPTION)
 					  {
-      		    		SaveImage.main(merged_image);
+      		    		SaveImage.main(merged_image,1);
 					  }
 					  else
 						  System.exit(0);
@@ -519,6 +532,7 @@ public class PhotoEdit{
 		           {
 		        	   case 1:
 		        		    MergeImageAND mergeImage1 = new MergeImageAND(AddDirectory.all_chosen);
+		        		    merged_image = mergeImage1.returnImage();
 		        		    if (quest_see_the_result.GetSelectedOption() == JOptionPane.YES_OPTION) {
 		        		    File one= MergeImageAND.getF().getAbsoluteFile();
 		        		    disp.createFrame(center, one); //create new frame with image
@@ -529,7 +543,7 @@ public class PhotoEdit{
 		        				OptionFrame2 quest_save_the_result= new OptionFrame2();
 		        		    	if(quest_save_the_result.GetSelectedOption()==JOptionPane.YES_OPTION)
 		        		    		{
-		        		    		SaveImage.main(merged_image);
+		        		    		SaveImage.main(merged_image,0);
 		        		    		merged_image = null;				// free variable keeping merged image
 		        		    		}
 		        		    }
@@ -549,7 +563,7 @@ public class PhotoEdit{
 		        				OptionFrame2 quest_save_the_result= new OptionFrame2();
 		        		    	if(quest_save_the_result.GetSelectedOption()==JOptionPane.YES_OPTION)
 		        		    	{
-		        		    		SaveImage.main(merged_image);
+		        		    		SaveImage.main(merged_image,0);
 		        		    		merged_image = null;				// free variable keeping merged image
 		        		    	}
 		        		    }
@@ -557,8 +571,13 @@ public class PhotoEdit{
 							break;
 		        	   case 3:
 							MergeImageOR mergeImage2 = new MergeImageOR(AddDirectory.all_chosen);
+							
+							merged_image = mergeImage2.returnImage();
+							
 		        		    if (quest_see_the_result.GetSelectedOption() == JOptionPane.YES_OPTION) {
+		        		    	
 		        		    File three= MergeImageOR.getF().getAbsoluteFile();
+		        		    
 		        		    disp.createFrame(center, three); //create new frame with image
 		        		    } 
 		        		    else
@@ -567,7 +586,7 @@ public class PhotoEdit{
 		        				OptionFrame2 quest_save_the_result= new OptionFrame2();
 		        		    	if(quest_save_the_result.GetSelectedOption()==JOptionPane.YES_OPTION)
 		        		    		{
-		        		    		SaveImage.main(merged_image);
+		        		    		SaveImage.main(merged_image,0);
 		        		    		merged_image = null;				// free variable keeping merged image
 		        		    		}
 		        		    }

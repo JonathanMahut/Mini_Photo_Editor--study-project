@@ -200,12 +200,6 @@ public class PhotoEdit{
 			left_main.add(btnClearAll2);
 			left_panel_2_main.add(btnClearAll2,BorderLayout.SOUTH);
 			
-			btnClearAll2.addActionListener(new ActionListener() {
-			      public void actionPerformed(ActionEvent e) {
-			    	  left_panel_2.removeAll(); 
-			    	  left_panel_2.updateUI();		
-			      }
-			    });
 			//END OF LEFT SIDE
 			
 			

@@ -82,7 +82,7 @@ public class AddDirectory {
 		    		where2.add(myButton);
 		    		}
 		   all_chosen.putAll(all_chosen_images);
-	    		where.updateUI();	    		
+	    		where2.updateUI();	    		
 		      }
 		    });
 		  
@@ -96,8 +96,8 @@ public class AddDirectory {
 		  btnClearAll2.addActionListener(new ActionListener() {
 		      public void actionPerformed(ActionEvent e) {
 		    	  all_chosen.clear();
-		    	  where.removeAll(); 
-		    	  where.updateUI();		
+		    	  where2.removeAll(); 
+		    	  where2.updateUI();		
 		      }
 		    });
 		  

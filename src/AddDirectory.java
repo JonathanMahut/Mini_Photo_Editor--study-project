@@ -28,6 +28,7 @@ public class AddDirectory {
 		JTextField label1 = new JTextField(); 
 		label1.setPreferredSize( new Dimension( 150, 20 ) );;
 		label1.setMaximumSize(new Dimension( 150, 20 ));
+		label1.setOpaque(false);
 		JScrollBar sb1 = new JScrollBar(JScrollBar.HORIZONTAL);  
 		label1.add(sb1);
 		BoundedRangeModel brm = label1.getHorizontalVisibility();
@@ -100,6 +101,8 @@ public class AddDirectory {
 		    	  where2.updateUI();		
 		      }
 		    });
+		  
+		  
 		  
 	}
 	

@@ -1,4 +1,5 @@
 import java.awt.Component;
+import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.EventQueue;
 import java.awt.Image;
@@ -289,25 +290,11 @@ public class PhotoEdit{
 							                	   {							//searching for given button on the list of buttons to remove from it
 							                		  JButton o = i.next();
 							                	      if(o==myButton)
-							                	      {
-							                	    	  switch (directory_counter)
-							                	    	  {
-							                	    	  case 1:
-							                	    		  direct_1.remove(myButton);
-							                	    		  break;
-							                	    	  case 2:
-							                	    		  direct_2.remove(myButton);
-							                	    		  break;
-							                	    	  case 3:
-							                	    		  direct_3.remove(myButton);
-							                	    		  break;
-							                	    	  case 4:
-							                	    		  direct_4.remove(myButton);
-							                	    		  break;
-							                	    	  case 5:
-							                	    		  direct_5.remove(myButton);
-							                	    		  break;
-							                	    	  } 
+							                	      {		  Container temp=myButton.getParent().getParent();
+							                	    		  myButton.getParent().remove(myButton);
+							                	    		  if(all_chosen_images.size()<=0)  // not working
+							                	    		  {left_panel_1.remove(temp);}
+							                	    	left_panel_1.updateUI();	
 							                	    	  i.remove();
 							                	    	  frame.repaint(); //works only when item is deleted
 							              				  frame.validate(); 

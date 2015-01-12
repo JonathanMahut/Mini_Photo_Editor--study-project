@@ -24,7 +24,8 @@ import javax.swing.JTextField;
 
 public class AddDirectory {
 	static HashMap<JButton,File> all_chosen = new HashMap<JButton,File>();
-	void AddDirect(JPanel where, JPanel directory, JFileChooser chooser, JPanel image, JPanel where2,HashMap<JButton, File> all_chosen_images,JButton btnClearAll2){
+	static int iter=0;
+	void AddDirect(JPanel image_main,JPanel where, JPanel directory, JFileChooser chooser, JPanel image, JPanel where2,HashMap<JButton, File> all_chosen_images,JButton btnClearAll2){
 		JTextField label1 = new JTextField(); 
 		label1.setPreferredSize( new Dimension( 150, 20 ) );;
 		label1.setMaximumSize(new Dimension( 150, 20 ));
@@ -41,7 +42,6 @@ public class AddDirectory {
 		JButton select1= new JButton("Select");
 		JButton delete1= new JButton("Delete");
 
-		JPanel image_main= new JPanel(new BorderLayout());
 		image.setLayout(new GridLayout(1,0));
 		image.setMaximumSize(new Dimension(where.getWidth(), 150));
 		
@@ -89,8 +89,12 @@ public class AddDirectory {
 		  
 		  delete1.addActionListener(new ActionListener() {
 		      public void actionPerformed(ActionEvent e) {
-		    		where.remove(directory); 
-		    		where.updateUI();		
+		    	  image.removeAll();
+    			  image_main.removeAll();	 
+    			  directory.removeAll();
+		    	 where.remove(directory); 
+		    		where.updateUI();	
+		    		iter++;
 		      }
 		    });
 		  
@@ -98,7 +102,7 @@ public class AddDirectory {
 		      public void actionPerformed(ActionEvent e) {
 		    	  all_chosen.clear();
 		    	  where2.removeAll(); 
-		    	  where2.updateUI();		
+		    	  where2.updateUI();	
 		      }
 		    });
 		  

@@ -1,4 +1,5 @@
 import java.awt.Component;
+import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.EventQueue;
 import java.awt.Image;
@@ -61,7 +62,7 @@ import javax.swing.JRadioButton;
 public class PhotoEdit{
 
 	private JFrame frame;
-	
+	int licznik=0;
 	int directory_counter=0;
 	static HashMap<JButton,File> all_chosen_images = new HashMap<JButton,File>(); //storing path to all images 
 	static int which_merge_mode_was_chose =0;
@@ -159,12 +160,6 @@ public class PhotoEdit{
 			left_main.add(btnClearAll);
 			tab.add(btnClearAll,BorderLayout.SOUTH);
 			
-			btnClearAll.addActionListener(new ActionListener() {
-			      public void actionPerformed(ActionEvent e) {
-			    	  left_panel_1.removeAll(); 
-			    	  left_panel_1.updateUI();		
-			      }
-			    });
 			
 			JPanel left_panel_2_main=new JPanel(new BorderLayout());
 			
@@ -180,18 +175,23 @@ public class PhotoEdit{
 
 
 			JPanel direct_1=new JPanel();
+			JPanel image_main_1= new JPanel(new BorderLayout());
 			direct_1.setBorder(BorderFactory.createEtchedBorder(EtchedBorder.RAISED, Color.GRAY, Color.DARK_GRAY));
 			JPanel image_1=new JPanel();
 			JPanel direct_2=new JPanel();
+			JPanel image_main_2= new JPanel(new BorderLayout());
 			JPanel image_2=new JPanel();
 			direct_2.setBorder(BorderFactory.createEtchedBorder(EtchedBorder.RAISED, Color.GRAY, Color.DARK_GRAY));
 			JPanel direct_3=new JPanel();
+			JPanel image_main_3= new JPanel(new BorderLayout());
 			JPanel image_3=new JPanel();
 			direct_3.setBorder(BorderFactory.createEtchedBorder(EtchedBorder.RAISED, Color.GRAY, Color.DARK_GRAY));
 			JPanel direct_4=new JPanel();
+			JPanel image_main_4= new JPanel(new BorderLayout());
 			JPanel image_4=new JPanel();
 			direct_4.setBorder(BorderFactory.createEtchedBorder(EtchedBorder.RAISED, Color.GRAY, Color.DARK_GRAY));
 			JPanel direct_5=new JPanel();
+			JPanel image_main_5= new JPanel(new BorderLayout());
 			JPanel image_5=new JPanel();
 			direct_5.setBorder(BorderFactory.createEtchedBorder(EtchedBorder.RAISED, Color.GRAY, Color.DARK_GRAY));
 
@@ -253,8 +253,13 @@ public class PhotoEdit{
 				    			    "Error",
 				    			    JOptionPane.ERROR_MESSAGE);
 				      }
-				      else				      {directory_counter++;}  // increase counter by one
-				     if(directory_counter<=5)
+				      else				      {directory_counter++;
+				      licznik=directory_counter-AddDirectory.iter;
+				      JOptionPane.showMessageDialog(frame,
+				    		  licznik,
+			    			    "Error",
+			    			    JOptionPane.ERROR_MESSAGE);}  // increase counter by one
+				     if(licznik<=5)
 				     {
 				      for(int i =0; i<file_from_given_directory.length; i++)
 				      {	
@@ -286,33 +291,20 @@ public class PhotoEdit{
 							                	  
 							                	   Iterator<JButton> i = buttonList.iterator();
 							                	   while (i.hasNext())
-							                	   {							//searching for given button on the list of buttons to remove from it
-							                		  JButton o = i.next();
-							                	      if(o==myButton)
-							                	      {
-							                	    	  switch (directory_counter)
-							                	    	  {
-							                	    	  case 1:
-							                	    		  direct_1.remove(myButton);
-							                	    		  break;
-							                	    	  case 2:
-							                	    		  direct_2.remove(myButton);
-							                	    		  break;
-							                	    	  case 3:
-							                	    		  direct_3.remove(myButton);
-							                	    		  break;
-							                	    	  case 4:
-							                	    		  direct_4.remove(myButton);
-							                	    		  break;
-							                	    	  case 5:
-							                	    		  direct_5.remove(myButton);
-							                	    		  break;
-							                	    	  } 
-							                	    	  i.remove();
-							                	    	  frame.repaint(); 
-							              				  frame.validate(); 
-							                	    	  
-							                	    	  break;
+							                	   {							
+							  							//searching for given button on the list of buttons to remove from it
+								                		  JButton o = i.next();
+								                	      if(o==myButton)
+								                	      {		  Container temp=myButton.getParent().getParent();
+								                	    		  myButton.getParent().remove(myButton);
+								                	    		  if(all_chosen_images.size()<=0)  // not working
+								                	    		  {left_panel_1.remove(temp);}
+								                	    	left_panel_1.updateUI();	
+								                	    	  i.remove();
+								                	    	  frame.repaint(); //works only when item is deleted
+								              				  frame.validate(); 
+								                	    	  
+								                	    	  break;
 							                	      }
 							                	   
 							                	   }
@@ -350,7 +342,7 @@ public class PhotoEdit{
 					            
 								}
 							});
-							switch (directory_counter)
+							switch (licznik)
               	    	  {           
 							case 1:
 								buttonList.add(myButton); image_1.add(buttonList.get(buttonList.size()-1));
@@ -369,27 +361,27 @@ public class PhotoEdit{
 							    break;
               	    	  }
 					}
-				      switch (directory_counter)
+				      switch (licznik)
                 	    	  {
                 	    	  case 1:
                 	    		  AddDirectory first=new AddDirectory();
-                	    		  first.AddDirect(left_panel_1, direct_1, chooser,image_1,left_panel_2,all_chosen_images,btnClearAll2);    
+                	    		  first.AddDirect(image_main_1,left_panel_1, direct_1, chooser,image_1,left_panel_2,all_chosen_images,btnClearAll2);    
                 	    		  break;
                 	    	  case 2:
                 	    		  AddDirectory second=new AddDirectory();
-                	    		  second.AddDirect(left_panel_1, direct_2, chooser,image_2,left_panel_2,all_chosen_images,btnClearAll2);
+                	    		  second.AddDirect(image_main_2,left_panel_1, direct_2, chooser,image_2,left_panel_2,all_chosen_images,btnClearAll2);
                 	    		  break;
                 	    	  case 3:
                 	    		  AddDirectory third=new AddDirectory();
-                	    		  third.AddDirect(left_panel_1, direct_3, chooser,image_3,left_panel_2,all_chosen_images,btnClearAll2);
+                	    		  third.AddDirect(image_main_3,left_panel_1, direct_3, chooser,image_3,left_panel_2,all_chosen_images,btnClearAll2);
                 	    		  break;
                 	    	  case 4:
                 	    		  AddDirectory fourth=new AddDirectory();
-                	    		  fourth.AddDirect(left_panel_1, direct_4, chooser,image_4,left_panel_2,all_chosen_images,btnClearAll2);
+                	    		  fourth.AddDirect(image_main_4,left_panel_1, direct_4, chooser,image_4,left_panel_2,all_chosen_images,btnClearAll2);
                 	    		  break;
                 	    	  case 5:
                 	    		  AddDirectory fifth=new AddDirectory();
-                	    		  fifth.AddDirect(left_panel_1, direct_5, chooser,image_5,left_panel_2,all_chosen_images,btnClearAll2);
+                	    		  fifth.AddDirect(image_main_5,left_panel_1, direct_5, chooser,image_5,left_panel_2,all_chosen_images,btnClearAll2);
                 	    		  break;		                
 
                 	    	  }
@@ -545,7 +537,7 @@ public class PhotoEdit{
 		           {
 		        	   case 1:
 		        		    MergeImageAND mergeImage1 = new MergeImageAND(AddDirectory.all_chosen);
-		        		    merged_image = mergeImage1.returnImage();
+		        		    merged_image = MergeImageAND.returnImage();
 		        		    if (quest_see_the_result.GetSelectedOption() == JOptionPane.YES_OPTION) {
 		        		    File one= MergeImageAND.getF().getAbsoluteFile();
 		        		    disp.createFrame(center, one); //create new frame with image
@@ -563,7 +555,7 @@ public class PhotoEdit{
 							break;
 		        	   case 2:
 							MergeImageXOR mergeImage = new MergeImageXOR(AddDirectory.all_chosen);
-							merged_image = mergeImage.returnImage();
+							merged_image = MergeImageXOR.returnImage();
 		        		    if (quest_see_the_result.GetSelectedOption() == JOptionPane.YES_OPTION) {
 		        		    	
 		        		    File two= MergeImageXOR.getF().getAbsoluteFile();
@@ -585,7 +577,7 @@ public class PhotoEdit{
 		        	   case 3:
 							MergeImageOR mergeImage2 = new MergeImageOR(AddDirectory.all_chosen);
 							
-							merged_image = mergeImage2.returnImage();
+							merged_image = MergeImageOR.returnImage();
 							
 		        		    if (quest_see_the_result.GetSelectedOption() == JOptionPane.YES_OPTION) {
 		        		    	
@@ -728,9 +720,53 @@ public class PhotoEdit{
 			frame.repaint(); //works only when item is deleted
 			frame.validate(); //works only when item is created WTF?x2
 		}
-		
-		
 	});
+	//Clearing whole left panel when clicking "Clear All"
+	btnClearAll.addActionListener(new ActionListener() {
+	      public void actionPerformed(ActionEvent e) {
+	    	  for (int i=licznik;i>=0;i--)
+	    	  {
+	    		  switch(i)
+	    		  {
+	    		  case 0:
+	    			  directory_counter=0;
+	    			  licznik=0;
+	    			    left_panel_1.removeAll(); 
+	    			    left_panel_1.updateUI();	
+	    			    break;
+	    		  case 1:
+	    			  image_1.removeAll();
+	    			  image_main_1.removeAll();	 
+	    			  direct_1.removeAll();
+	       			  break;
+	    		  case 2:
+	    			  image_2.removeAll();
+	    			  image_main_2.removeAll();	 
+		    		direct_2.removeAll();
+	    			   break;
+	    		  case 3:
+	    			  image_3.removeAll();
+	    			  image_main_3.removeAll();	 
+	    			  direct_3.removeAll();
+	    			  break;
+	    		  case 4:
+	    			  image_4.removeAll();
+	    			  image_main_4.removeAll();	 
+	    			  direct_4.removeAll();
+	    			  break;
+	    		  case 5:
+	    			  image_5.removeAll();
+	    			  image_main_5.removeAll();	 
+	    			  direct_5.removeAll();
+	    			  break;
+	    		  }
+	    	  }
+	    		 
+	    	  
+	      }
+	    });
 	
 	}
+	
+	
 }

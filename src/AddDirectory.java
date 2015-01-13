@@ -95,8 +95,6 @@ public class AddDirectory {
 			myButton.setSize(new Dimension(40, 40));		//size of the image icon
 
 			all_chosen.put(myButton,file_from_given_directory[i]); // path of image -->the button
-			buttonList.add(myButton);
-
 	 		//all_chosen.putAll(all_chosen_images);
 
 			myButton.addActionListener(new ActionListener() {
@@ -165,13 +163,13 @@ public class AddDirectory {
 	            
 				}
 			});
+			buttonList.add(myButton);
 		//	all_chosen_images.put(myButton,file_from_given_directory[i]); // path of image -->the button
 		    		where2.add(myButton);
 		    		}
 		  // all_chosen.putAll(all_chosen_images);
 	    		where2.updateUI();	   
-	    		  buttonList.clear();
-
+	    		
 		      }
 		      
 		    });

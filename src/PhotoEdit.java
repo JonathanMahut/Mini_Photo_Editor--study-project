@@ -290,7 +290,6 @@ public class PhotoEdit{
 
                 	    		  AddDirectory first=new AddDirectory();
                 	    		  first.AddDirect(left_panel_1, chooser,left_panel_2,all_chosen_images,btnClearAll2,buttonList,frame,delete1);    
-                	    		  buttonList.clear();
 				      
 				    }
 				     else

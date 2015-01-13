@@ -60,7 +60,7 @@ import javax.swing.JRadioButton;
 //add enlarge button
 
 public class PhotoEdit{
-
+	  int flag=0;
 	private JFrame frame;
 	int licznik=0;
 	int directory_counter=0;
@@ -174,27 +174,6 @@ public class PhotoEdit{
 			tabbedPane.setMnemonicAt(1, KeyEvent.VK_2);
 
 
-			JPanel direct_1=new JPanel();
-			JPanel image_main_1= new JPanel(new BorderLayout());
-			direct_1.setBorder(BorderFactory.createEtchedBorder(EtchedBorder.RAISED, Color.GRAY, Color.DARK_GRAY));
-			JPanel image_1=new JPanel();
-			JPanel direct_2=new JPanel();
-			JPanel image_main_2= new JPanel(new BorderLayout());
-			JPanel image_2=new JPanel();
-			direct_2.setBorder(BorderFactory.createEtchedBorder(EtchedBorder.RAISED, Color.GRAY, Color.DARK_GRAY));
-			JPanel direct_3=new JPanel();
-			JPanel image_main_3= new JPanel(new BorderLayout());
-			JPanel image_3=new JPanel();
-			direct_3.setBorder(BorderFactory.createEtchedBorder(EtchedBorder.RAISED, Color.GRAY, Color.DARK_GRAY));
-			JPanel direct_4=new JPanel();
-			JPanel image_main_4= new JPanel(new BorderLayout());
-			JPanel image_4=new JPanel();
-			direct_4.setBorder(BorderFactory.createEtchedBorder(EtchedBorder.RAISED, Color.GRAY, Color.DARK_GRAY));
-			JPanel direct_5=new JPanel();
-			JPanel image_main_5= new JPanel(new BorderLayout());
-			JPanel image_5=new JPanel();
-			direct_5.setBorder(BorderFactory.createEtchedBorder(EtchedBorder.RAISED, Color.GRAY, Color.DARK_GRAY));
-
 			JButton btnClearAll2 = new JButton("Clear all");
 			btnClearAll2.setBounds(28, 158, 89, 23);
 			left_main.add(btnClearAll2);
@@ -252,14 +231,13 @@ public class PhotoEdit{
 				    			    "The directory has not got any images.",
 				    			    "Error",
 				    			    JOptionPane.ERROR_MESSAGE);
+				    	  flag++;
 				      }
-				      else				      {directory_counter++;
+				      else				      { flag=0;
+				    	  directory_counter++;
 				      licznik=directory_counter-AddDirectory.iter;
-				      JOptionPane.showMessageDialog(frame,
-				    		  licznik,
-			    			    "Error",
-			    			    JOptionPane.ERROR_MESSAGE);}  // increase counter by one
-				     if(licznik<=5)
+				     }  // increase counter by one
+				     if(licznik<=5&&flag==0)
 				     {
 				      for(int i =0; i<file_from_given_directory.length; i++)
 				      {	
@@ -274,7 +252,7 @@ public class PhotoEdit{
 							myButton.setPreferredSize(new Dimension(40, 40));		//size of the image icon
 							
 							all_chosen_images.put(myButton,file_from_given_directory[i]); // path of image -->the button
-							
+							buttonList.add(myButton);
 							myButton.addActionListener(new ActionListener() {
 								public void actionPerformed(ActionEvent e) {
 									
@@ -286,41 +264,7 @@ public class PhotoEdit{
 					                {
 							            @Override
 							            public void actionPerformed(ActionEvent event) {
-							                   if( event.getActionCommand()=="Delete")				// graphic problem after deleting buttons(need to refresh to see result)
-							                   {
-							                	  
-							                	   Iterator<JButton> i = buttonList.iterator();
-							                	   while (i.hasNext())
-							                	   {							
-							  							//searching for given button on the list of buttons to remove from it
-								                		  JButton o = i.next();
-								                	      if(o==myButton)
-								                	      {		  Container temp=myButton.getParent().getParent();
-								                	    		  myButton.getParent().remove(myButton);
-								                	    		  if(all_chosen_images.size()<=0)  // not working
-								                	    		  {left_panel_1.remove(temp);}
-								                	    	left_panel_1.updateUI();	
-								                	    	  i.remove();
-								                	    	  frame.repaint(); //works only when item is deleted
-								              				  frame.validate(); 
-								                	    	  
-								                	    	  break;
-							                	      }
-							                	   
-							                	   }
-							                	  
-							                	   Iterator<JButton> keySetIterator =  all_chosen_images.keySet().iterator();
-
-								                	   while(keySetIterator.hasNext()){
-								                	     JButton key = keySetIterator.next();
-								                	     
-								                	     if(key==myButton)
-								                	    	 all_chosen_images.remove(key);		//remove given item to delete redundant path.
-								                	     
-								                	   }
-								                	   
-								                   }
-							                   
+  
 							                   if (event.getActionCommand()=="View")
 							                   {
 							                	   
@@ -333,8 +277,6 @@ public class PhotoEdit{
 					                };
 					                
 					                JMenuItem item;// menu after click on the image
-					                menu.add(item = new JMenuItem("Delete"));
-					                item.addActionListener(menuListener);
 					                menu.add(item = new JMenuItem("View"));
 					                item.addActionListener(menuListener); 
 					                menu.show(myButton, myButton.getWidth()/2, myButton.getHeight()/2);
@@ -342,55 +284,26 @@ public class PhotoEdit{
 					            
 								}
 							});
-							switch (licznik)
-              	    	  {           
-							case 1:
-								buttonList.add(myButton); image_1.add(buttonList.get(buttonList.size()-1));
-								break;
-							case 2:
-								buttonList.add(myButton); image_2.add(buttonList.get(buttonList.size()-1));
-							    break;
-							case 3:
-								buttonList.add(myButton); image_3.add(buttonList.get(buttonList.size()-1));
-							    break;
-							case 4:
-								 buttonList.add(myButton); image_4.add(buttonList.get(buttonList.size()-1));
-								 break;
-							case 5:
-								buttonList.add(myButton); image_5.add(buttonList.get(buttonList.size()-1));
-							    break;
-              	    	  }
-					}
-				      switch (licznik)
-                	    	  {
-                	    	  case 1:
-                	    		  AddDirectory first=new AddDirectory();
-                	    		  first.AddDirect(image_main_1,left_panel_1, direct_1, chooser,image_1,left_panel_2,all_chosen_images,btnClearAll2);    
-                	    		  break;
-                	    	  case 2:
-                	    		  AddDirectory second=new AddDirectory();
-                	    		  second.AddDirect(image_main_2,left_panel_1, direct_2, chooser,image_2,left_panel_2,all_chosen_images,btnClearAll2);
-                	    		  break;
-                	    	  case 3:
-                	    		  AddDirectory third=new AddDirectory();
-                	    		  third.AddDirect(image_main_3,left_panel_1, direct_3, chooser,image_3,left_panel_2,all_chosen_images,btnClearAll2);
-                	    		  break;
-                	    	  case 4:
-                	    		  AddDirectory fourth=new AddDirectory();
-                	    		  fourth.AddDirect(image_main_4,left_panel_1, direct_4, chooser,image_4,left_panel_2,all_chosen_images,btnClearAll2);
-                	    		  break;
-                	    	  case 5:
-                	    		  AddDirectory fifth=new AddDirectory();
-                	    		  fifth.AddDirect(image_main_5,left_panel_1, direct_5, chooser,image_5,left_panel_2,all_chosen_images,btnClearAll2);
-                	    		  break;		                
 
-                	    	  }
+				      }
+				 	  JButton delete1= new JButton("Delete");
+
+                	    		  AddDirectory first=new AddDirectory();
+                	    		  first.AddDirect(left_panel_1, chooser,left_panel_2,all_chosen_images,btnClearAll2,buttonList,frame,delete1);    
+                	    		  buttonList.clear();
+				      
 				    }
 				     else
-				     { JOptionPane.showMessageDialog(frame,
+				     { 
+				    	 if(licznik>5)
+				    	 {
+				    	 JOptionPane.showMessageDialog(frame,
 			    			    "You cannot add more than 5 directories",
 			    			    "Error",
 			    			    JOptionPane.ERROR_MESSAGE);}
+						    directory_counter--;
+				     		}
+				     // licznik=directory_counter-AddDirectory.iter;
 				      }
 				    else { 
 				      System.out.println("No Selection ");
@@ -524,9 +437,10 @@ public class PhotoEdit{
 		
 		btnMerge.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				int CHECK=AddDirectory.all_chosen.size();
+					int CHECK=AddDirectory.all_chosen.size();
 				if(CHECK>0)
 				{
+					
 					OptionFrame.main(null); // ask if user wants to see?
 					OptionFrame quest_see_the_result=new OptionFrame(); // get answer from OptionFrame class
 					Display disp= new Display(); // invoke Display class
@@ -726,40 +640,13 @@ public class PhotoEdit{
 	      public void actionPerformed(ActionEvent e) {
 	    	  for (int i=licznik;i>=0;i--)
 	    	  {
-	    		  switch(i)
-	    		  {
-	    		  case 0:
+	    		  buttonList.clear();
 	    			  directory_counter=0;
 	    			  licznik=0;
-	    			    left_panel_1.removeAll(); 
-	    			    left_panel_1.updateUI();	
-	    			    break;
-	    		  case 1:
-	    			  image_1.removeAll();
-	    			  image_main_1.removeAll();	 
-	    			  direct_1.removeAll();
-	       			  break;
-	    		  case 2:
-	    			  image_2.removeAll();
-	    			  image_main_2.removeAll();	 
-		    		direct_2.removeAll();
-	    			   break;
-	    		  case 3:
-	    			  image_3.removeAll();
-	    			  image_main_3.removeAll();	 
-	    			  direct_3.removeAll();
-	    			  break;
-	    		  case 4:
-	    			  image_4.removeAll();
-	    			  image_main_4.removeAll();	 
-	    			  direct_4.removeAll();
-	    			  break;
-	    		  case 5:
-	    			  image_5.removeAll();
-	    			  image_main_5.removeAll();	 
-	    			  direct_5.removeAll();
-	    			  break;
-	    		  }
+	    			  AddDirectory.iter=0;
+	    			   left_panel_1.removeAll(); 
+	    			   left_panel_1.updateUI();	
+	    			  
 	    	  }
 	    		 
 	    	  

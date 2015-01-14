@@ -60,9 +60,11 @@ import javax.swing.JRadioButton;
 //add enlarge button
 
 public class PhotoEdit{
-	  int flag=0;
+	int flag=0;
 	private JFrame frame;
 	int licznik=0;
+	static int n_of_stripes;
+	static String horizontal_or_vertical;
 	int directory_counter=0;
 	static HashMap<JButton,File> all_chosen_images = new HashMap<JButton,File>(); //storing path to all images 
 	static int which_merge_mode_was_chose =0;
@@ -569,7 +571,8 @@ public class PhotoEdit{
 	JRadioButton Merge_Button = new JRadioButton("HORIZONTAL");
 	rdbtnNewRadioButton.addActionListener(new ActionListener() {
 		public void actionPerformed(ActionEvent e) {
-		//
+			horizontal_or_vertical = "H";
+
 		}
 	});
 	Merge_Button.setBounds(78, 67, 47, 23);
@@ -578,7 +581,7 @@ public class PhotoEdit{
 	JRadioButton Merge_Button_1 = new JRadioButton("VERTICAL");
 	rdbtnNewRadioButton_1.addActionListener(new ActionListener() {
 		public void actionPerformed(ActionEvent e) {
-			//
+			horizontal_or_vertical = "V";
 		}
 	});
 	Merge_Button_1.setBounds(78, 67, 47, 23);
@@ -591,7 +594,15 @@ public class PhotoEdit{
 	
 	JLabel Set1  = new JLabel("Number of stripes");
 	JTextField inSet1  = new JTextField( 7 );
+	n_of_stripes = Integer.parseInt(inSet1.getText()); // saving number of stripes into variable;
 	JButton SetButton1 = new JButton("SET");
+	SetButton1.addActionListener(new ActionListener() {
+		public void actionPerformed(ActionEvent e) {
+			
+			
+			
+		}
+	});
 	Stripes.add(Set1);
 	Stripes.add(inSet1);
 	//Stripes.add(SetButton1);

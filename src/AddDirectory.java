@@ -37,12 +37,12 @@ public class AddDirectory {
 	void AddDirect(JPanel where, JFileChooser chooser, JPanel where2,HashMap<JButton, File> all_chosen_images,JButton btnClearAll2,ArrayList<JButton> buttonList,JFrame frame,JButton delete1){
 		 File file_from_given_directory[]=chooser.getSelectedFile().listFiles(new ImageFileFilter());	
 			 JPanel image_main= new JPanel(new BorderLayout());
-
+			 ArrayList<JButton> buttonList1=buttonList;
 			 JPanel directory=new JPanel();
 			JPanel image=new JPanel();
 		 
 		for(int i =0; i<file_from_given_directory.length; i++)
-		{image.add(buttonList.get(i));}
+		{image.add(buttonList1.get(i));}
 		
 		JTextField label1 = new JTextField(); 
 		label1.setPreferredSize( new Dimension( 150, 20 ) );;
@@ -79,7 +79,7 @@ public class AddDirectory {
 		  buttons.add(delete1);
 		  directory.add(buttons);
 		  where.add(directory);
-		   		  
+		  buttonList1.clear(); 
 		  
 		  select1.addActionListener(new ActionListener() {
 		      public void actionPerformed(ActionEvent e) {
@@ -94,9 +94,10 @@ public class AddDirectory {
 			myButton.setBorderPainted(false);
 			myButton.setSize(new Dimension(40, 40));		//size of the image icon
 
-			all_chosen.put(myButton,file_from_given_directory[i]); // path of image -->the button
-	 		//all_chosen.putAll(all_chosen_images);
-
+			buttonList1.add(myButton);
+			all_chosen_images.put(myButton,file_from_given_directory[i]); // path of image -->the button			
+			where2.add(myButton);
+			
 			myButton.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					
@@ -111,7 +112,7 @@ public class AddDirectory {
 			            	if( event.getActionCommand()=="Delete")				// graphic problem after deleting buttons(need to refresh to see result)
 			                   {
 			                	  
-			                	   Iterator<JButton> i = buttonList.iterator();
+			                	   Iterator<JButton> i = buttonList1.iterator();
 			                	   while (i.hasNext())
 			                	   {							
 			  							//searching for given button on the list of buttons to remove from it
@@ -163,13 +164,13 @@ public class AddDirectory {
 	            
 				}
 			});
-			buttonList.add(myButton);
 		//	all_chosen_images.put(myButton,file_from_given_directory[i]); // path of image -->the button
-		    		where2.add(myButton);
 		    		}
 		  // all_chosen.putAll(all_chosen_images);
 	    		where2.updateUI();	   
-	    		
+	  	 		all_chosen.putAll(all_chosen_images);
+	  	 		buttonList1.clear();
+
 		      }
 		      
 		    });

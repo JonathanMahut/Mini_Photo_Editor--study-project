@@ -140,7 +140,7 @@ public class PhotoEdit{
 			frame.getContentPane().add(BorderLayout.WEST,left_main);
 			
 			JPanel left_panel_1 = new JPanel();
-			
+			 
 			left_panel_1.setBackground(Color.WHITE);
 			left_panel_1.setLayout(new BoxLayout(left_panel_1, BoxLayout.Y_AXIS));
 			tabbedPane.setPreferredSize(new Dimension(210, 400));// hardCoded sizing

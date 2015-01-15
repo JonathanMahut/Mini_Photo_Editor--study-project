@@ -105,7 +105,7 @@ public class AddDirectory {
 		    	  check_flag++;
 		  		ArrayList<JButton> buttonListTemp=new ArrayList<JButton>();
 		  		//all_chosen.putAll(all_chosen_images);
-		  		
+		  		 
 		  		buttonListTemp.clear();
 		  		buttonListTemp.addAll(buttonList1);
 		  		 JOptionPane.showMessageDialog(frame,

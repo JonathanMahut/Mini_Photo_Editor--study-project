@@ -288,12 +288,21 @@ public class PhotoEdit{
 							});
 
 				      }
-				 	  JButton delete1= new JButton("Delete");
-
+				 	  			  JButton delete1= new JButton("Delete");
                 	    		  AddDirectory first=new AddDirectory();
-                	    		  first.AddDirect(left_panel_1, chooser,left_panel_2,all_chosen_images,btnClearAll2,buttonList,frame,delete1);    
+                	    		  HashMap<JButton,File> all_chosen_temp = new HashMap<JButton,File>();
+                	    		  all_chosen_temp.putAll(all_chosen_images);
+                	    		  ArrayList<JButton> buttonListTemp = new ArrayList<JButton>();	
+                	    		  buttonListTemp.addAll(buttonList);// list where all loaded images are as buttons
+
+                	    	   	  HashMap<JButton,File> clear = new HashMap<JButton,File>();
+                	    		  clear.putAll(all_chosen_images);
+                	    		  first.AddDirect(left_panel_1, chooser,left_panel_2,all_chosen_images,all_chosen_temp,btnClearAll2,buttonList,frame,delete1,clear,buttonListTemp);   
                 	    		  buttonList.clear();
-				      
+                		  	 	  all_chosen_images.clear();
+                		  	 	  clear.clear();
+                    			
+
 				    }
 				     else
 				     { 
@@ -440,6 +449,10 @@ public class PhotoEdit{
 		btnMerge.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 					int CHECK=AddDirectory.all_chosen.size();
+					JOptionPane.showMessageDialog(frame,
+							"Images : "+AddDirectory.all_chosen.size()+AddDirectory.all_chosen.values(),
+			    			    "Error",
+			    			    JOptionPane.ERROR_MESSAGE);
 				if(CHECK>0)
 				{
 					
@@ -594,12 +607,12 @@ public class PhotoEdit{
 	
 	JLabel Set1  = new JLabel("Number of stripes");
 	JTextField inSet1  = new JTextField( 7 );
-	n_of_stripes = Integer.parseInt(inSet1.getText()); // saving number of stripes into variable;
+	
 	JButton SetButton1 = new JButton("SET");
 	SetButton1.addActionListener(new ActionListener() {
 		public void actionPerformed(ActionEvent e) {
 			
-			
+			n_of_stripes = Integer.parseInt(inSet1.getText()); // saving number of stripes into variable;
 			
 		}
 	});
@@ -642,6 +655,11 @@ public class PhotoEdit{
 	
 	btnRefresh.addActionListener(new ActionListener() {
 		public void actionPerformed(ActionEvent e) {
+
+			JOptionPane.showMessageDialog(frame,
+      				 AddDirectory.all_chosen.size(),
+		    			    "Error",
+		    			    JOptionPane.ERROR_MESSAGE);
 			frame.repaint(); //works only when item is deleted
 			frame.validate(); //works only when item is created WTF?x2
 		}

@@ -11,6 +11,7 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.Map;
 
 import javax.swing.BorderFactory;
 import javax.swing.BoundedRangeModel;
@@ -33,10 +34,18 @@ import javax.swing.border.EtchedBorder;
 public class AddDirectory {
 	static HashMap<JButton,File> all_chosen = new HashMap<JButton,File>();
 	static int iter=0;
+	int check_flag=0;
 	//static JPanel image=new JPanel();
-	void AddDirect(JPanel where, JFileChooser chooser, JPanel where2,HashMap<JButton, File> all_chosen_images,JButton btnClearAll2,ArrayList<JButton> buttonList,JFrame frame,JButton delete1){
-		 File file_from_given_directory[]=chooser.getSelectedFile().listFiles(new ImageFileFilter());	
+	void AddDirect(JPanel where, JFileChooser chooser, JPanel where2,HashMap<JButton, File> all_chosen_images,HashMap<JButton,File> all_chosen_temp,JButton btnClearAll2,ArrayList<JButton> buttonList,JFrame frame,JButton delete1,HashMap<JButton,File> clear,ArrayList<JButton> buttonListTemp2){
+		HashMap<JButton,File> clear_inner = new HashMap<JButton,File>();
+		clear_inner.putAll(clear);
+		check_flag=0;
+		File file_from_given_directory[]=chooser.getSelectedFile().listFiles(new ImageFileFilter());	
 			 JPanel image_main= new JPanel(new BorderLayout());
+			 JOptionPane.showMessageDialog(frame,
+    				 buttonList.size(),
+	    			    "Error",
+	    			    JOptionPane.ERROR_MESSAGE);
 			 ArrayList<JButton> buttonList1=buttonList;
 			 JPanel directory=new JPanel();
 			JPanel image=new JPanel();
@@ -83,7 +92,26 @@ public class AddDirectory {
 		  
 		  select1.addActionListener(new ActionListener() {
 		      public void actionPerformed(ActionEvent e) {
+		    	  all_chosen_temp.putAll(clear_inner);
 
+		  		all_chosen_images.putAll(all_chosen_temp);
+		    	  JPanel image_main= new JPanel(new BorderLayout());
+					 JOptionPane.showMessageDialog(frame,
+							 check_flag +"Al chosen images" +all_chosen_images.size() +"All chosen"+all_chosen.size()+"temp"+all_chosen_temp.size()+clear.size()+"inner"+clear_inner.size(),
+			    			    "Error",
+			    			    JOptionPane.ERROR_MESSAGE);
+		    	  if(check_flag>=1)
+		    	  {all_chosen_images.putAll(all_chosen_temp);}
+		    	  check_flag++;
+		  		ArrayList<JButton> buttonListTemp=new ArrayList<JButton>();
+		  		//all_chosen.putAll(all_chosen_images);
+		  		
+		  		buttonListTemp.clear();
+		  		buttonListTemp.addAll(buttonList1);
+		  		 JOptionPane.showMessageDialog(frame,
+						 check_flag +"Al chosen images" +all_chosen_images.size() +"All chosen"+all_chosen.size()+"temp"+all_chosen_temp.size()+"inner"+clear_inner.size(),
+		    			    "Error",
+		    			    JOptionPane.ERROR_MESSAGE);
 		    	for (int i=0;i<image.getComponentCount();i++)
 		    		{
 		    		 final String pathToImage = file_from_given_directory[i].getAbsolutePath(); 
@@ -95,9 +123,12 @@ public class AddDirectory {
 			myButton.setSize(new Dimension(40, 40));		//size of the image icon
 
 			buttonList1.add(myButton);
-			all_chosen_images.put(myButton,file_from_given_directory[i]); // path of image -->the button			
-			where2.add(myButton);
+			buttonListTemp.add(buttonList1.get(i));
 			
+			all_chosen_images.put(myButton,file_from_given_directory[i]); // path of image -->the button	
+			all_chosen_temp.put(myButton,file_from_given_directory[i]);
+			all_chosen.put(myButton, file_from_given_directory[i]);
+			where2.add(myButton);
 			myButton.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					
@@ -109,10 +140,28 @@ public class AddDirectory {
 	                {
 			            @Override
 			            public void actionPerformed(ActionEvent event) {
-			            	if( event.getActionCommand()=="Delete")				// graphic problem after deleting buttons(need to refresh to see result)
+			            	if( event.getActionCommand()=="Delete")				
 			                   {
-			                	  
-			                	   Iterator<JButton> i = buttonList1.iterator();
+		
+			            		 for(Iterator<Map.Entry<JButton,File>>it=all_chosen.entrySet().iterator();it.hasNext();){
+						              
+			                		   Map.Entry<JButton,File> entry = it.next();
+			          
+			                		   if (entry.getKey() == myButton) {
+			                			   
+			                		   it.remove();
+			                		   
+			                		   JOptionPane.showMessageDialog(frame,
+			       							all_chosen.size(),
+			       			    			    "Error",
+			       			    			    JOptionPane.ERROR_MESSAGE);
+              		  	 	  
+			                		   }
+			                		 
+			                		   }
+			            	
+			            		 
+			                	   Iterator<JButton> i = buttonListTemp.iterator();
 			                	   while (i.hasNext())
 			                	   {							
 			  							//searching for given button on the list of buttons to remove from it
@@ -131,17 +180,7 @@ public class AddDirectory {
 			                	      }
 			                	   
 			                	   }
-			                	  
-			                	   Iterator<JButton> keySetIterator =  all_chosen.keySet().iterator();
-
-				                	   while(keySetIterator.hasNext()){
-				                	     JButton key = keySetIterator.next();
-				                	     
-				                	     if(key==myButton)
-				                	    	 all_chosen.remove(key);		//remove given item to delete redundant path.
-				                	     
-				                	   }
-				                	   
+			                	 
 				                   }
 			                   if (event.getActionCommand()=="View")
 			                   {
@@ -164,15 +203,15 @@ public class AddDirectory {
 	            
 				}
 			});
-		//	all_chosen_images.put(myButton,file_from_given_directory[i]); // path of image -->the button
 		    		}
-		  // all_chosen.putAll(all_chosen_images);
+		    	 JOptionPane.showMessageDialog(frame,
+						 check_flag +"Al chosen images" +all_chosen_images.size() +"All chosen"+all_chosen.size()+"temp"+all_chosen_temp.size()+"inner"+clear_inner.size(),
+		    			    "Error",
+		    			    JOptionPane.ERROR_MESSAGE);
+		    	all_chosen_images.clear();
 	    		where2.updateUI();	   
-	  	 		all_chosen.putAll(all_chosen_images);
 	  	 		buttonList1.clear();
-
 		      }
-		      
 		    });
 		  
 		  delete1.addActionListener(new ActionListener() {
@@ -189,7 +228,15 @@ public class AddDirectory {
 		  
 		  btnClearAll2.addActionListener(new ActionListener() {
 		      public void actionPerformed(ActionEvent e) {
+		    	  check_flag=1;
 		    	  all_chosen.clear();
+		    	  all_chosen_temp.clear();
+		    	  all_chosen_temp.putAll(clear_inner);
+		    	  all_chosen_images.clear();
+		    	  JOptionPane.showMessageDialog(frame,
+							 check_flag +"Al chosen images" +all_chosen_images.size() +"All chosen"+all_chosen.size()+"temp"+all_chosen_temp.size()+"inner"+clear_inner.size(),
+			    			    "Error",
+			    			    JOptionPane.ERROR_MESSAGE);
 		    	  where2.removeAll(); 
 		    	  where2.updateUI();	
 		      }

@@ -1,6 +1,7 @@
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -10,7 +11,7 @@ import javax.swing.JButton;
 
 public class ObligatoryFunction1 {
 	static HashMap<JButton, File> all_chosen_images;
-	static List <BufferedImage> all_images;
+	static List <BufferedImage> all_images = new ArrayList<BufferedImage>();
 	static List <File> all_images_after;
 	static List <BufferedImage> all_images_after_list;
 	
@@ -38,7 +39,7 @@ public class ObligatoryFunction1 {
 		
 		for(int x = 0; x < rows; x++)
 		{	
-	        for(int y = 0; y < columns; y++)  // od gory
+	        for(int y = 0; y < img1.getWidth(); y++)  // od gory
 	        {
 	        	int argb0 = img1.getRGB(x, y);
 
@@ -85,17 +86,20 @@ public class ObligatoryFunction1 {
 	        }
 		if(all_row==true)
 			height_to_cut++; // one row is all white
+			
 		else
 			break;
 			
 		}
+		System.out.println(height_to_cut + " ile do wyciecia");
+		if(height_to_cut>0)
 		img1 = img1.getSubimage(0, 0, img1.getWidth(), height_to_cut);
 		/////////////////////////////////////////
 							//from bottom
 		
-		for(int x = img1.getWidth(); x >0 ; x--)
+		for(int x = img1.getHeight(); x >0 ; x--)
 		{	
-	        for(int y = 0; y < columns; y++)  // od gory
+	        for(int y = 0; y < img1.getWidth(); y++)  // od gory
 	        {
 	        	int argb0 = img1.getRGB(x, y);
 
@@ -146,14 +150,15 @@ public class ObligatoryFunction1 {
 			break;
 			
 		}
+		if(height_to_cut>0)
 		img1 = img1.getSubimage(0, img1.getHeight()-height_to_cut, img1.getWidth(), height_to_cut);
 		
 		//////////////////////////////////////////
 				//from left
 		
-		for(int x = 0; x < columns ; x++)
+		for(int x = 0; x < img1.getWidth() ; x++)
 		{	
-	        for(int y = 0; y < rows; y++)  
+	        for(int y = 0; y < img1.getHeight(); y++)  
 	        {
 	        	int argb0 = img1.getRGB(x, y);
 
@@ -204,13 +209,14 @@ public class ObligatoryFunction1 {
 			break;
 			
 		}
+		if(width_after_cut>0)
 		img1 = img1.getSubimage(0, 0, width_after_cut, img1.getHeight());
 		
 		/////////////////////////////////
 		 			// from right
 		for(int x = img1.getWidth(); x>0 ; x--)
 		{	
-	        for(int y = 0; y < rows; y++)  
+	        for(int y = 0; y < img1.getHeight(); y++)  
 	        {
 	        	int argb0 = img1.getRGB(x, y);
 
@@ -261,14 +267,16 @@ public class ObligatoryFunction1 {
 			break;
 			
 		}
+		if(width_after_cut>0)
 		img1 = img1.getSubimage(img1.getWidth()-width_after_cut, 0, width_after_cut, img1.getHeight());
 		
 	return img1;
 		
 	}
 	
-	 private static List<BufferedImage> saveImagesToList()
-     {
+	  static List<BufferedImage> saveImagesToList()
+     {	
+		 System.out.println(all_chosen_images.size() + " size w bledzie");
              for(File i : all_chosen_images.values())
              {
                     

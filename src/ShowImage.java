@@ -27,7 +27,8 @@ public class ShowImage extends JDialog {
 		System.out.println("creating the window..");
 		// set the position of the window
 		Point p = new Point(400, 400);
-		setLocation(p.x, p.y);
+		setLocationRelativeTo(null);
+
 
 		// Create a message
 		JPanel messagePane = new JPanel();

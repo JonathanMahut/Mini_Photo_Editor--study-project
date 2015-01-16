@@ -34,6 +34,7 @@ import java.awt.event.WindowEvent;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -60,11 +61,12 @@ import javax.swing.JRadioButton;
 //add enlarge button
 
 public class PhotoEdit{
+	JDesktopPane center= new JDesktopPane();
 	int flag=0;
 	private JFrame frame;
 	int licznik=0;
-	static int n_of_stripes;
-	static String horizontal_or_vertical;
+	static int n_of_stripes=0;
+	static String horizontal_or_vertical="wartosc";
 	int directory_counter=0;
 	static HashMap<JButton,File> all_chosen_images = new HashMap<JButton,File>(); //storing path to all images 
 	static int which_merge_mode_was_chose =0;
@@ -99,6 +101,8 @@ public class PhotoEdit{
 	private void initialize() {
 		frame = new JFrame();
 		frame.setBounds(200, 200, 900, 500);
+	    frame.setLocationRelativeTo(null);
+
 		//
 		
 		//////////////////
@@ -109,16 +113,16 @@ public class PhotoEdit{
 			@Override
 			public void windowClosing(WindowEvent we)
 			{ 
-				if(merged_image!=null)
+				
+				if(Display.where_global.getComponents().length>0)
 				{
+				
 					 String ObjButtons[] = {"Yes","No"};
-					 int PromptResult = JOptionPane.showOptionDialog(null,"Do you want to save image before exit?","Question",JOptionPane.DEFAULT_OPTION,JOptionPane.WARNING_MESSAGE,null,ObjButtons,ObjButtons[1]);
+					 int PromptResult = JOptionPane.showOptionDialog(null,"You have unsaved images. \n Do you want to exit?","Question",JOptionPane.DEFAULT_OPTION,JOptionPane.WARNING_MESSAGE,null,ObjButtons,ObjButtons[1]);
 					  if(PromptResult==JOptionPane.YES_OPTION)
 					  {
-      		    		SaveImage.main(merged_image,1);
-					  }
-					  else
-						  System.exit(0);
+      		    		System.exit(0);
+					  }	  
 				}
 				
 			  else
@@ -153,7 +157,7 @@ public class PhotoEdit{
 			  scrollPanel1.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
 			  scrollPanel1.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
 			  tab.add(scrollPanel1,BorderLayout.CENTER);
-			
+			  
 			tabbedPane.addTab("Directories", tab);
 			tabbedPane.setMnemonicAt(0, KeyEvent.VK_1);
 			
@@ -333,16 +337,15 @@ public class PhotoEdit{
 		mntmExit.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
-				if(merged_image != null )
+				if(center.getComponents().length>0)
 				{
 					 String ObjButtons[] = {"Yes","No"};
-					 int PromptResult = JOptionPane.showOptionDialog(null,"Do you want to save image before exit?","Question",JOptionPane.DEFAULT_OPTION,JOptionPane.WARNING_MESSAGE,null,ObjButtons,ObjButtons[1]);
+					 int PromptResult = JOptionPane.showOptionDialog(null,"You have unsaved images. \n Do you want to exit?","Question",JOptionPane.DEFAULT_OPTION,JOptionPane.WARNING_MESSAGE,null,ObjButtons,ObjButtons[1]);
 					  if(PromptResult==JOptionPane.YES_OPTION)
 					  {
-      		    		SaveImage.main(merged_image,1);
+      		    		System.exit(0);
 					  }
-					  else
-						  System.exit(0);
+						  
 				}
 				else
 					frame.dispose();
@@ -353,6 +356,7 @@ public class PhotoEdit{
 		JMenuItem mntmSave = new JMenuItem("Save");
 		mntmSave.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				merged_image=Display.imgglobal;
 				if(merged_image != null)
 				SaveImage.main(merged_image,0);
 				else
@@ -449,10 +453,7 @@ public class PhotoEdit{
 		btnMerge.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 					int CHECK=AddDirectory.all_chosen.size();
-					JOptionPane.showMessageDialog(frame,
-							"Images : "+AddDirectory.all_chosen.size()+AddDirectory.all_chosen.values(),
-			    			    "Error",
-			    			    JOptionPane.ERROR_MESSAGE);
+
 				if(CHECK>0)
 				{
 					
@@ -469,7 +470,7 @@ public class PhotoEdit{
 		        		    merged_image = MergeImageAND.returnImage();
 		        		    if (quest_see_the_result.GetSelectedOption() == JOptionPane.YES_OPTION) {
 		        		    File one= MergeImageAND.getF().getAbsoluteFile();
-		        		    disp.createFrame(center, one); //create new frame with image
+		        		    disp.createFrame(center, one, merged_image); //create new frame with image
 		        		    } 
 		        		    else
 		        		    {	
@@ -489,7 +490,7 @@ public class PhotoEdit{
 		        		    	
 		        		    File two= MergeImageXOR.getF().getAbsoluteFile();
 		        		    
-		        		    disp.createFrame(center, two); //create new frame with image
+		        		    disp.createFrame(center, two,merged_image); //create new frame with image
 		        		    } 
 		        		    else
 		        		    {	
@@ -512,7 +513,7 @@ public class PhotoEdit{
 		        		    	
 		        		    File three= MergeImageOR.getF().getAbsoluteFile();
 		        		    
-		        		    disp.createFrame(center, three); //create new frame with image
+		        		    disp.createFrame(center, three,merged_image); //create new frame with image
 		        		    } 
 		        		    else
 		        		    {	
@@ -582,7 +583,7 @@ public class PhotoEdit{
 	mergepanel.setLayout(new BoxLayout(mergepanel, BoxLayout.Y_AXIS));
 	
 	JRadioButton Merge_Button = new JRadioButton("HORIZONTAL");
-	rdbtnNewRadioButton.addActionListener(new ActionListener() {
+	Merge_Button.addActionListener(new ActionListener() {
 		public void actionPerformed(ActionEvent e) {
 			horizontal_or_vertical = "H";
 
@@ -592,14 +593,16 @@ public class PhotoEdit{
 	mergepanel.add(Merge_Button);
 	
 	JRadioButton Merge_Button_1 = new JRadioButton("VERTICAL");
-	rdbtnNewRadioButton_1.addActionListener(new ActionListener() {
+	Merge_Button_1.addActionListener(new ActionListener() {
 		public void actionPerformed(ActionEvent e) {
 			horizontal_or_vertical = "V";
 		}
 	});
 	Merge_Button_1.setBounds(78, 67, 47, 23);
 	mergepanel.add(Merge_Button_1);
-	
+	ButtonGroup group1 = new ButtonGroup();
+	group.add(Merge_Button);
+	group.add(Merge_Button_1);
 	
 	
 	JPanel Stripes =new JPanel();
@@ -609,13 +612,41 @@ public class PhotoEdit{
 	JTextField inSet1  = new JTextField( 7 );
 	
 	JButton SetButton1 = new JButton("SET");
+	
 	SetButton1.addActionListener(new ActionListener() {
-		public void actionPerformed(ActionEvent e) {
-			
-			n_of_stripes = Integer.parseInt(inSet1.getText()); // saving number of stripes into variable;
-			
-		}
-	});
+        public void actionPerformed(ActionEvent e) {
+                int mode =0; // enlarge or shrink
+                AskUser.main(null);
+                AskUser.returnAnswer();
+               
+                n_of_stripes = Integer.parseInt(inSet1.getText());
+               
+                ObligatoryFunction3  fun = new ObligatoryFunction3(AddDirectory.all_chosen,n_of_stripes,horizontal_or_vertical,mode);
+                merged_image = fun.returnImage();
+                OptionFrame.main(null); // ask if user wants to see?
+                OptionFrame quest_see_the_result=new OptionFrame(); // get answer from OptionFrame class
+                Display disp= new Display(); // invoke Display class
+               
+                if (quest_see_the_result.GetSelectedOption() == JOptionPane.YES_OPTION) {
+            File one= ObligatoryFunction3.getF().getAbsoluteFile();
+           
+            disp.createFrame(center, one,merged_image); //create new frame with image
+            }
+            else
+            {  
+                OptionFrame2.main(null);
+                        OptionFrame2 quest_save_the_result= new OptionFrame2();
+                if(quest_save_the_result.GetSelectedOption()==JOptionPane.YES_OPTION)
+                        {
+                        SaveImage.main(merged_image,0);
+                        merged_image = null;                            // free variable keeping merged image
+                        }
+            }
+               
+               
+        }
+});
+	
 	Stripes.add(Set1);
 	Stripes.add(inSet1);
 	//Stripes.add(SetButton1);
@@ -656,10 +687,6 @@ public class PhotoEdit{
 	btnRefresh.addActionListener(new ActionListener() {
 		public void actionPerformed(ActionEvent e) {
 
-			JOptionPane.showMessageDialog(frame,
-      				 AddDirectory.all_chosen.size(),
-		    			    "Error",
-		    			    JOptionPane.ERROR_MESSAGE);
 			frame.repaint(); //works only when item is deleted
 			frame.validate(); //works only when item is created WTF?x2
 		}

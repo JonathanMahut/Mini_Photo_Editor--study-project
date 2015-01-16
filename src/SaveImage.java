@@ -265,6 +265,8 @@ public class SaveImage extends JFrame {
     frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
     frame.setSize(width, height);
     frame.setVisible(true);
+    frame.setLocationRelativeTo(null);
+    frame.setAlwaysOnTop(true);
   }
 	private static void addPopup(Component component, final JPopupMenu popup) {
 		component.addMouseListener(new MouseAdapter() {

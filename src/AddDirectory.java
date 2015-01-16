@@ -42,10 +42,7 @@ public class AddDirectory {
 		check_flag=0;
 		File file_from_given_directory[]=chooser.getSelectedFile().listFiles(new ImageFileFilter());	
 			 JPanel image_main= new JPanel(new BorderLayout());
-			 JOptionPane.showMessageDialog(frame,
-    				 buttonList.size(),
-	    			    "Error",
-	    			    JOptionPane.ERROR_MESSAGE);
+			 
 			 ArrayList<JButton> buttonList1=buttonList;
 			 JPanel directory=new JPanel();
 			JPanel image=new JPanel();
@@ -96,10 +93,7 @@ public class AddDirectory {
 
 		  		all_chosen_images.putAll(all_chosen_temp);
 		    	  JPanel image_main= new JPanel(new BorderLayout());
-					 JOptionPane.showMessageDialog(frame,
-							 check_flag +"Al chosen images" +all_chosen_images.size() +"All chosen"+all_chosen.size()+"temp"+all_chosen_temp.size()+clear.size()+"inner"+clear_inner.size(),
-			    			    "Error",
-			    			    JOptionPane.ERROR_MESSAGE);
+					 
 		    	  if(check_flag>=1)
 		    	  {all_chosen_images.putAll(all_chosen_temp);}
 		    	  check_flag++;
@@ -108,10 +102,7 @@ public class AddDirectory {
 		  		 
 		  		buttonListTemp.clear();
 		  		buttonListTemp.addAll(buttonList1);
-		  		 JOptionPane.showMessageDialog(frame,
-						 check_flag +"Al chosen images" +all_chosen_images.size() +"All chosen"+all_chosen.size()+"temp"+all_chosen_temp.size()+"inner"+clear_inner.size(),
-		    			    "Error",
-		    			    JOptionPane.ERROR_MESSAGE);
+		  		 
 		    	for (int i=0;i<image.getComponentCount();i++)
 		    		{
 		    		 final String pathToImage = file_from_given_directory[i].getAbsolutePath(); 
@@ -152,10 +143,7 @@ public class AddDirectory {
 			                			   
 			                		   it.remove();
 			                		   
-			                		   JOptionPane.showMessageDialog(frame,
-			       							all_chosen.size(),
-			       			    			    "Error",
-			       			    			    JOptionPane.ERROR_MESSAGE);
+			                		  
               		  	 	  
 			                		   }
 			                		 
@@ -205,10 +193,7 @@ public class AddDirectory {
 				}
 			});
 		    		}
-		    	 JOptionPane.showMessageDialog(frame,
-						 check_flag +"Al chosen images" +all_chosen_images.size() +"All chosen"+all_chosen.size()+"temp"+all_chosen_temp.size()+"inner"+clear_inner.size(),
-		    			    "Error",
-		    			    JOptionPane.ERROR_MESSAGE);
+		    	
 		    	all_chosen_images.clear();
 	    		where2.updateUI();	   
 	  	 		buttonList1.clear();
@@ -234,10 +219,7 @@ public class AddDirectory {
 		    	  all_chosen_temp.clear();
 		    	  all_chosen_temp.putAll(clear_inner);
 		    	  all_chosen_images.clear();
-		    	  JOptionPane.showMessageDialog(frame,
-							 check_flag +"Al chosen images" +all_chosen_images.size() +"All chosen"+all_chosen.size()+"temp"+all_chosen_temp.size()+"inner"+clear_inner.size(),
-			    			    "Error",
-			    			    JOptionPane.ERROR_MESSAGE);
+		    	  
 		    	  where2.removeAll(); 
 		    	  where2.updateUI();	
 		      }

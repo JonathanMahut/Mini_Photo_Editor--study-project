@@ -5,14 +5,17 @@ import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 
+import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
 import javax.swing.BoundedRangeModel;
 import javax.swing.BoxLayout;
@@ -105,9 +108,19 @@ public class AddDirectory {
 		  		 
 		    	for (int i=0;i<image.getComponentCount();i++)
 		    		{
+		    		  
+                    Image image = null;
+		    		 try {
+                         image = ImageIO.read(file_from_given_directory[i]);
+                 } catch (IOException e1) {
+                         // TODO Auto-generated catch block
+                         e1.printStackTrace();
+                 }
+                         image =image.getScaledInstance( 40, 40,  java.awt.Image.SCALE_SMOOTH ) ;  
+                         ImageIcon icon = new ImageIcon(image);
+                         
 		    		 final String pathToImage = file_from_given_directory[i].getAbsolutePath(); 
-			JButton myButton = new JButton(new ImageIcon(((new ImageIcon(pathToImage)).getImage()).		//resizing img to fit with the button size
-					  getScaledInstance(40, 40, java.awt.Image.SCALE_SMOOTH)));
+			JButton myButton = new JButton(icon);
 			myButton.setOpaque(false);
 			myButton.setContentAreaFilled(false);
 			myButton.setBorderPainted(false);
@@ -173,7 +186,7 @@ public class AddDirectory {
 				                   }
 			                   if (event.getActionCommand()=="View")
 			                   {
-			                	   
+			                	
 			                	   ShowImage image = new ShowImage(frame, pathToImage, pathToImage);  // enlarge chosen image
 			                	   
 			                   }

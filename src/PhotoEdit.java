@@ -616,8 +616,7 @@ public class PhotoEdit{
 	SetButton1.addActionListener(new ActionListener() {
         public void actionPerformed(ActionEvent e) {
                 int mode =0; // enlarge or shrink
-                AskUser.main(null);
-                AskUser.returnAnswer();
+               
                
                 n_of_stripes = Integer.parseInt(inSet1.getText());
                

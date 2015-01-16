@@ -108,7 +108,7 @@ public class MergeImageOR {
 		
 		image = orImages(input[0],input[1]);
 	
-		for(int i = 2; i<input.length-1;i++ ) 
+		for(int i = 2; i<input.length;i++ ) 
 		{	
 			if(image.getHeight()  != input[i].getHeight() || image.getWidth() != input[i].getHeight())	// check if images have same resolution
 			{	

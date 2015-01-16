@@ -12,6 +12,7 @@ import java.awt.Image;
 
 
 
+
     import javax.swing.JDesktopPane;
 import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
@@ -36,6 +37,7 @@ import javax.swing.JTabbedPane;
 import javax.swing.JTextField;
 import javax.swing.ScrollPaneConstants;
      
+
 
 
 
@@ -67,8 +69,10 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 
 
 
+
     import java.awt.BorderLayout;
      
+
 
 
 
@@ -81,11 +85,13 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 
 
 
+
     import java.awt.FlowLayout;
 import java.awt.CardLayout;
 import java.awt.GridLayout;
 import java.awt.Color;
      
+
 
 
 
@@ -105,7 +111,7 @@ import javax.swing.JRadioButton;
             private JFrame frame;
             int licznik=0;
             static int n_of_stripes=0;
-            static String horizontal_or_vertical="wartosc";
+            static String horizontal_or_vertical=null;
             int directory_counter=0;
             static HashMap<JButton,File> all_chosen_images = new HashMap<JButton,File>(); //storing path to all images
             static int which_merge_mode_was_chose =0;
@@ -139,7 +145,7 @@ import javax.swing.JRadioButton;
              */
             private void initialize() {
                     frame = new JFrame();
-                    frame.setBounds(200, 200, 900, 700);
+                    frame.setBounds(200, 200, 900, 600);
                 frame.setLocationRelativeTo(null);
      
                     //
@@ -447,6 +453,7 @@ import javax.swing.JRadioButton;
                     panel_2a.setOpaque(true);
                     panel_2a.setBorder(BorderFactory.createTitledBorder(BorderFactory.createEtchedBorder(EtchedBorder.RAISED, Color.GRAY, Color.DARK_GRAY), "Merge options"));
                     panel_2a.setLayout(new BoxLayout(panel_2a, BoxLayout.Y_AXIS));
+                    panel_2a.setMaximumSize(new Dimension(600, 120));
                     panel_2.add(panel_2a);
                    
                    
@@ -586,7 +593,7 @@ import javax.swing.JRadioButton;
                                            
                                               Object[] options = {"OK"};
                                                 int n = JOptionPane.showOptionDialog(frame,
-                                                            "Please choose at least 2 images to merge."+all_chosen_images.values(),"Empty work list",
+                                                            "Please choose at least 2 images to merge.","Empty work list",
                                                                JOptionPane.PLAIN_MESSAGE,
                                                                JOptionPane.QUESTION_MESSAGE,
                                                                null,
@@ -604,6 +611,7 @@ import javax.swing.JRadioButton;
             panel_2b.setOpaque(true);
             panel_2b.setBorder(BorderFactory.createTitledBorder(BorderFactory.createEtchedBorder(EtchedBorder.RAISED, Color.GRAY, Color.DARK_GRAY), "Frame options"));
             panel_2b.setLayout(new BoxLayout(panel_2b, BoxLayout.Y_AXIS));
+            panel_2b.setMaximumSize(new Dimension(600, 200));
             panel_2.add(panel_2b);
             
             JPanel radio_buttons_frames=new JPanel();
@@ -633,8 +641,8 @@ import javax.swing.JRadioButton;
             radio_buttons_frames.add(white_radiobutton);
            
             ButtonGroup group_frame_buttons = new ButtonGroup();
-            group.add(black_radiobutton);
-            group.add(white_radiobutton);
+            group_frame_buttons.add(black_radiobutton);
+            group_frame_buttons.add(white_radiobutton);
 
             JButton frame_button = new JButton("Cut frame");           
            
@@ -695,25 +703,40 @@ import javax.swing.JRadioButton;
             group.add(Merge_Button);
             group.add(Merge_Button_1);
            
-           
-            JPanel Stripes =new JPanel();
-            //Stripes.setLayout(new BoxLayout(Stripes, BoxLayout.Y_AXIS));
+            FlowLayout experimentLayout = new FlowLayout();
+            JPanel Stripes =new JPanel(experimentLayout);
+            //Stripes.setLayout(FlowLayout);
            
             JLabel Set1  = new JLabel("Number of stripes");
-            JTextField inSet1  = new JTextField( 7 );
-           
+            JFormattedTextField inSet1 = new JFormattedTextField(numberFormat);
+            inSet1.setColumns(3);
+            inSet1.setFocusLostBehavior(JFormattedTextField.PERSIST);
+            inSet1.setBounds(28, 158, 89, 23);
+            Stripes.add(inSet1);
+       
+            
+            
             JButton SetButton1 = new JButton("SET");
-           
+
             SetButton1.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                    
                     if(AddDirectory.all_chosen.size()>=2)
-                    {
+     {                    try{
+     	n_of_stripes = Integer.parseInt(inSet1.getText() );
+     	}
+     	 
+     	catch ( NumberFormatException e1 ) {
+     	JOptionPane.showMessageDialog(null, "The value must be a numeric value. " );
+     	}
+                  
+                    inSet1.setText("");
+                    	if(horizontal_or_vertical!=null&&n_of_stripes!=0)
+                    	{
                     int mode =0; // enlarge or shrink
                   //  AskUser.main(null);
                    // AskUser.returnAnswer();
-                   
-                    n_of_stripes = Integer.parseInt(inSet1.getText());
+
                    
                     ObligatoryFunction3  fun = new ObligatoryFunction3(AddDirectory.all_chosen,n_of_stripes,horizontal_or_vertical,mode);
                     merged_image = fun.returnImage();
@@ -736,7 +759,17 @@ import javax.swing.JRadioButton;
                             merged_image = null;                            // free variable keeping merged image
                             }
                 }
-            }          
+                    }
+                    	else
+                    	{Object[] options = {"OK"};
+                        int n = JOptionPane.showOptionDialog(frame,
+                                "Please choose horizontal or vertical and put number of stripes.","Empty work list",
+                                   JOptionPane.PLAIN_MESSAGE,
+                                   JOptionPane.QUESTION_MESSAGE,
+                                   null,
+                                   options,
+                                   options[0]);}
+      }          
                     else
                     { Object[] options = {"OK"};
                         int n = JOptionPane.showOptionDialog(frame,
@@ -751,17 +784,20 @@ import javax.swing.JRadioButton;
            
             Stripes.add(Set1);
             Stripes.add(inSet1);
-            //Stripes.add(SetButton1);
             MergeButtons_left.add(mergepanel);
             MergeButtons_left.add(Stripes);
            
-              SetButton1.setBounds(28, 158, 89, 23);
-              MergeButtons_left.add(SetButton1);
      
             MergeButtons.add(MergeButtons_left);
      
             panel_2c.add(MergeButtons); //end of Panel for buttons from merge
+            panel_2c.setMaximumSize(new Dimension(600, 100));
             panel_2.add(panel_2c);
+            JPanel SetButtonPanel=new JPanel();
+            SetButtonPanel.add(SetButton1);
+            SetButtonPanel.setLayout(new GridLayout(1,0));
+            SetButtonPanel.setMaximumSize(new Dimension(100, 100));
+            panel_2c.add(SetButtonPanel);
      
            
            
@@ -770,21 +806,22 @@ import javax.swing.JRadioButton;
             JPanel panel_2e = new JPanel();
             panel_2e.setOpaque(true);
             panel_2e.setBorder(BorderFactory.createTitledBorder(BorderFactory.createEtchedBorder(EtchedBorder.RAISED, Color.GRAY, Color.DARK_GRAY), "Rotate options"));
-            panel_2e.setLayout(new BoxLayout(panel_2e, BoxLayout.Y_AXIS));
-            JSlider slider = new JSlider(JSlider.HORIZONTAL, 0, 360, 25);
+            panel_2e.setLayout(new BoxLayout(panel_2e,BoxLayout.Y_AXIS));
+            JSlider slider = new JSlider(JSlider.HORIZONTAL, 0, 360, 180);
 
             slider.setMinorTickSpacing(10);
             slider.setMajorTickSpacing(90);
             slider.setPaintTicks(true);
             slider.setPaintLabels(true);
-
-            // We'll just use the standard numeric labels for now...
             slider.setLabelTable(slider.createStandardLabels(45));
 
             panel_2e.add(slider);
             JButton btnRotate = new JButton("Rotate");
-            
-            panel_2e.add(btnRotate);
+            JPanel RotatePanel=new JPanel();
+            RotatePanel.add(btnRotate);
+            RotatePanel.setLayout(new BoxLayout(RotatePanel,BoxLayout.X_AXIS));
+            btnRotate.setBounds(28, 158, 89, 23);
+            panel_2e.add(RotatePanel);
            
             panel_2.add(panel_2e);
             

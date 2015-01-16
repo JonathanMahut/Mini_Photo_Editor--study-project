@@ -9,6 +9,9 @@ import java.awt.Image;
      
 
 
+
+
+
     import javax.swing.JDesktopPane;
 import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
@@ -19,6 +22,7 @@ import javax.swing.ButtonGroup;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
+import javax.swing.JFormattedTextField;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JMenuBar;
@@ -27,10 +31,14 @@ import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPopupMenu;
 import javax.swing.JScrollBar;
+import javax.swing.JSlider;
 import javax.swing.JTabbedPane;
 import javax.swing.JTextField;
 import javax.swing.ScrollPaneConstants;
      
+
+
+
 
 
     import java.awt.event.ActionListener;
@@ -42,6 +50,7 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.Array;
+import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -55,12 +64,21 @@ import javax.swing.filechooser.FileNameExtensionFilter;
      
 
 
+
+
+
     import java.awt.BorderLayout;
      
 
 
+
+
+
     import javax.swing.JScrollPane;
      
+
+
+
 
 
     import java.awt.FlowLayout;
@@ -68,6 +86,9 @@ import java.awt.CardLayout;
 import java.awt.GridLayout;
 import java.awt.Color;
      
+
+
+
 
 
     import javax.swing.JComboBox;
@@ -118,7 +139,7 @@ import javax.swing.JRadioButton;
              */
             private void initialize() {
                     frame = new JFrame();
-                    frame.setBounds(200, 200, 900, 500);
+                    frame.setBounds(200, 200, 900, 700);
                 frame.setLocationRelativeTo(null);
      
                     //
@@ -584,16 +605,58 @@ import javax.swing.JRadioButton;
             panel_2b.setBorder(BorderFactory.createTitledBorder(BorderFactory.createEtchedBorder(EtchedBorder.RAISED, Color.GRAY, Color.DARK_GRAY), "Frame options"));
             panel_2b.setLayout(new BoxLayout(panel_2b, BoxLayout.Y_AXIS));
             panel_2.add(panel_2b);
-            JButton frame_button = new JButton("ADD FRAME");
-            panel_2b.add(frame_button);
+            
+            JPanel radio_buttons_frames=new JPanel();
+            radio_buttons_frames.setLayout(new BoxLayout(radio_buttons_frames, BoxLayout.Y_AXIS));
+            
+            JRadioButton black_radiobutton = new JRadioButton("Black background");
+            rdbtnNewRadioButton_2.addActionListener(new ActionListener() {
+                    public void actionPerformed(ActionEvent arg0) {
+                           //
+                    }
+            });
+
+           
+            black_radiobutton.setBounds(78, 41, 60, 23);
+            radio_buttons_frames.add(black_radiobutton);
+           
+            
+            JRadioButton white_radiobutton = new JRadioButton("White background");
+            rdbtnNewRadioButton_2.addActionListener(new ActionListener() {
+                    public void actionPerformed(ActionEvent arg0) {
+                           //
+                    }
+            });
+
+           
+            white_radiobutton.setBounds(78, 41, 60, 23);
+            radio_buttons_frames.add(white_radiobutton);
+           
+            ButtonGroup group_frame_buttons = new ButtonGroup();
+            group.add(black_radiobutton);
+            group.add(white_radiobutton);
+
+            JButton frame_button = new JButton("Cut frame");           
+           
+            JPanel Frames_black_white=new JPanel();
+            Frames_black_white.add(radio_buttons_frames);
+            Frames_black_white.add(frame_button);
+
+            panel_2b.add(Frames_black_white);
+          
             JLabel Set  = new JLabel("Set treshold");
-            JPanel SetPanel   = new JPanel();
-            JTextField inSet  = new JTextField( 7 );
-            JButton SetButton = new JButton("SET");
-            SetPanel.add(Set);
-            SetPanel.add(inSet);
-            SetPanel.add(SetButton);
-            panel_2b.add(SetPanel);
+            JPanel GrayscalePanel   = new JPanel();
+            GrayscalePanel.setBorder(BorderFactory.createTitledBorder(BorderFactory.createEtchedBorder(EtchedBorder.RAISED, Color.GRAY, Color.DARK_GRAY), "Grayscale"));
+            NumberFormat numberFormat = NumberFormat.getInstance();
+            JFormattedTextField inSet = new JFormattedTextField(numberFormat);
+            inSet.setColumns(3);
+            inSet.setFocusLostBehavior(JFormattedTextField.PERSIST);
+            inSet.setText("0");
+            JButton SetButton = new JButton("Cut frame");
+            GrayscalePanel.add(Set);
+            GrayscalePanel.add(inSet);
+            GrayscalePanel.add(SetButton);
+            panel_2b.add(GrayscalePanel);
            
            
             JPanel panel_2c = new JPanel();
@@ -701,7 +764,34 @@ import javax.swing.JRadioButton;
             panel_2.add(panel_2c);
      
            
-            // koniec
+           
+           
+            //Alek panel
+            JPanel panel_2e = new JPanel();
+            panel_2e.setOpaque(true);
+            panel_2e.setBorder(BorderFactory.createTitledBorder(BorderFactory.createEtchedBorder(EtchedBorder.RAISED, Color.GRAY, Color.DARK_GRAY), "Rotate options"));
+            panel_2e.setLayout(new BoxLayout(panel_2e, BoxLayout.Y_AXIS));
+            JSlider slider = new JSlider(JSlider.HORIZONTAL, 0, 360, 25);
+
+            slider.setMinorTickSpacing(10);
+            slider.setMajorTickSpacing(90);
+            slider.setPaintTicks(true);
+            slider.setPaintLabels(true);
+
+            // We'll just use the standard numeric labels for now...
+            slider.setLabelTable(slider.createStandardLabels(45));
+
+            panel_2e.add(slider);
+            JButton btnRotate = new JButton("Rotate");
+            
+            panel_2e.add(btnRotate);
+           
+            panel_2.add(panel_2e);
+            
+            
+            //koniec panelu Alka
+            
+             // koniec
            
             // Refresh button
             JPanel panel_2d = new JPanel();
@@ -713,7 +803,7 @@ import javax.swing.JRadioButton;
             panel_2d.add(btnClear);
            
             panel_2.add(panel_2d);
-           
+            
             btnClear.addActionListener(new ActionListener() {
                     public void actionPerformed(ActionEvent e) {
                             //remove all components in panel.

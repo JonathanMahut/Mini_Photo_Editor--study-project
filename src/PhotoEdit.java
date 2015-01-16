@@ -277,8 +277,8 @@ import javax.swing.JRadioButton;
                                                                     }
                                                                             image =image.getScaledInstance( 40, 40,  java.awt.Image.SCALE_SMOOTH ) ;  
                                                                             ImageIcon icon = new ImageIcon(image);
-                                        	  			pathToImage.add(file_from_given_directory[i].getAbsolutePath());
-                                        	  			String path=pathToImage.get(i);
+                                        	  			
+                                        	  			String path=file_from_given_directory[i].getAbsolutePath();
                                                             JButton myButton = new JButton(icon);
                                                             myButton.setOpaque(false);
                                                             myButton.setContentAreaFilled(false);

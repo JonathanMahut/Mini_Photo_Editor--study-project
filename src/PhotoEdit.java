@@ -13,6 +13,7 @@ import java.awt.Image;
 
 
 
+
     import javax.swing.JDesktopPane;
 import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
@@ -43,6 +44,7 @@ import javax.swing.ScrollPaneConstants;
 
 
 
+
     import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
@@ -57,6 +59,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
      
+import java.util.List;
 import java.util.Vector;
 
     import javax.swing.JPanel;
@@ -64,6 +67,7 @@ import javax.swing.border.EtchedBorder;
 import javax.swing.filechooser.FileFilter;
 import javax.swing.filechooser.FileNameExtensionFilter;
      
+
 
 
 
@@ -78,8 +82,10 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 
 
 
+
     import javax.swing.JScrollPane;
      
+
 
 
 
@@ -91,6 +97,7 @@ import java.awt.CardLayout;
 import java.awt.GridLayout;
 import java.awt.Color;
      
+
 
 
 
@@ -116,7 +123,8 @@ import javax.swing.JRadioButton;
             static HashMap<JButton,File> all_chosen_images = new HashMap<JButton,File>(); //storing path to all images
             static int which_merge_mode_was_chose =0;
             static BufferedImage merged_image=null;
-            ArrayList<JButton> buttonList = new ArrayList<JButton>();                       // list where all loaded images are as buttons
+            ArrayList<JButton> buttonList = new ArrayList<JButton>();   
+            static int black_or_white = 0;// list where all loaded images are as buttons
             /**
              * Launch the application.
              */
@@ -618,9 +626,10 @@ import javax.swing.JRadioButton;
             radio_buttons_frames.setLayout(new BoxLayout(radio_buttons_frames, BoxLayout.Y_AXIS));
             
             JRadioButton black_radiobutton = new JRadioButton("Black background");
-            rdbtnNewRadioButton_2.addActionListener(new ActionListener() {
+            black_radiobutton.addActionListener(new ActionListener() {
                     public void actionPerformed(ActionEvent arg0) {
                            //
+                    	black_or_white = 1;
                     }
             });
 
@@ -630,9 +639,10 @@ import javax.swing.JRadioButton;
            
             
             JRadioButton white_radiobutton = new JRadioButton("White background");
-            rdbtnNewRadioButton_2.addActionListener(new ActionListener() {
+            white_radiobutton.addActionListener(new ActionListener() {
                     public void actionPerformed(ActionEvent arg0) {
                            //
+                    	black_or_white = 2;
                     }
             });
 
@@ -643,8 +653,36 @@ import javax.swing.JRadioButton;
             ButtonGroup group_frame_buttons = new ButtonGroup();
             group_frame_buttons.add(black_radiobutton);
             group_frame_buttons.add(white_radiobutton);
-
-            JButton frame_button = new JButton("Cut frame");           
+            
+            NumberFormat numberFormat = NumberFormat.getInstance();
+            JFormattedTextField inSet = new JFormattedTextField(numberFormat);
+            JButton frame_button = new JButton("Cut frame"); 
+            frame_button.addActionListener(new ActionListener() {
+                public void actionPerformed(ActionEvent arg0) {
+                	int treshold = 0;
+                	try{
+                     	treshold = Integer.parseInt(inSet.getText() );
+                     	}
+                     	 
+                     	catch ( NumberFormatException e1 ) {
+                     	JOptionPane.showMessageDialog(null, "The value must be a numeric value. " );
+                     	}
+                	
+                	ObligatoryFunction1 fun = new ObligatoryFunction1(black_or_white,treshold); 
+                	List<File> all_images_as_file  = fun.cutOut();
+                	List<BufferedImage> all_images_as_buffered = fun.cutOut1();
+                	OptionFrame.main(null); // ask if user wants to see?
+                    OptionFrame quest_see_the_result=new OptionFrame(); // get answer from OptionFrame class
+                    
+                	Display disp = new Display();
+                	if (quest_see_the_result.GetSelectedOption() == JOptionPane.YES_OPTION)
+                	for(int i = 0; i<all_images_as_file.size();i++)
+                	{
+                		disp.createFrame(center, all_images_as_file.get(i), all_images_as_buffered.get(i));
+                	}
+                	
+                }
+        });
            
             JPanel Frames_black_white=new JPanel();
             Frames_black_white.add(radio_buttons_frames);
@@ -655,8 +693,8 @@ import javax.swing.JRadioButton;
             JLabel Set  = new JLabel("Set treshold");
             JPanel GrayscalePanel   = new JPanel();
             GrayscalePanel.setBorder(BorderFactory.createTitledBorder(BorderFactory.createEtchedBorder(EtchedBorder.RAISED, Color.GRAY, Color.DARK_GRAY), "Grayscale"));
-            NumberFormat numberFormat = NumberFormat.getInstance();
-            JFormattedTextField inSet = new JFormattedTextField(numberFormat);
+            
+           
             inSet.setColumns(3);
             inSet.setFocusLostBehavior(JFormattedTextField.PERSIST);
             inSet.setText("0");

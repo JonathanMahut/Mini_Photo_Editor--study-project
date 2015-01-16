@@ -35,7 +35,7 @@ public class ObligatoryFunction3 {
                 sliced_images = new ArrayList <BufferedImage[][]>();
                 all_images = saveImagesToList();
                 all_images = makeImagesEqual();
-                System.out.println("KONSTRUKTOR");
+               
                 ObligatoryFunction3.main(null);
                 
                
@@ -54,7 +54,7 @@ public class ObligatoryFunction3 {
                                 BufferedImage[][] tmp = x.sliceImage();
                                
                                 sliced_images.add(tmp);
-                                System.out.println("slicing: " +  count);
+                                
                                 count++;
                        
  
@@ -206,7 +206,7 @@ public class ObligatoryFunction3 {
                
                 if(mode == 1 )
                 {
-                        for(int i  =0; i <all_images.size()-1; i++)
+                        for(int i  =0; i <all_images.size(); i++)
                         {
                                
                                 BufferedImage first = all_images.get(i);
@@ -227,13 +227,11 @@ public class ObligatoryFunction3 {
                                         if(first.getWidth() < second.getWidth())
                                                 first=resizeImage(first, first.getType(), second.getWidth(),first.getHeight());
                                 }
-                               
-                                       
-                             
+                                all_images.set(i,first);
+                                all_images.set(i+1,second);
+   
                         }
-                       
-                               
-                       
+
                 }
                 else
                 {
@@ -257,7 +255,8 @@ public class ObligatoryFunction3 {
                                                 first=resizeImage(first, first.getType(), second.getWidth(),first.getHeight());
                                         if(first.getWidth() < second.getWidth())
                                                 second=resizeImage(second, first.getType(), first.getWidth(),second.getHeight());
-                               
+                            all_images.set(i,first);
+                            all_images.set(i+1,second);
                         }
                 }
                 return all_images;

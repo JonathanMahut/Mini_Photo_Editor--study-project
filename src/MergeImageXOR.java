@@ -58,6 +58,7 @@ public class MergeImageXOR {
 	        	// as for 'brightness' :-)
 	        	int b0 = argb0 & 0xFF;
 	        	int b1 = argb1 & 0xFF;
+	        	System.out.println(b1 + " wartosc pixela");
 	        	int bDiff = Math.abs(b1 - b0);
 	
 	        	int diff = 

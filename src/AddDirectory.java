@@ -39,11 +39,11 @@ public class AddDirectory {
 	static int iter=0;
 	int check_flag=0;
 	//static JPanel image=new JPanel();
-	void AddDirect(JPanel where, JFileChooser chooser, JPanel where2,HashMap<JButton, File> all_chosen_images,HashMap<JButton,File> all_chosen_temp,JButton btnClearAll2,ArrayList<JButton> buttonList,JFrame frame,JButton delete1,HashMap<JButton,File> clear,ArrayList<JButton> buttonListTemp2){
+	void AddDirect(JPanel where, File[] file_from_given_directory1, JPanel where2,HashMap<JButton, File> all_chosen_images,HashMap<JButton,File> all_chosen_temp,JButton btnClearAll2,ArrayList<JButton> buttonList,JFrame frame,JButton delete1,HashMap<JButton,File> clear,ArrayList<JButton> buttonListTemp2){
 		HashMap<JButton,File> clear_inner = new HashMap<JButton,File>();
 		clear_inner.putAll(clear);
 		check_flag=0;
-		File file_from_given_directory[]=chooser.getSelectedFile().listFiles(new ImageFileFilter());	
+		File file_from_given_directory[]=file_from_given_directory1;	
 			 JPanel image_main= new JPanel(new BorderLayout());
 			 
 			 ArrayList<JButton> buttonList1=buttonList;
@@ -78,7 +78,7 @@ public class AddDirectory {
 	    image_main.add(scrollPanel,BorderLayout.CENTER);
 		
 		 
-		  label1.setText(chooser.getCurrentDirectory().getAbsolutePath());
+		  label1.setText(file_from_given_directory[1].getParent());
 		  directory.add(label1);
 		  directory.add(sb1);
 		  directory.add(image_main);

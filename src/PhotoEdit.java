@@ -14,6 +14,8 @@ import java.awt.Image;
 
 
 
+
+
     import javax.swing.JDesktopPane;
 import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
@@ -38,6 +40,8 @@ import javax.swing.JTabbedPane;
 import javax.swing.JTextField;
 import javax.swing.ScrollPaneConstants;
      
+
+
 
 
 
@@ -74,8 +78,12 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 
 
 
+
+
     import java.awt.BorderLayout;
      
+
+
 
 
 
@@ -92,11 +100,15 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 
 
 
+
+
     import java.awt.FlowLayout;
 import java.awt.CardLayout;
 import java.awt.GridLayout;
 import java.awt.Color;
      
+
+
 
 
 
@@ -265,25 +277,61 @@ import javax.swing.JRadioButton;
                                            
                                         FileFilter imageFilter = new FileNameExtensionFilter(
                                                 "Image files", ImageIO.getReaderFileSuffixes());
-                                       
+                               
                                         chooser = new JFileChooser();
                                         chooser.setCurrentDirectory(new java.io.File("."));
                                         chooser.setDialogTitle(chooser_title);
-                                        chooser.addChoosableFileFilter(imageFilter);                                                        // Filter to show only images in directory
-                                        chooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+                                        chooser.setAcceptAllFileFilterUsed(false);
+
+                                        chooser.addChoosableFileFilter(new FileFilter() {
+                                			public boolean accept(File file) {
+                                				return file.isDirectory();
+                                			}
+
+											@Override
+											public String getDescription() {
+												
+												return "Folders only";
+											}
+                                		});
+                                        chooser.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
                                         //
                                         // disable the "All files" option.
                                         //
-                                        chooser.setAcceptAllFileFilterUsed(false);
-                                        //    
+                                        chooser.addChoosableFileFilter(new FileFilter() {
+                                            public boolean accept(File f) {
+                                                return f.getName().toLowerCase().endsWith(".zip")
+                                                    || f.isDirectory();
+                                              }
+
+                                              public String getDescription() {
+                                                return "ZIP Files";
+                                              }
+                                            });
+                                            
                                         if (chooser.showOpenDialog(panel) == JFileChooser.APPROVE_OPTION) {                                
                                           System.out.println("getCurrentDirectory(): "                                      // delete it in final version
                                              +  chooser.getCurrentDirectory());
                                           System.out.println("getSelectedFile() : "
                                              +  chooser.getSelectedFile());
-                                         
-                                         
-                                          file_from_given_directory=chooser.getSelectedFile().listFiles(new ImageFileFilter());                             //save list of all files from chosen directory
+                                          
+                                          if (chooser.getSelectedFile().getName().toLowerCase().endsWith("zip"))
+                                          {
+                                        	String zipFilePath = chooser.getSelectedFile().getAbsolutePath();
+                                  	        String destDirectory = chooser.getSelectedFile().getAbsolutePath()+" ";
+                                  	        UnzipUtility unzipper = new UnzipUtility();
+                                  	        try {
+                                  	            unzipper.unzip(zipFilePath, destDirectory);
+                                  	            File f = new File(destDirectory);
+                                  	            file_from_given_directory=f.listFiles(new ImageFileFilter());
+                                  	        } catch (Exception ex) {
+                                  	            // some errors occurred
+                                  	            ex.printStackTrace();
+                                  	        }
+                                          }
+                                          else
+                                          {file_from_given_directory=chooser.getSelectedFile().listFiles(new ImageFileFilter());}                             //save list of all files from chosen directory
+                                          
                                           if(file_from_given_directory.length == 0)
                                           {
                                               JOptionPane.showMessageDialog(frame,
@@ -301,7 +349,7 @@ import javax.swing.JRadioButton;
                                          if(licznik<=5&&flag==0)
                                          {
                                           for(int i =0; i<file_from_given_directory.length; i++)
-                                          {
+                                          { System.out.println(file_from_given_directory.length);
                                         	  
                                               Image image = null;
                                                                     try {
@@ -364,7 +412,7 @@ import javax.swing.JRadioButton;
      
                                               HashMap<JButton,File> clear = new HashMap<JButton,File>();
                                               clear.putAll(all_chosen_images);
-                                              first.AddDirect(left_panel_1, chooser,left_panel_2,all_chosen_images,all_chosen_temp,btnClearAll2,buttonList,frame,delete1,clear,buttonListTemp);  
+                                              first.AddDirect(left_panel_1, file_from_given_directory,left_panel_2,all_chosen_images,all_chosen_temp,btnClearAll2,buttonList,frame,delete1,clear,buttonListTemp);  
                                               buttonList.clear();
                                                       all_chosen_images.clear();
                                                       clear.clear();

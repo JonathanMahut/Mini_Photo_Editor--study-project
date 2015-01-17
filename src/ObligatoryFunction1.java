@@ -12,8 +12,8 @@ import javax.swing.JButton;
 public class ObligatoryFunction1 {
 	static HashMap<JButton, File> all_chosen_images;
 	static List <BufferedImage> all_images = new ArrayList<BufferedImage>();
-	static List <File> all_images_after;
-	static List <BufferedImage> all_images_after_list;
+	static List <File> all_images_after = new ArrayList<File>();
+	static List <BufferedImage> all_images_after_list=new ArrayList<BufferedImage>();;
 	
 	static int black_or_white;
 	static int treshold =0;
@@ -31,18 +31,17 @@ public class ObligatoryFunction1 {
 	static BufferedImage cutFrame(BufferedImage img_to_cut)
 	{
 		BufferedImage img1 = img_to_cut;
-		int width_after_cut = 0;
+		int width_to_cut = 0;
 		int height_to_cut = 0;
 		boolean all_row = false;
-		int columns = img1.getWidth();
-		int rows = img1.getHeight();
 		
-		for(int x = 0; x < rows; x++)
+		
+		for(int y = 0; y < img1.getHeight(); y++)
 		{	
-	        for(int y = 0; y < img1.getWidth(); y++)  // od gory
+	        for(int x = 0; x < img1.getWidth(); x++)  // od gory
 	        {
-	        	int argb0 = img1.getRGB(x, y);
-
+	        	int argb0 = img1.getRGB(x,y);
+	        	//System.out.println(x + "=zmienna x ||" + img1.getHeight() + "=getHeight obrazka. || " + y + " =zmienna y||" + img1.getWidth() + " =getWidth obr");
 	        	// Here the 'b' stands for 'blue' as well
 	        	// as for 'brightness' :-)
 	        	int b0 = argb0 & 0xFF;
@@ -79,6 +78,7 @@ public class ObligatoryFunction1 {
 	        		else
 	        		{
 	        			all_row = false;
+	        			System.out.println("Stop for loop");
 	        			break;
 	        		}
 	        	}
@@ -88,19 +88,25 @@ public class ObligatoryFunction1 {
 			height_to_cut++; // one row is all white
 			
 		else
+		{
+			System.out.println("Stop for loop");
 			break;
-			
 		}
+		
+		}
+		//height_to_cut+=3; // ogolnie to wtf kurwa mac. bez tego niedocina do konca???????????
 		System.out.println(height_to_cut + " ile do wyciecia");
 		if(height_to_cut>0)
-		img1 = img1.getSubimage(0, 0, img1.getWidth(), height_to_cut);
+		img1 = img1.getSubimage(0, height_to_cut+1, img1.getWidth()-1, (img1.getHeight()-1) - height_to_cut);
 		/////////////////////////////////////////
-							//from bottom
-		
-		for(int x = img1.getHeight(); x >0 ; x--)
+						//from bottom
+		height_to_cut=0;
+		width_to_cut=0;
+		for(int y = img1.getHeight()-1; y >0 ; y--)
 		{	
-	        for(int y = 0; y < img1.getWidth(); y++)  // od gory
+	        for(int x = 0; x < img1.getWidth()-1; x++)  // od gory
 	        {
+	        	
 	        	int argb0 = img1.getRGB(x, y);
 
 	        	// Here the 'b' stands for 'blue' as well
@@ -150,15 +156,18 @@ public class ObligatoryFunction1 {
 			break;
 			
 		}
+		//height_to_cut+=3; // ogolnie to wtf kurwa mac. bez tego niedocina do konca???????????
 		if(height_to_cut>0)
-		img1 = img1.getSubimage(0, img1.getHeight()-height_to_cut, img1.getWidth(), height_to_cut);
+		img1 = img1.getSubimage(0, 0, img1.getWidth()-1, (img1.getHeight()-1) -height_to_cut);
+		
 		
 		//////////////////////////////////////////
 				//from left
-		
-		for(int x = 0; x < img1.getWidth() ; x++)
+		height_to_cut=0;
+		width_to_cut=0;
+		for(int x = 0; x < img1.getWidth()-1 ; x++)
 		{	
-	        for(int y = 0; y < img1.getHeight(); y++)  
+	        for(int y = 0; y < img1.getHeight()-1; y++)  
 	        {
 	        	int argb0 = img1.getRGB(x, y);
 
@@ -204,19 +213,22 @@ public class ObligatoryFunction1 {
  	
 	        }
 		if(all_row==true)
-			width_after_cut++; // one row is all white
+			width_to_cut++; // one row is all white
 		else
 			break;
 			
 		}
-		if(width_after_cut>0)
-		img1 = img1.getSubimage(0, 0, width_after_cut, img1.getHeight());
+		
+		if(width_to_cut>0)
+		img1 = img1.getSubimage(width_to_cut+1, 0, (img1.getWidth()-1)-width_to_cut, img1.getHeight()-1);
 		
 		/////////////////////////////////
-		 			// from right
-		for(int x = img1.getWidth(); x>0 ; x--)
+					// from right
+		height_to_cut=0;
+		width_to_cut=0;
+		for(int x = img1.getWidth()-1; x>0 ; x--)
 		{	
-	        for(int y = 0; y < img1.getHeight(); y++)  
+	        for(int y = 0; y < img1.getHeight()-1; y++)  
 	        {
 	        	int argb0 = img1.getRGB(x, y);
 
@@ -262,13 +274,13 @@ public class ObligatoryFunction1 {
  	
 	        }
 		if(all_row==true)
-			width_after_cut++; // one row is all white
+			width_to_cut++; // one row is all white
 		else
 			break;
 			
 		}
-		if(width_after_cut>0)
-		img1 = img1.getSubimage(img1.getWidth()-width_after_cut, 0, width_after_cut, img1.getHeight());
+		if(width_to_cut>0)
+		img1 = img1.getSubimage(0, 0, (img1.getWidth()-1)-width_to_cut, img1.getHeight()-1);
 		
 	return img1;
 		

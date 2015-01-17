@@ -915,7 +915,7 @@ import javax.swing.JRadioButton;
             slider.setPaintTicks(true);
             slider.setPaintLabels(true);
             slider.setLabelTable(slider.createStandardLabels(45));
-
+ 
             panel_2e.add(slider);
             JButton btnRotate = new JButton("Rotate");
             JPanel RotatePanel=new JPanel();

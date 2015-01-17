@@ -1,24 +1,10 @@
-	
-
-    import java.awt.Component;
+import java.awt.Component;
 import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.EventQueue;
 import java.awt.Graphics;
 import java.awt.Image;
-     
-
-
-
-
-
-
-
-
-
-
-
-    import javax.swing.JDesktopPane;
+import javax.swing.JDesktopPane;
 import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
 import javax.swing.BoundedRangeModel;
@@ -41,19 +27,7 @@ import javax.swing.JSlider;
 import javax.swing.JTabbedPane;
 import javax.swing.JTextField;
 import javax.swing.ScrollPaneConstants;
-     
-
-
-
-
-
-
-
-
-
-
-
-    import java.awt.event.ActionListener;
+import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 import java.awt.event.WindowAdapter;
@@ -66,71 +40,21 @@ import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
-     
 import java.util.List;
 import java.util.Vector;
-
-    import javax.swing.JPanel;
+import javax.swing.JPanel;
 import javax.swing.border.EtchedBorder;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import javax.swing.filechooser.FileFilter;
 import javax.swing.filechooser.FileNameExtensionFilter;
-     
-
-
-
-
-
-
-
-
-
-
-
-    import java.awt.BorderLayout;
-     
-
-
-
-
-
-
-
-
-
-
-
-    import javax.swing.JScrollPane;
-     
-
-
-
-
-
-
-
-
-
-
-
-    import java.awt.FlowLayout;
+import java.awt.BorderLayout;
+import javax.swing.JScrollPane;
+import java.awt.FlowLayout;
 import java.awt.CardLayout;
 import java.awt.GridLayout;
 import java.awt.Color;
-     
-
-
-
-
-
-
-
-
-
-
-
-    import javax.swing.JComboBox;
+import javax.swing.JComboBox;
 import javax.swing.JRadioButton;
      
      
@@ -488,7 +412,9 @@ import javax.swing.JRadioButton;
                             public void actionPerformed(ActionEvent arg0) {
                                     merged_image=Display.imgglobal;
                                     if(merged_image != null)
-                                    SaveImage.main(merged_image,0);
+                                    {SaveImage.main(merged_image,0);
+                                    merged_image=null;
+                                    Display.imgglobal=null;}
                                     else
                                     {
                                               Object[] options = {"OK"};
@@ -586,8 +512,8 @@ import javax.swing.JRadioButton;
      
                                     if(AddDirectory.all_chosen.size()>=2)
                                     {
-                                       
-                                           
+                                       if(which_merge_mode_was_chose!=0)
+                                       {  
                                             OptionFrame.main(null); // ask if user wants to see?
                                             OptionFrame quest_see_the_result=new OptionFrame(); // get answer from OptionFrame class
                                             Display disp= new Display(); // invoke Display class
@@ -661,7 +587,16 @@ import javax.swing.JRadioButton;
                                            
                                             //LayeredImage mergeImage = new LayeredImage(all_chosen_images);
                                             //z ostatniego folderu
-                                           
+                                    }
+                                       else
+                                       {  Object[] options = {"OK"};
+                                       int n = JOptionPane.showOptionDialog(frame,
+                                               "Please choose AND, OR or XOR.","Mode not chosen.",
+                                                  JOptionPane.PLAIN_MESSAGE,
+                                                  JOptionPane.QUESTION_MESSAGE,
+                                                  null,
+                                                  options,
+                                                  options[0]);}
                                     }
                                     else
                                     {
@@ -726,15 +661,9 @@ import javax.swing.JRadioButton;
             JButton frame_button = new JButton("Cut frame"); 
             frame_button.addActionListener(new ActionListener() {
                 public void actionPerformed(ActionEvent arg0) {
-                	int treshold = 0;
-                	try{
-                     	treshold = Integer.parseInt(inSet.getText() );
-                     	}
-                     	 
-                     	catch ( NumberFormatException e1 ) {
-                     	JOptionPane.showMessageDialog(null, "The value must be a numeric value. " );
-                     	}
-                	
+                	 if(AddDirectory.all_chosen.size()>=1)
+                     {
+                	int treshold=0;
                 	ObligatoryFunction1 fun = new ObligatoryFunction1(black_or_white,treshold); 
                 	List<File> all_images_as_file  = fun.cutOut();
                 	List<BufferedImage> all_images_as_buffered = fun.cutOut1();
@@ -749,6 +678,16 @@ import javax.swing.JRadioButton;
                 	}
                 	
                 }
+                	 else
+                	 {  Object[] options = {"OK"};
+                     int n = JOptionPane.showOptionDialog(frame,
+                             "Please choose at least 1 image to cut.","Empty work list",
+                                JOptionPane.PLAIN_MESSAGE,
+                                JOptionPane.QUESTION_MESSAGE,
+                                null,
+                                options,
+                                options[0]);}
+                }
         });
            
             JPanel Frames_black_white=new JPanel();
@@ -757,7 +696,7 @@ import javax.swing.JRadioButton;
 
             panel_2b.add(Frames_black_white);
           
-            JLabel Set  = new JLabel("Set treshold");
+            JLabel Set  = new JLabel("Set threshold");
             JPanel GrayscalePanel   = new JPanel();
             GrayscalePanel.setBorder(BorderFactory.createTitledBorder(BorderFactory.createEtchedBorder(EtchedBorder.RAISED, Color.GRAY, Color.DARK_GRAY), "Grayscale"));
             
@@ -771,7 +710,35 @@ import javax.swing.JRadioButton;
             GrayscalePanel.add(SetButton);
             panel_2b.add(GrayscalePanel);
            
-           
+            SetButton.addActionListener(new ActionListener() {
+                public void actionPerformed(ActionEvent arg0) {
+                	
+                	if(AddDirectory.all_chosen.size()>=1)
+                	{
+                	int treshold = 0;
+                	try{
+                     	treshold = Integer.parseInt(inSet.getText() );
+                     	}
+                     	 
+                     	catch ( NumberFormatException e1 ) {
+                     	JOptionPane.showMessageDialog(null, "The value must be a numeric value. " );
+                     	}
+                	
+                	//funkcja
+                	
+                	}
+                	 else
+                	 {  Object[] options = {"OK"};
+                     int n = JOptionPane.showOptionDialog(frame,
+                             "Please choose at least 1 image to cut.","Empty work list",
+                                JOptionPane.PLAIN_MESSAGE,
+                                JOptionPane.QUESTION_MESSAGE,
+                                null,
+                                options,
+                                options[0]);}
+                }
+            });
+            
             JPanel panel_2c = new JPanel();
             panel_2c.setOpaque(true);
             panel_2c.setBorder(BorderFactory.createTitledBorder(BorderFactory.createEtchedBorder(EtchedBorder.RAISED, Color.GRAY, Color.DARK_GRAY), "Cutouts options"));
@@ -832,7 +799,7 @@ import javax.swing.JRadioButton;
      	}
      	 
      	catch ( NumberFormatException e1 ) {
-     	JOptionPane.showMessageDialog(null, "The value must be a numeric value. " );
+     	JOptionPane.showMessageDialog(null, "The value must be a numeric value bigger than 0. " );
      	}
                   
                     inSet1.setText("");
@@ -939,7 +906,19 @@ import javax.swing.JRadioButton;
             
             btnRotate.addActionListener(new ActionListener() {
                 public void actionPerformed(ActionEvent arg0) {
-                	System.out.println(deg);
+                	if(AddDirectory.all_chosen.isEmpty())
+                	{Object[] options = {"OK"};
+                    int n = JOptionPane.showOptionDialog(frame,
+                            "Please choose at least 1 image to rotate.","Empty work list",
+                               JOptionPane.PLAIN_MESSAGE,
+                               JOptionPane.QUESTION_MESSAGE,
+                               null,
+                               options,
+                               options[0]);}
+                	else
+                	{// function
+                		
+                	}
                 }
             });
             

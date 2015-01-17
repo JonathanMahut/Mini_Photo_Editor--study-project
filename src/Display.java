@@ -91,7 +91,8 @@ public class Display extends JFrame implements InternalFrameListener, ActionList
 
 	@Override
 	public void internalFrameClosing(InternalFrameEvent e) {
-		
+		if(imgglobal!=null)
+		{
 		String ObjButtons[] = {"Yes","No"};
 		 int PromptResult = JOptionPane.showOptionDialog(null,"Do you want to save image before exit?","Question",JOptionPane.DEFAULT_OPTION,JOptionPane.WARNING_MESSAGE,null,ObjButtons,ObjButtons[1]);
 		  if(PromptResult==JOptionPane.YES_OPTION)
@@ -105,7 +106,7 @@ public class Display extends JFrame implements InternalFrameListener, ActionList
 		  else
 		  {		PhotoEdit.merged_image=null;
 			  where_global.remove(frame_global);}
-		
+		}
 	}
 
 	@Override

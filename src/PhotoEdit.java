@@ -205,9 +205,32 @@ import javax.swing.JRadioButton;
                     menuBar.add(mnFile);
                    
                     JMenuItem mntmOpen = new JMenuItem("Open");
+                     JFileChooser chooser=new JFileChooser(dir);
+                     chooser.addChoosableFileFilter(new FileFilter() {
+             			public boolean accept(File file) {
+             				return file.isDirectory();
+             			}
+
+							@Override
+							public String getDescription() {
+								
+								return "Directories only";
+							}
+             		});
+                     chooser.addChoosableFileFilter(new FileFilter() {
+                         public boolean accept(File f) {
+                             return f.getName().toLowerCase().endsWith(".zip")
+                                 || f.isDirectory();
+                           }
+
+                           public String getDescription() {
+                             return "ZIP Files";
+                           }
+                         });
+                     
                     mntmOpen.addActionListener(new ActionListener()
                     {
-                                           JFileChooser chooser=new JFileChooser(dir);
+                                          
                                             String chooser_title;
                                             File file_from_given_directory[];
                                            
@@ -223,31 +246,12 @@ import javax.swing.JRadioButton;
                                         chooser.setDialogTitle(chooser_title);
                                         chooser.setAcceptAllFileFilterUsed(false);
 
-                                        chooser.addChoosableFileFilter(new FileFilter() {
-                                			public boolean accept(File file) {
-                                				return file.isDirectory();
-                                			}
-
-											@Override
-											public String getDescription() {
-												
-												return "Folders only";
-											}
-                                		});
+                                       
                                         chooser.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
                                         //
                                         // disable the "All files" option.
                                         //
-                                        chooser.addChoosableFileFilter(new FileFilter() {
-                                            public boolean accept(File f) {
-                                                return f.getName().toLowerCase().endsWith(".zip")
-                                                    || f.isDirectory();
-                                              }
-
-                                              public String getDescription() {
-                                                return "ZIP Files";
-                                              }
-                                            });
+                                        
                                             
                                         if (chooser.showOpenDialog(panel) == JFileChooser.APPROVE_OPTION) {                                
                                           System.out.println("getCurrentDirectory(): "                                      // delete it in final version
@@ -271,6 +275,9 @@ import javax.swing.JRadioButton;
                                           }
                                           else
                                           {file_from_given_directory=chooser.getSelectedFile().listFiles(new ImageFileFilter());}                             //save list of all files from chosen directory
+                                         chooser.removeChoosableFileFilter(imageFilter);
+                                         
+                                          
                                           File dir = chooser.getSelectedFile().getParentFile(); // variable handling current directory
                                           chooser.setCurrentDirectory(dir); //setting directory to current one
                                           
@@ -488,18 +495,70 @@ import javax.swing.JRadioButton;
                    
                     rdbtnNewRadioButton_2.setBounds(78, 41, 60, 23);
                     radiopanel.add(rdbtnNewRadioButton_2);
-                   
-                   
+
+                    
                     ButtonGroup group = new ButtonGroup();
                     group.add(rdbtnNewRadioButton);
                     group.add(rdbtnNewRadioButton_1);
                     group.add(rdbtnNewRadioButton_2);
                    
+                   //
+                    JPanel radiopanel_first =new JPanel();
+                    radiopanel_first.setLayout(new BoxLayout(radiopanel_first, BoxLayout.Y_AXIS));
+                    
+                    JRadioButton rdbtnCenter = new JRadioButton("Center");
+                    rdbtnCenter.addActionListener(new ActionListener() {
+                            public void actionPerformed(ActionEvent e) {
+                                    //
+                            }
+                    });
+                    rdbtnCenter.setBounds(78, 67, 47, 23);
+                    radiopanel_first.add(rdbtnCenter);
                    
+                    JRadioButton rdbtnEnlarge = new JRadioButton("Enlarge");
+                    rdbtnEnlarge.addActionListener(new ActionListener() {
+                            public void actionPerformed(ActionEvent e) {
+                                    //
+                            }
+                    });
+                    rdbtnEnlarge.setBounds(78, 92, 47, 23);
+                    radiopanel_first.add(rdbtnEnlarge);
+                   
+                    JRadioButton rdbtnShrink = new JRadioButton("Shrink");
+                    rdbtnShrink.addActionListener(new ActionListener() {
+                            public void actionPerformed(ActionEvent arg0) {
+                                   //
+                            }
+                    });
+                   
+                    rdbtnShrink.setBounds(78, 41, 60, 23);
+                    radiopanel_first.add(rdbtnShrink);
+                    
+                    String nazwa="Cut to smaller";
+                    JRadioButton rdbtnCut = new JRadioButton(nazwa);
+                    rdbtnCut.addActionListener(new ActionListener() {
+                            public void actionPerformed(ActionEvent arg0) {
+                                   //
+                            }
+                    });
+                   
+                    rdbtnCut.setBounds(78, 41, 60, 23);
+                    radiopanel_first.add(rdbtnCut);
+
+                    
+                    ButtonGroup group_first = new ButtonGroup();
+                    group_first.add(rdbtnCenter);
+                    group_first.add(rdbtnEnlarge);
+                    group_first.add(rdbtnShrink);
+                    group_first.add(rdbtnCut);
+                    
+                    
+                   //
                     JButton btnMerge = new JButton("Merge");
                     btnMerge.setBounds(28, 192, 89, 23);
                    
                     JPanel BasicMerge=new JPanel();
+                    BasicMerge.add(radiopanel_first);
                     BasicMerge.add(radiopanel);
                     BasicMerge.add(btnMerge);
                    

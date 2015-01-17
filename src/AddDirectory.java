@@ -78,7 +78,7 @@ public class AddDirectory {
 	    image_main.add(scrollPanel,BorderLayout.CENTER);
 		
 		 
-		  label1.setText(file_from_given_directory[1].getParent());
+		  label1.setText(file_from_given_directory[0].getParent());
 		  directory.add(label1);
 		  directory.add(sb1);
 		  directory.add(image_main);

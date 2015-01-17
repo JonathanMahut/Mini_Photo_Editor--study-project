@@ -16,6 +16,8 @@ import java.awt.Image;
 
 
 
+
+
     import javax.swing.JDesktopPane;
 import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
@@ -49,6 +51,8 @@ import javax.swing.ScrollPaneConstants;
 
 
 
+
+
     import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
@@ -68,9 +72,13 @@ import java.util.Vector;
 
     import javax.swing.JPanel;
 import javax.swing.border.EtchedBorder;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 import javax.swing.filechooser.FileFilter;
 import javax.swing.filechooser.FileNameExtensionFilter;
      
+
+
 
 
 
@@ -91,8 +99,12 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 
 
 
+
+
     import javax.swing.JScrollPane;
      
+
+
 
 
 
@@ -116,6 +128,8 @@ import java.awt.Color;
 
 
 
+
+
     import javax.swing.JComboBox;
 import javax.swing.JRadioButton;
      
@@ -124,6 +138,7 @@ import javax.swing.JRadioButton;
     //add enlarge button
      
     public class PhotoEdit{
+    	static double deg=180;
     	static Vector<String> pathToImage=new Vector<String>();
             JDesktopPane center= new JDesktopPane();
             int flag=0;
@@ -910,7 +925,19 @@ import javax.swing.JRadioButton;
             panel_2e.add(RotatePanel);
            
             panel_2.add(panel_2e);
+            slider.addChangeListener(new ChangeListener() {
+
+            	 public void stateChanged(ChangeEvent ce) {
+                     deg=((JSlider) ce.getSource()).getValue();
+                 }
+           
+            });
             
+            btnRotate.addActionListener(new ActionListener() {
+                public void actionPerformed(ActionEvent arg0) {
+                	System.out.println(deg);
+                }
+            });
             
             //koniec panelu Alka
             

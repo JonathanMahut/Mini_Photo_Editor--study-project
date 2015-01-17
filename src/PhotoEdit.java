@@ -138,6 +138,7 @@ import javax.swing.JRadioButton;
     //add enlarge button
      
     public class PhotoEdit{
+    	static File dir=new java.io.File(".");//variable handling current directory
     	static double deg=180;
     	static Vector<String> pathToImage=new Vector<String>();
             JDesktopPane center= new JDesktopPane();
@@ -282,7 +283,7 @@ import javax.swing.JRadioButton;
                     JMenuItem mntmOpen = new JMenuItem("Open");
                     mntmOpen.addActionListener(new ActionListener()
                     {
-                                            JFileChooser chooser;
+                                           JFileChooser chooser=new JFileChooser(dir);
                                             String chooser_title;
                                             File file_from_given_directory[];
                                            
@@ -293,8 +294,8 @@ import javax.swing.JRadioButton;
                                         FileFilter imageFilter = new FileNameExtensionFilter(
                                                 "Image files", ImageIO.getReaderFileSuffixes());
                                
-                                        chooser = new JFileChooser();
-                                        chooser.setCurrentDirectory(new java.io.File("."));
+                                       
+                                        //chooser.setCurrentDirectory(new java.io.File("."));
                                         chooser.setDialogTitle(chooser_title);
                                         chooser.setAcceptAllFileFilterUsed(false);
 
@@ -346,6 +347,9 @@ import javax.swing.JRadioButton;
                                           }
                                           else
                                           {file_from_given_directory=chooser.getSelectedFile().listFiles(new ImageFileFilter());}                             //save list of all files from chosen directory
+                                          File dir = chooser.getSelectedFile().getParentFile(); // variable handling current directory
+                                          chooser.setCurrentDirectory(dir); //setting directory to current one
+                                          
                                           
                                           if(file_from_given_directory.length == 0)
                                           {

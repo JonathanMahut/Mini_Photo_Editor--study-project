@@ -99,7 +99,12 @@ public class MergeImageOR {
 		
 		if(different_sizes ==2) // ENLARGE
 		{
+			if(input[0].getType() != input[1].getType())
+			{
+				input[1]=resizeImage(input[1],input[0].getType(),input[1].getWidth(),input[1].getHeight());
+			}
 			if(input[0].getHeight() != input[1].getHeight() || input[0].getWidth() != input[1].getWidth())
+			{	
 				if(input[0].getHeight()  > input[1].getHeight())	
 					input[1]=resizeImage(input[1],input[1].getType(),input[1].getWidth(),input[0].getHeight());
 				if(input[0].getHeight() < input[1].getHeight())	
@@ -108,33 +113,71 @@ public class MergeImageOR {
 					input[1]=resizeImage(input[1], input[1].getType(), input[0].getWidth(),input[1].getHeight());
 				if(input[0].getWidth() < input[1].getWidth())
 					input[0]=resizeImage(input[0], input[0].getType(), input[1].getWidth(),input[0].getHeight());
-			
+			}
 			//make merge for first two images
 			
 			image = orImages(input[0],input[1]);
 		
 			for(int i = 2; i<input.length;i++ ) 
 			{	
+				if(image.getType() != input[i].getType())
+				{
+					input[i]=resizeImage(input[i],image.getType(),input[i].getWidth(),input[i].getHeight());
+				}
 				if(image.getHeight()  != input[i].getHeight() || image.getWidth() != input[i].getHeight())	// check if images have same resolution
 				{	
-					if(image.getHeight() > input[i].getHeight()) // check if the first image is bigger than second
+					if(image.getHeight() > input[i].getHeight()) // check if the first image is bigger than input[1]
 						input[i]=resizeImage(input[i],input[i].getType(),input[i].getWidth(),image.getHeight()); // enlarge smaller image to resolution of second image
 					if(image.getHeight() < input[i].getHeight())
 						image=resizeImage(image,image.getType(),image.getWidth(),input[i].getHeight());
 					if(image.getWidth() > input[i].getWidth())
-						input[i]=resizeImage(input[1], input[1].getType(), image.getWidth(),input[i].getHeight());
+						input[i]=resizeImage(input[i], input[i].getType(), image.getWidth(),input[i].getHeight());
 					if(image.getWidth() < input[i].getWidth())
-						image=resizeImage(input[0], input[0].getType(), input[i].getWidth(),image.getHeight());
+						image=resizeImage(image, image.getType(), input[i].getWidth(),image.getHeight());
 				}
 				image = orImages(image,input[i]);
 			}
 		}
 		
-		else if(different_sizes == 3 )
+		else if(different_sizes == 3 ) // shrink
 		{
-			
-			
-			
+			if(input[0].getType() != input[1].getType())
+			{
+				input[1]=resizeImage(input[1],input[0].getType(),input[1].getWidth(),input[1].getHeight());
+			}
+
+			if(input[0].getHeight() != input[1].getHeight() ||input[0].getWidth() != input[1].getWidth())
+			{
+				if(input[0].getHeight()  > input[1].getHeight())    
+					input[0]=resizeImage(input[0],input[0].getType(),input[0].getWidth(),input[1].getHeight());
+				if(input[0].getHeight() < input[1].getHeight())    
+					input[1]=resizeImage(input[1],input[0].getType(),input[1].getWidth(),input[0].getHeight());
+				if(input[0].getWidth() > input[1].getWidth())
+					input[0]=resizeImage(input[0], input[0].getType(), input[1].getWidth(),input[0].getHeight());
+				if(input[0].getWidth() < input[1].getWidth())
+					input[1]=resizeImage(input[1], input[0].getType(), input[0].getWidth(),input[1].getHeight());
+			}
+			image = orImages(input[0],input[1]);
+			for(int i = 2; i<input.length;i++ ) 
+			{
+				if(image.getType() != input[i].getType())
+				{
+					input[i]=resizeImage(input[i],image.getType(),input[i].getWidth(),input[i].getHeight());
+				}
+
+				if(image.getHeight() != input[i].getHeight() ||image.getWidth() != input[i].getWidth())
+				{
+					if(image.getHeight()  > input[i].getHeight())    
+						image=resizeImage(image,image.getType(),image.getWidth(),input[i].getHeight());
+					if(image.getHeight() < input[i].getHeight())    
+						input[i]=resizeImage(input[i],image.getType(),input[i].getWidth(),image.getHeight());
+					if(image.getWidth() > input[i].getWidth())
+						image=resizeImage(image, image.getType(), input[i].getWidth(),image.getHeight());
+					if(image.getWidth() < input[i].getWidth())
+						input[i]=resizeImage(input[i], image.getType(), image.getWidth(),input[i].getHeight());
+				}
+				image = orImages(image,input[i]);
+			}
 			
 		}
 		return image;

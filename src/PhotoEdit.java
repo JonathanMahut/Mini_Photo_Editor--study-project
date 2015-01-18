@@ -586,7 +586,7 @@ import javax.swing.JRadioButton;
                                switch(which_merge_mode_was_chose)
                                {
                                        case 1:
-                                                MergeImageAND mergeImage1 = new MergeImageAND(AddDirectory.all_chosen);
+                                                MergeImageAND mergeImage1 = new MergeImageAND(AddDirectory.all_chosen,different_sizes);
                                                 merged_image = MergeImageAND.returnImage();
                                                 if (quest_see_the_result.GetSelectedOption() == JOptionPane.YES_OPTION) {
                                                 File one= MergeImageAND.getF().getAbsoluteFile();
@@ -604,7 +604,7 @@ import javax.swing.JRadioButton;
                                                 }
                                                             break;
                                        case 2:
-                                                            MergeImageXOR mergeImage = new MergeImageXOR(AddDirectory.all_chosen);
+                                                            MergeImageXOR mergeImage = new MergeImageXOR(AddDirectory.all_chosen,different_sizes);
                                                             merged_image = MergeImageXOR.returnImage();
                                                 if (quest_see_the_result.GetSelectedOption() == JOptionPane.YES_OPTION) {
                                                    

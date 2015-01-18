@@ -181,6 +181,48 @@ public class MergeImageAND {
 				}
 				
 			}
+			else if(different_sizes == 4)
+			{
+				if(input[0].getType() != input[1].getType())
+				{
+					input[1]=resizeImage(input[1],input[0].getType(),input[1].getWidth(),input[1].getHeight());
+				}
+				if(input[0].getHeight() != input[1].getHeight() ||input[0].getWidth() != input[1].getWidth());
+				{
+					if(input[0].getHeight() * input[0].getWidth() > input[1].getHeight() * input[1].getWidth() )
+						input[0]=input[0].getSubimage((input[0].getWidth()/2)-(input[1].getWidth()/2), (input[0].getHeight()/2)-(input[1].getHeight()/2), input[1].getWidth(), input[1].getHeight());
+					else
+						input[1]=input[1].getSubimage((input[1].getWidth()/2)-(input[0].getWidth()/2), (input[1].getHeight()/2)-(input[0].getHeight()/2), input[0].getWidth(), input[0].getHeight());
+					
+						
+				
+				
+				}
+				image = andImages (input[0],input[1]);
+				
+				for(int i = 2; i<input.length;i++ ) 
+				{
+					if(image.getType() != input[i].getType())
+					{
+						input[i]=resizeImage(input[i],image.getType(),input[i].getWidth(),input[i].getHeight());
+					}
+					if(image.getHeight() != input[i].getHeight() ||image.getWidth() != input[i].getWidth())
+					{
+
+						if(image.getHeight() != input[i].getHeight() ||image.getWidth() != input[i].getWidth())
+						{
+							if(image.getHeight() * image.getWidth() > input[i].getHeight() * input[i].getWidth() )
+								image=image.getSubimage((image.getWidth()/2)-(input[i].getWidth()/2), (image.getHeight()/2)-(input[i].getHeight()/2), input[i].getWidth(), input[i].getHeight());
+							else
+								input[i]=input[i].getSubimage((input[i].getWidth()/2)-(image.getWidth()/2), (input[i].getHeight()/2)-(image.getHeight()/2), image.getWidth(), image.getHeight());
+						}
+						
+					}
+					image = andImages (image,input[i]);
+				}
+				
+				
+			}
 			return image;
 		}
 		

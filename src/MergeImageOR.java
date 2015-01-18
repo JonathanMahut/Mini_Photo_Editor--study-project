@@ -14,12 +14,14 @@ public class MergeImageOR {
 	
 	static BufferedImage[] input;
 	static HashMap<JButton,File> list_of_images;
+	static int different_sizes = 0;
 	
 
-	MergeImageOR(HashMap<JButton,File> images)
+	MergeImageOR(HashMap<JButton,File> images,int mode)
 	{
 		list_of_images=images;
 		input = new BufferedImage[list_of_images.size()]; 
+		this.different_sizes = mode;
 		MergeImageOR.main(null);
 		
 	}
@@ -94,34 +96,46 @@ public class MergeImageOR {
 		BufferedImage image = null;
 		// check for the first two images if they are same resolution
 		
-		if(input[0].getHeight() != input[1].getHeight() || input[0].getWidth() != input[1].getWidth())
-			if(input[0].getHeight()  > input[1].getHeight())	
-				input[1]=resizeImage(input[1],input[1].getType(),input[1].getWidth(),input[0].getHeight());
-			if(input[0].getHeight() < input[1].getHeight())	
-				input[0]=resizeImage(input[0],input[0].getType(),input[0].getWidth(),input[1].getHeight());
-			if(input[0].getWidth() > input[1].getWidth())
-				input[1]=resizeImage(input[1], input[1].getType(), input[0].getWidth(),input[1].getHeight());
-			if(input[0].getWidth() < input[1].getWidth())
-				input[0]=resizeImage(input[0], input[0].getType(), input[1].getWidth(),input[0].getHeight());
 		
-		//make merge for first two images
+		if(different_sizes ==2) // ENLARGE
+		{
+			if(input[0].getHeight() != input[1].getHeight() || input[0].getWidth() != input[1].getWidth())
+				if(input[0].getHeight()  > input[1].getHeight())	
+					input[1]=resizeImage(input[1],input[1].getType(),input[1].getWidth(),input[0].getHeight());
+				if(input[0].getHeight() < input[1].getHeight())	
+					input[0]=resizeImage(input[0],input[0].getType(),input[0].getWidth(),input[1].getHeight());
+				if(input[0].getWidth() > input[1].getWidth())
+					input[1]=resizeImage(input[1], input[1].getType(), input[0].getWidth(),input[1].getHeight());
+				if(input[0].getWidth() < input[1].getWidth())
+					input[0]=resizeImage(input[0], input[0].getType(), input[1].getWidth(),input[0].getHeight());
+			
+			//make merge for first two images
+			
+			image = orImages(input[0],input[1]);
 		
-		image = orImages(input[0],input[1]);
-	
-		for(int i = 2; i<input.length;i++ ) 
-		{	
-			if(image.getHeight()  != input[i].getHeight() || image.getWidth() != input[i].getHeight())	// check if images have same resolution
+			for(int i = 2; i<input.length;i++ ) 
 			{	
-				if(image.getHeight() > input[i].getHeight()) // check if the first image is bigger than second
-					input[i]=resizeImage(input[i],input[i].getType(),input[i].getWidth(),image.getHeight()); // enlarge smaller image to resolution of second image
-				if(image.getHeight() < input[i].getHeight())
-					image=resizeImage(image,image.getType(),image.getWidth(),input[i].getHeight());
-				if(image.getWidth() > input[i].getWidth())
-					input[i]=resizeImage(input[1], input[1].getType(), image.getWidth(),input[i].getHeight());
-				if(image.getWidth() < input[i].getWidth())
-					image=resizeImage(input[0], input[0].getType(), input[i].getWidth(),image.getHeight());
+				if(image.getHeight()  != input[i].getHeight() || image.getWidth() != input[i].getHeight())	// check if images have same resolution
+				{	
+					if(image.getHeight() > input[i].getHeight()) // check if the first image is bigger than second
+						input[i]=resizeImage(input[i],input[i].getType(),input[i].getWidth(),image.getHeight()); // enlarge smaller image to resolution of second image
+					if(image.getHeight() < input[i].getHeight())
+						image=resizeImage(image,image.getType(),image.getWidth(),input[i].getHeight());
+					if(image.getWidth() > input[i].getWidth())
+						input[i]=resizeImage(input[1], input[1].getType(), image.getWidth(),input[i].getHeight());
+					if(image.getWidth() < input[i].getWidth())
+						image=resizeImage(input[0], input[0].getType(), input[i].getWidth(),image.getHeight());
+				}
+				image = orImages(image,input[i]);
 			}
-			image = orImages(image,input[i]);
+		}
+		
+		else if(different_sizes == 3 )
+		{
+			
+			
+			
+			
 		}
 		return image;
 	}

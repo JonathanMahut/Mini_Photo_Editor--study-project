@@ -77,6 +77,7 @@ import javax.swing.JRadioButton;
             static BufferedImage merged_image=null;
             ArrayList<JButton> buttonList = new ArrayList<JButton>();   
             static int black_or_white = 0;// list where all loaded images are as buttons
+            static int different_sizes = 0; // store user choice about option for merge when images are different sizes
             /**
              * Launch the application.
              */
@@ -510,6 +511,7 @@ import javax.swing.JRadioButton;
                     rdbtnCenter.addActionListener(new ActionListener() {
                             public void actionPerformed(ActionEvent e) {
                                     //
+                            	different_sizes = 1;
                             }
                     });
                     rdbtnCenter.setBounds(78, 67, 47, 23);
@@ -519,6 +521,7 @@ import javax.swing.JRadioButton;
                     rdbtnEnlarge.addActionListener(new ActionListener() {
                             public void actionPerformed(ActionEvent e) {
                                     //
+                            	different_sizes = 2;
                             }
                     });
                     rdbtnEnlarge.setBounds(78, 92, 47, 23);
@@ -527,7 +530,7 @@ import javax.swing.JRadioButton;
                     JRadioButton rdbtnShrink = new JRadioButton("Shrink");
                     rdbtnShrink.addActionListener(new ActionListener() {
                             public void actionPerformed(ActionEvent arg0) {
-                                   //
+                            	different_sizes = 3;
                             }
                     });
                    
@@ -539,6 +542,7 @@ import javax.swing.JRadioButton;
                     rdbtnCut.addActionListener(new ActionListener() {
                             public void actionPerformed(ActionEvent arg0) {
                                    //
+                            	different_sizes = 4;
                             }
                     });
                    
@@ -621,7 +625,7 @@ import javax.swing.JRadioButton;
                                              
                                                             break;
                                        case 3:
-                                                            MergeImageOR mergeImage2 = new MergeImageOR(AddDirectory.all_chosen);
+                                                            MergeImageOR mergeImage2 = new MergeImageOR(AddDirectory.all_chosen,different_sizes);
                                                            
                                                             merged_image = MergeImageOR.returnImage();
                                                            

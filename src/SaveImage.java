@@ -4,6 +4,7 @@
 // www.BruceEckel.com. See copyright notice in CopyRight.txt.
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Container;
 import java.awt.GridLayout;
 import java.awt.Image;
@@ -11,8 +12,10 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.imageio.ImageIO;
+import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
+import javax.swing.JFormattedTextField;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
@@ -30,9 +33,11 @@ import javax.swing.JRadioButtonMenuItem;
 import java.awt.Choice;
 import java.io.File;
 import java.io.IOException;
+import java.text.NumberFormat;
 
 import javax.swing.JCheckBox;
 import javax.swing.JLabel;
+import javax.swing.border.EtchedBorder;
 
 import net.sf.image4j.util.ConvertUtil;
 
@@ -52,6 +57,67 @@ public class SaveImage extends JFrame {
 	 which_mode = mode;
 	    
     JPanel p = new JPanel();
+    JPanel Option_1=new JPanel();
+    JPanel Option_2_a=new JPanel();
+    JPanel Option_2=new JPanel();
+    Option_2.setLayout(new GridLayout(0, 1));
+    
+    Option_1.setBorder(BorderFactory.createTitledBorder(BorderFactory.createEtchedBorder(EtchedBorder.RAISED, Color.GRAY, Color.DARK_GRAY), "Option_1"));
+    Option_2_a.setBorder(BorderFactory.createTitledBorder(BorderFactory.createEtchedBorder(EtchedBorder.RAISED, Color.GRAY, Color.DARK_GRAY), "Option_2   f.ex. image001, image002 ..."));
+    
+    //Option 1
+    
+    //Option2 
+    NumberFormat numberFormat = NumberFormat.getInstance();
+    JTextField name = new JTextField();
+    JTextField start_value = new JTextField();
+    JTextField step = new JTextField();
+    JTextField digits = new JTextField();
+    JLabel name_label=new JLabel("Name");
+    JFormattedTextField where = new JFormattedTextField(numberFormat);
+    JLabel where_label=new JLabel("Appearance of counter");
+    JLabel start_value_label=new JLabel("Start value");
+    JLabel step_label=new JLabel("Step");
+    JLabel digits_label=new JLabel("Digits");
+    Option_2.add(name_label);
+    Option_2.add(name);
+    Option_2.add(where_label);
+    Option_2.add(where);
+    Option_2.add(start_value_label);
+    Option_2.add(start_value);
+    Option_2.add(step_label);
+    Option_2.add(step);
+    Option_2.add(digits_label);
+    Option_2.add(digits);
+    p.add(Option_2_a);
+    JPanel save_button = new JPanel();
+    JButton Option_1_save = new JButton("Save");
+    save_button.add(Option_1_save);
+    Option_2_a.add(Option_2);
+    Option_2_a.add(save_button);
+    p.add(Option_2_a);
+    
+
+
+     //wheree=Integer.parseInt(where.getText());
+    Option_1_save.addActionListener(new ActionListener()
+    {
+
+		public void actionPerformed(ActionEvent e) {
+			// TODO Auto-generated method stub
+			String str = name.getText();
+    char[] letters = str.toCharArray();
+			 System.out.print(letters.length);
+			for (int i=0;i<3;i++)
+    	{System.out.print(letters[i]);}
+    	System.out.print(start_value.getText());
+		}
+    	
+    });
+    
+    //Magda
+    
+    
     
     p.add(save);
     Container cp = getContentPane();

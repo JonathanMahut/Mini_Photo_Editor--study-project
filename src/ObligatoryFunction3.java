@@ -37,13 +37,10 @@ public class ObligatoryFunction3 {
                 sliced_images = new ArrayList <BufferedImage[][]>();
                 all_images = new ArrayList <BufferedImage>();
                 all_images.clear();
-                all_images.clear();
-                this.mode = diff;
-                final_image = null;
-               
                 
-               
-               
+                this.final_image = null;
+                this.mode = diff;
+    
                 ObligatoryFunction3.main(null);
                 
                
@@ -73,8 +70,8 @@ public class ObligatoryFunction3 {
         public static BufferedImage createImageFromSlice()
         {      
                 ///////Get Height and Width of the image
-                BufferedImage temp = null;
-                System.out.println(all_chosen_images);
+               /* BufferedImage temp = null;
+               
                 Object myKey = all_chosen_images.keySet().toArray()[0];
                 File myValue = all_chosen_images.get(myKey);
                
@@ -84,16 +81,16 @@ public class ObligatoryFunction3 {
                 } catch (IOException e) {
                         // TODO Auto-generated catch block
                         e.printStackTrace();
-                }
-                int width = temp.getWidth();
-                int height = temp.getHeight();
+                }*/
+                int width = all_images.get(0).getWidth();
+                int height = all_images.get(0).getHeight();
                
                 // coordinates from which starts drawing of new stripe
                 int x = 0;  // it's increases for columns
                 int y = 0;  // it's increases for rows
                 ////create empty image with the resolution and type of the first one from hashmap
                
-                BufferedImage  created_image = new BufferedImage(width,height,temp.getType()); /// on this image the stripes will be pasted
+                BufferedImage  created_image = new BufferedImage(width,height,all_images.get(0).getType()); /// on this image the stripes will be pasted
                 //Graphics2D g = created_image.createGraphics();
                 //sliceImages(); // create list of sliced images
                 int counter = 0;
@@ -139,7 +136,10 @@ public class ObligatoryFunction3 {
                         }
                         
                 }
-                final_image = new BufferedImage(width,height,temp.getType());
+               
+                
+                
+              
                 final_image = created_image;
                 return created_image;
                
@@ -158,12 +158,7 @@ public class ObligatoryFunction3 {
         public static BufferedImage returnImage ()
         {		
         		
-        		/*
-        		makeImagesEqual();
-        		saveImagesToList();
-               	sliceImages();
-                BufferedImage returned_image = createImageFromSlice();
-                */
+        	
                 return final_image;
                
         }
@@ -173,17 +168,16 @@ public class ObligatoryFunction3 {
         
          {  
         	
-                BufferedImage final_img;
                 
+               
                 sliceImages();
-                makeImagesEqual();
-                final_img=createImageFromSlice();
+                final_image=createImageFromSlice();
      
                 f = new File( "image.png" );  
         try
         {  
            
-         ImageIO.write( final_img, "PNG", f );  
+         ImageIO.write( final_image, "PNG", f );  
  
         }  
         catch ( IOException x )
@@ -222,7 +216,7 @@ public class ObligatoryFunction3 {
        
         private static List<BufferedImage>makeImagesEqual()
         {
-        	
+        		
                System.out.println(mode + " MODEMODE");
                 if(mode == 1 ) // enlarge
                 {
@@ -283,7 +277,7 @@ public class ObligatoryFunction3 {
                 {
                         for(int i  =0; i <all_images.size()-1; i++)
                         {
-                               System.out.println(all_images.size() + " all_images SIZE " + i + "przy tym sie crashuje");
+                              
                                 BufferedImage first = all_images.get(i);
                                 BufferedImage second = all_images.get(i + 1);
                                

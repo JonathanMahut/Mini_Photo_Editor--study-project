@@ -735,6 +735,8 @@ import javax.swing.JRadioButton;
                 	{
                 		disp.createFrame(center, all_images_as_file.get(i), all_images_as_buffered.get(i));
                 	}
+                	all_images_as_file.clear();
+                	all_images_as_buffered.clear();
                 	
                 }
                 	 else
@@ -774,15 +776,28 @@ import javax.swing.JRadioButton;
                 	
                 	if(AddDirectory.all_chosen.size()>=1)
                 	{
-                	int treshold = 0;
+                	double treshold = 0;
                 	try{
-                     	treshold = Integer.parseInt(inSet.getText() );
+                     	treshold = Double.parseDouble(inSet.getText() );
                      	}
                      	 
                      	catch ( NumberFormatException e1 ) {
                      	JOptionPane.showMessageDialog(null, "The value must be a numeric value. " );
                      	}
-                	
+                	ObligatoryFunction1 fun = new ObligatoryFunction1(black_or_white,treshold); 
+                	List<File> all_images_as_file  = fun.cutOut();
+                	List<BufferedImage> all_images_as_buffered = fun.cutOut1();
+                	OptionFrame.main(null); // ask if user wants to see?
+                    OptionFrame quest_see_the_result=new OptionFrame(); // get answer from OptionFrame class
+                    
+                	Display disp = new Display();
+                	if (quest_see_the_result.GetSelectedOption() == JOptionPane.YES_OPTION)	
+                	for(int i = 0; i<all_images_as_file.size();i++)
+                	{
+                		disp.createFrame(center, all_images_as_file.get(i), all_images_as_buffered.get(i));
+                	}
+                	all_images_as_file.clear();
+                	all_images_as_buffered.clear();
                 	//funkcja
                 	
                 	}

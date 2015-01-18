@@ -1,3 +1,4 @@
+import java.awt.Color;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -7,6 +8,7 @@ import java.util.List;
 
 import javax.imageio.ImageIO;
 import javax.swing.JButton;
+import javax.swing.JDesktopPane;
 
 
 public class ObligatoryFunction1 {
@@ -16,15 +18,18 @@ public class ObligatoryFunction1 {
 	static List <BufferedImage> all_images_after_list=new ArrayList<BufferedImage>();;
 	
 	static int black_or_white;
-	static int treshold =0;
+	static double treshold =0;
 	
 	
-	ObligatoryFunction1(int mode,int treshold)
+	ObligatoryFunction1(int mode,double treshold)
 	{
 		ObligatoryFunction1.all_chosen_images = AddDirectory.all_chosen;
+		System.out.println(all_chosen_images.size() + "size all_chosen_images zaraz po inicjalizacji");
 		ObligatoryFunction1.black_or_white = mode;
 		ObligatoryFunction1.treshold = treshold;
-		all_images = ObligatoryFunction1.saveImagesToList();
+		all_images.clear();
+		System.out.println(all_images.size() + "all_images po saveimagestolist");
+		
 		
 	}
 	
@@ -36,11 +41,15 @@ public class ObligatoryFunction1 {
 		boolean all_row = false;
 		
 		
+		
+		////////////////////////////////////////
+		//// from top
 		for(int y = 0; y < img1.getHeight(); y++)
 		{	
-	        for(int x = 0; x < img1.getWidth(); x++)  // od gory
+	        for(int x = 0; x < img1.getWidth(); x++) 
 	        {
 	        	int argb0 = img1.getRGB(x,y);
+	        	
 	        	//System.out.println(x + "=zmienna x ||" + img1.getHeight() + "=getHeight obrazka. || " + y + " =zmienna y||" + img1.getWidth() + " =getWidth obr");
 	        	// Here the 'b' stands for 'blue' as well
 	        	// as for 'brightness' :-)
@@ -48,7 +57,7 @@ public class ObligatoryFunction1 {
 	        	
 	        	if(black_or_white == 1) // black
 	        	{
-		        	if(b0==0)
+		        	if( b0==0)
 		        	{
 		        		all_row = true;
 		        	}
@@ -78,7 +87,7 @@ public class ObligatoryFunction1 {
 	        		else
 	        		{
 	        			all_row = false;
-	        			System.out.println("Stop for loop");
+	        			
 	        			break;
 	        		}
 	        	}
@@ -89,15 +98,16 @@ public class ObligatoryFunction1 {
 			
 		else
 		{
-			System.out.println("Stop for loop");
+			
 			break;
 		}
 		
 		}
 		//height_to_cut+=3; // ogolnie to wtf kurwa mac. bez tego niedocina do konca???????????
-		System.out.println(height_to_cut + " ile do wyciecia");
+	
 		if(height_to_cut>0)
 		img1 = img1.getSubimage(0, height_to_cut+1, img1.getWidth()-1, (img1.getHeight()-1) - height_to_cut);
+		
 		/////////////////////////////////////////
 						//from bottom
 		height_to_cut=0;
@@ -288,30 +298,38 @@ public class ObligatoryFunction1 {
 	
 	  static List<BufferedImage> saveImagesToList()
      {	
-		 System.out.println(all_chosen_images.size() + " size w bledzie");
+		  
              for(File i : all_chosen_images.values())
              {
-                    
-
+            	 	
                      try {
                              all_images.add(ImageIO.read(i));
                      } catch (IOException e) {
                              // TODO Auto-generated catch block
                              e.printStackTrace();
                      }
+             
              }
+             
+           
             
              return all_images;
+             
+             
+             
      }
 	
 	 static List<File> cutOut()
-	 {
+	 {	
+		 all_images = ObligatoryFunction1.saveImagesToList();
+		 int counter =0;	
 		 for(BufferedImage tmp : all_images)
 		 {
-			BufferedImage result = cutFrame(tmp); //????????????????????????????????
-				
+			 BufferedImage result = cutFrame(tmp);
+			//BufferedImage result = getCroppedImage(tmp,treshold); //????????????????????????????????
+			
 			File f;
-			  f = new File( "image.png" );  
+			  f = new File( "image" +counter +".png" );  
 		        try
 		        {  
 		           
@@ -325,24 +343,88 @@ public class ObligatoryFunction1 {
 		            x.printStackTrace();  
 		        }    
 		        all_images_after.add(f);
+		        counter++;
 		 }
-
+		 
 		 
 		 return all_images_after;
 	 }
 	 
 	 static List<BufferedImage> cutOut1()
 	 {
+		 all_images = ObligatoryFunction1.saveImagesToList();
 		 for(BufferedImage tmp : all_images)
 		 {
-			BufferedImage result = cutFrame(tmp); //????????????????????????????????
-				
+			 //BufferedImage result = getCroppedImage(tmp,treshold);  //????????????????????????????????
+			 BufferedImage result = cutFrame(tmp);
 			all_images_after_list.add(result);
 		 }
 
 		 
 		 return all_images_after_list;
 	 }
+	
+	 public static BufferedImage getCroppedImage(BufferedImage source, double tolerance) {
+		   // Get our top-left pixel color as our "baseline" for cropping
+		 int baseColor = 0;
+		 //if(black_or_white == 1)
+			  baseColor =  source.getRGB(0, 0);
+		/* else if (black_or_white == 2)
+			 baseColor =  -1;
+		 else
+			 baseColor = Color.white.getRGB();*/
+		 
+		 //System.out.println(baseColor + "=baseColor" + black_or_white + "mode");
+		   int width = source.getWidth();
+		   int height = source.getHeight();
+
+		   int topY = Integer.MAX_VALUE, topX = Integer.MAX_VALUE;
+		   int bottomY = -1, bottomX = -1;
+		   for(int y=0; y<height; y++) {
+		      for(int x=0; x<width; x++) {
+		         if (colorWithinTolerance(baseColor, source.getRGB(x, y), tolerance)) {
+		            if (x < topX) topX = x;
+		            if (y < topY) topY = y;
+		            if (x > bottomX) bottomX = x;
+		            if (y > bottomY) bottomY = y;
+		         }
+		      }
+		   }
+
+		   BufferedImage destination = new BufferedImage( (bottomX-topX+1), 
+		                 (bottomY-topY+1), BufferedImage.TYPE_INT_ARGB);
+
+		   destination.getGraphics().drawImage(source, 0, 0, 
+		               destination.getWidth(), destination.getHeight(), 
+		               topX, topY, bottomX, bottomY, null);
+
+		   return destination;
+		}
+
+		private static boolean colorWithinTolerance(int a, int b, double tolerance) {
+		    int aAlpha  = (int)((a & 0xFF000000) >>> 24);   // Alpha level
+		    int aRed    = (int)((a & 0x00FF0000) >>> 16);   // Red level
+		    int aGreen  = (int)((a & 0x0000FF00) >>> 8);    // Green level
+		    int aBlue   = (int)(a & 0x000000FF);            // Blue level
+
+		    int bAlpha  = (int)((b & 0xFF000000) >>> 24);   // Alpha level
+		    int bRed    = (int)((b & 0x00FF0000) >>> 16);   // Red level
+		    int bGreen  = (int)((b & 0x0000FF00) >>> 8);    // Green level
+		    int bBlue   = (int)(b & 0x000000FF);            // Blue level
+
+		    double distance = Math.sqrt((aAlpha-bAlpha)*(aAlpha-bAlpha) +
+		                                (aRed-bRed)*(aRed-bRed) +
+		                                (aGreen-bGreen)*(aGreen-bGreen) +
+		                                (aBlue-bBlue)*(aBlue-bBlue));
+
+		    // 510.0 is the maximum distance between two colors 
+		    // (0,0,0,0 -> 255,255,255,255)
+		    double percentAway = distance / 510.0d;     
+
+		    return (percentAway > tolerance);
+		}
+
+
 }
 
 

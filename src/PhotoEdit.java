@@ -817,7 +817,53 @@ import javax.swing.JRadioButton;
             panel_2c.setOpaque(true);
             panel_2c.setBorder(BorderFactory.createTitledBorder(BorderFactory.createEtchedBorder(EtchedBorder.RAISED, Color.GRAY, Color.DARK_GRAY), "Cutouts options"));
             panel_2c.setLayout(new BoxLayout(panel_2c, BoxLayout.Y_AXIS));
+           //
+            JPanel Function3=new JPanel();
+
+            JPanel radiopanel_second =new JPanel();
+            radiopanel_second.setLayout(new BoxLayout(radiopanel_second, BoxLayout.Y_AXIS));
+            
+      
+            JRadioButton rdbtnEnlarge1 = new JRadioButton("Enlarge");
+            rdbtnEnlarge.addActionListener(new ActionListener() {
+                    public void actionPerformed(ActionEvent e) {
+                            //
+                    }
+            });
+            rdbtnEnlarge1.setBounds(78, 92, 47, 23);
+            radiopanel_second.add(rdbtnEnlarge1);
            
+            JRadioButton rdbtnShrink1 = new JRadioButton("Shrink");
+            rdbtnShrink.addActionListener(new ActionListener() {
+                    public void actionPerformed(ActionEvent arg0) {
+                           //
+                    }
+            });
+           
+            rdbtnShrink1.setBounds(78, 41, 60, 23);
+            radiopanel_second.add(rdbtnShrink1);
+            
+            JRadioButton rdbtnCut1 = new JRadioButton("Cut to smaller");
+            rdbtnCut1.addActionListener(new ActionListener() {
+                    public void actionPerformed(ActionEvent arg0) {
+                           //
+                    }
+            });
+           
+            rdbtnCut1.setBounds(78, 41, 60, 23);
+            radiopanel_second.add(rdbtnCut1);
+
+            
+            ButtonGroup group_second = new ButtonGroup();
+            group_second.add(rdbtnEnlarge1);
+            group_second.add(rdbtnShrink1);
+            group_second.add(rdbtnCut1);
+            Function3.add(radiopanel_second);
+            
+           //
+            
+            
+            //
             JPanel MergeButtons =new JPanel(); // Panel for buttons from merge options TUTAJ KUBA
             MergeButtons.setLayout(new BoxLayout(MergeButtons, BoxLayout.X_AXIS));
            
@@ -848,6 +894,7 @@ import javax.swing.JRadioButton;
             ButtonGroup group1 = new ButtonGroup();
             group1.add(Merge_Button);
             group1.add(Merge_Button_1);
+            //Function3.add(mergepanel);
            
             FlowLayout experimentLayout = new FlowLayout();
             JPanel Stripes =new JPanel(experimentLayout);
@@ -930,7 +977,8 @@ import javax.swing.JRadioButton;
            
             Stripes.add(Set1);
             Stripes.add(inSet1);
-            MergeButtons_left.add(mergepanel);
+            Function3.add(mergepanel);
+            MergeButtons_left.add(Function3);
             MergeButtons_left.add(Stripes);
            
      

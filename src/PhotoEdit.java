@@ -63,7 +63,7 @@ import javax.swing.JRadioButton;
      
     public class PhotoEdit{
     	static File dir=new java.io.File(".");//variable handling current directory
-    	static double deg=180;
+    	static int deg=180;
     	static Vector<String> pathToImage=new Vector<String>();
             JDesktopPane center= new JDesktopPane();
             int flag=0;
@@ -831,8 +831,8 @@ import javax.swing.JRadioButton;
             Merge_Button_1.setBounds(78, 67, 47, 23);
             mergepanel.add(Merge_Button_1);
             ButtonGroup group1 = new ButtonGroup();
-            group.add(Merge_Button);
-            group.add(Merge_Button_1);
+            group1.add(Merge_Button);
+            group1.add(Merge_Button_1);
            
             FlowLayout experimentLayout = new FlowLayout();
             JPanel Stripes =new JPanel(experimentLayout);
@@ -945,20 +945,28 @@ import javax.swing.JRadioButton;
             slider.setPaintTicks(true);
             slider.setPaintLabels(true);
             slider.setLabelTable(slider.createStandardLabels(45));
-
+            
+            JLabel Rotate  = new JLabel();
+            Rotate.setText(deg+"°");
             panel_2e.add(slider);
             JButton btnRotate = new JButton("Rotate");
-            JPanel RotatePanel=new JPanel();
+            JPanel RotatePanel=new JPanel(); 
+            RotatePanel.add(Rotate);
             RotatePanel.add(btnRotate);
             RotatePanel.setLayout(new BoxLayout(RotatePanel,BoxLayout.X_AXIS));
             btnRotate.setBounds(28, 158, 89, 23);
             panel_2e.add(RotatePanel);
            
+           
+          
+            
             panel_2.add(panel_2e);
             slider.addChangeListener(new ChangeListener() {
 
             	 public void stateChanged(ChangeEvent ce) {
-                     deg=((JSlider) ce.getSource()).getValue();
+                     deg=((JSlider) ce.getSource()).getValue(); 
+                    
+                     Rotate.setText(deg+"°");
                  }
            
             });
@@ -998,10 +1006,20 @@ import javax.swing.JRadioButton;
             
             btnClear.addActionListener(new ActionListener() {
                     public void actionPerformed(ActionEvent e) {
-                            //remove all components in panel.
+                    	if(Display.where_global.getComponents().length>0)
+                        {
+                       
+                                 String ObjButtons[] = {"Yes","No"};
+                                 int PromptResult = JOptionPane.showOptionDialog(null,"You have unsaved images. \n Do you want to clear?","Question",JOptionPane.DEFAULT_OPTION,JOptionPane.WARNING_MESSAGE,null,ObjButtons,ObjButtons[1]);
+                                  if(PromptResult==JOptionPane.YES_OPTION)
+                                  {
+                       //remove all components in panel.
                             center.removeAll();
                             // refresh the panel.
                             center.updateUI();
+                                  }      
+                        }
+     
                     }
             });
            

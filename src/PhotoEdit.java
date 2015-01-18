@@ -78,6 +78,7 @@ import javax.swing.JRadioButton;
             ArrayList<JButton> buttonList = new ArrayList<JButton>();   
             static int black_or_white = 0;// list where all loaded images are as buttons
             static int different_sizes = 0; // store user choice about option for merge when images are different sizes
+            static int different_sizes1 = 0; // same what above but for obligatory function 3 
             /**
              * Launch the application.
              */
@@ -829,8 +830,10 @@ import javax.swing.JRadioButton;
             
       
             JRadioButton rdbtnEnlarge1 = new JRadioButton("Enlarge");
-            rdbtnEnlarge.addActionListener(new ActionListener() {
+            rdbtnEnlarge1.addActionListener(new ActionListener() {
                     public void actionPerformed(ActionEvent e) {
+                    	different_sizes1 = 1;
+                    	
                             //
                     }
             });
@@ -838,8 +841,9 @@ import javax.swing.JRadioButton;
             radiopanel_second.add(rdbtnEnlarge1);
            
             JRadioButton rdbtnShrink1 = new JRadioButton("Shrink");
-            rdbtnShrink.addActionListener(new ActionListener() {
+            rdbtnShrink1.addActionListener(new ActionListener() {
                     public void actionPerformed(ActionEvent arg0) {
+                    	different_sizes1 = 2;
                            //
                     }
             });
@@ -850,6 +854,7 @@ import javax.swing.JRadioButton;
             JRadioButton rdbtnCut1 = new JRadioButton("Cut to smaller");
             rdbtnCut1.addActionListener(new ActionListener() {
                     public void actionPerformed(ActionEvent arg0) {
+                    	different_sizes1 = 3;
                            //
                     }
             });
@@ -868,7 +873,7 @@ import javax.swing.JRadioButton;
             
             
             //
-            JPanel MergeButtons =new JPanel(); // Panel for buttons from merge options TUTAJ KUBA
+            JPanel MergeButtons =new JPanel(); // Panel for buttons from merge options TUTAJ KUBA - ok,thx ;)
             MergeButtons.setLayout(new BoxLayout(MergeButtons, BoxLayout.X_AXIS));
            
             JPanel MergeButtons_left=new JPanel();
@@ -926,16 +931,16 @@ import javax.swing.JRadioButton;
      	catch ( NumberFormatException e1 ) {
      	JOptionPane.showMessageDialog(null, "The value must be a numeric value bigger than 0. " );
      	}
-                  
+                  System.out.println(different_sizes1 + "Mode w photoedit");
                     inSet1.setText("");
                     	if(horizontal_or_vertical!=null&&n_of_stripes!=0)
                     	{
-                    int mode =0; // enlarge or shrink
+                     // enlarge or shrink
                   //  AskUser.main(null);
                    // AskUser.returnAnswer();
 
                    
-                    ObligatoryFunction3  fun = new ObligatoryFunction3(AddDirectory.all_chosen,n_of_stripes,horizontal_or_vertical,mode);
+                    ObligatoryFunction3  fun = new ObligatoryFunction3(AddDirectory.all_chosen,n_of_stripes,horizontal_or_vertical,different_sizes1);
                     merged_image = fun.returnImage();
                     OptionFrame.main(null); // ask if user wants to see?
                     OptionFrame quest_see_the_result=new OptionFrame(); // get answer from OptionFrame class

@@ -18,14 +18,16 @@ import javax.swing.JButton;
  
 public class ObligatoryFunction3 {
         static HashMap<JButton,File> all_chosen_images;
-        static List <BufferedImage> all_images = new ArrayList <BufferedImage>();
+        static List <BufferedImage> all_images;
         static int n_stripes;
         static String direction_of_cut;
         static int n_images;
-        static int mode = 0; // enlarge or shrink
+         // enlarge or shrink
         static List <BufferedImage[][]> sliced_images;
+        static int mode =0;
+        static BufferedImage final_image;
        
-        ObligatoryFunction3(HashMap<JButton,File> source_of_images,int how_many_stripes,String direction_of_cut1,int mode)
+        ObligatoryFunction3(HashMap<JButton,File> source_of_images,int how_many_stripes,String direction_of_cut1,int diff)
         {
         	
                 this.all_chosen_images = AddDirectory.all_chosen;
@@ -33,8 +35,14 @@ public class ObligatoryFunction3 {
                 this.direction_of_cut = direction_of_cut1;
                 n_images = source_of_images.values().size();
                 sliced_images = new ArrayList <BufferedImage[][]>();
-                all_images = saveImagesToList();
-                all_images = makeImagesEqual();
+                all_images = new ArrayList <BufferedImage>();
+                all_images.clear();
+                all_images.clear();
+                this.mode = diff;
+                final_image = null;
+               
+                
+               
                
                 ObligatoryFunction3.main(null);
                 
@@ -44,7 +52,8 @@ public class ObligatoryFunction3 {
         private static void sliceImages ()      // this class is making sliced images and save them to list
         {       ///REMEMBER ABOUT RESIZING EACH IMAGE
                 int count =1; // to switch images in list
-               
+                all_images = saveImagesToList();
+                all_images = makeImagesEqual();
                
                 for( int i = 0; i <all_images.size(); i++)
                 {
@@ -130,7 +139,8 @@ public class ObligatoryFunction3 {
                         }
                         
                 }
-               
+                final_image = new BufferedImage(width,height,temp.getType());
+                final_image = created_image;
                 return created_image;
                
                
@@ -146,18 +156,27 @@ public class ObligatoryFunction3 {
         private static File f;
        
         public static BufferedImage returnImage ()
-        {
-               
+        {		
+        		
+        		/*
+        		makeImagesEqual();
+        		saveImagesToList();
+               	sliceImages();
                 BufferedImage returned_image = createImageFromSlice();
-                return returned_image;
+                */
+                return final_image;
                
         }
        
        
         public static void main(String[] args)
+        
          {  
+        	
                 BufferedImage final_img;
+                
                 sliceImages();
+                makeImagesEqual();
                 final_img=createImageFromSlice();
      
                 f = new File( "image.png" );  
@@ -203,10 +222,11 @@ public class ObligatoryFunction3 {
        
         private static List<BufferedImage>makeImagesEqual()
         {
-               
-                if(mode == 1 )
+        	
+               System.out.println(mode + " MODEMODE");
+                if(mode == 1 ) // enlarge
                 {
-                        for(int i  =0; i <all_images.size(); i++)
+                        for(int i  =0; i <all_images.size()-1; i++)
                         {
                                
                                 BufferedImage first = all_images.get(i);
@@ -233,7 +253,7 @@ public class ObligatoryFunction3 {
                         }
 
                 }
-                else
+                else if (mode == 2) // shrink
                 {
                         for(int i  =0; i <all_images.size()-1; i++)
                         {
@@ -255,6 +275,35 @@ public class ObligatoryFunction3 {
                                                 first=resizeImage(first, first.getType(), second.getWidth(),first.getHeight());
                                         if(first.getWidth() < second.getWidth())
                                                 second=resizeImage(second, first.getType(), first.getWidth(),second.getHeight());
+                            all_images.set(i,first);
+                            all_images.set(i+1,second);
+                        }
+                }
+                else if (mode == 3) // cut to smaller
+                {
+                        for(int i  =0; i <all_images.size()-1; i++)
+                        {
+                               System.out.println(all_images.size() + " all_images SIZE " + i + "przy tym sie crashuje");
+                                BufferedImage first = all_images.get(i);
+                                BufferedImage second = all_images.get(i + 1);
+                               
+                                if(first.getType() != second.getType())
+                                {
+                                        second=resizeImage(second,first.getType(),second.getWidth(),second.getHeight());
+                                }
+                             
+                                if(first.getHeight() != second.getHeight() ||first.getWidth() != second.getWidth())
+                				{
+
+                					if(first.getHeight() != second.getHeight() ||first.getWidth() != second.getWidth())
+                					{
+                						if(first.getHeight() * first.getWidth() > second.getHeight() * second.getWidth() )
+                							first=first.getSubimage((first.getWidth()/2)-(second.getWidth()/2), (first.getHeight()/2)-(second.getHeight()/2), second.getWidth(), second.getHeight());
+                						else
+                							second=second.getSubimage((second.getWidth()/2)-(first.getWidth()/2), (second.getHeight()/2)-(first.getHeight()/2), first.getWidth(), first.getHeight());
+                					}
+                					
+                				}
                             all_images.set(i,first);
                             all_images.set(i+1,second);
                         }

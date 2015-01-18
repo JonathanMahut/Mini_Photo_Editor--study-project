@@ -192,10 +192,7 @@ public class MergeImageOR {
 					input[0]=input[0].getSubimage((input[0].getWidth()/2)-(input[1].getWidth()/2), (input[0].getHeight()/2)-(input[1].getHeight()/2), input[1].getWidth(), input[1].getHeight());
 				else
 					input[1]=input[1].getSubimage((input[1].getWidth()/2)-(input[0].getWidth()/2), (input[1].getHeight()/2)-(input[0].getHeight()/2), input[0].getWidth(), input[0].getHeight());
-				
-					
-			
-			
+
 			}
 			image = orImages (input[0],input[1]);
 			

@@ -62,6 +62,8 @@ import javax.swing.JRadioButton;
     //add enlarge button
      
     public class PhotoEdit{
+   	 static JFileChooser save = new JFileChooser();
+
     	static File dir=new java.io.File(".");//variable handling current directory
     	static int deg=180;
     	static Vector<String> pathToImage=new Vector<String>();
@@ -1044,7 +1046,6 @@ import javax.swing.JRadioButton;
                  }
            
             });
-            
             btnRotate.addActionListener(new ActionListener() {
                 public void actionPerformed(ActionEvent arg0) {
                 	if(AddDirectory.all_chosen.isEmpty())
@@ -1057,9 +1058,21 @@ import javax.swing.JRadioButton;
                                options,
                                options[0]);}
                 	else
-                	{// function
-                		
-                	}
+                	{RotateFunction rot = new RotateFunction(AddDirectory.all_chosen, deg);
+                    rot.main();
+                    BufferedImage kk = null;
+                            Display disp= new Display(); // invoke Display class
+                           
+                            for(File i : all_chosen_images.values()){
+                                    try{
+                                    kk = ImageIO.read(new File(i.getAbsolutePath()));
+                                    }
+                                    catch (IOException es){
+                                            es.printStackTrace();
+                                    }
+                     disp.createFrame(center, i, kk); //create new frame with image
+                            }
+                            }
                 }
             });
             

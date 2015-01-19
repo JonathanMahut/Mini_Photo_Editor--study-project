@@ -4,7 +4,6 @@ import java.awt.Toolkit;
 import java.awt.image.BufferedImage;
 import java.awt.image.ImageObserver;
 import java.io.File;
-import java.net.URL;
 import java.util.HashMap;
  
 import javax.swing.ImageIcon;
@@ -13,7 +12,7 @@ import javax.swing.JButton;
  
 public class RotateFunction{
        
-        static HashMap<JButton,File> map;
+        HashMap<JButton,File> map;
         Image spiral;
         double degrees;
        
@@ -24,32 +23,34 @@ public class RotateFunction{
         }
        
        
-         public void main(String[] args){
+         public void main(){
                 int counter = 0;
                
                 if (spiral == null){
                         for(File i : map.values())   //////Moving through hashMap
-            {
+                        {
                     try {
                         spiral = getImage(i.getAbsolutePath());
                         counter++;
-                        System.out.println("Rotating image "+counter);
-                                rotateImage(degrees, null);
-                    } catch (Exception e) {
+                        System.out.println("Path of image " + counter + " : " +i.getAbsolutePath());  
+                        rotateImage(degrees, null);
+                        System.out.println("Rotating image "+counter+" by "+degrees+" degrees");
+                    }
+                    catch (Exception e) {
                             // TODO Auto-generated catch block
                             e.printStackTrace();
                     }
-            }                               ///////////////////////////
-                       
+                   
+                        }                               ///////////////////////////
+                        PhotoEdit.all_chosen_images.putAll(map);  //Putting HashMap with rotated images into global HashMap
                 }
         }
        
-        public static Image getImage(String path){
+        public Image getImage(String path){
                 Image tempImage = null;
                 try
                 {
-                        URL imageURL = RotateFunction.class.getResource(path);
-                        tempImage = Toolkit.getDefaultToolkit().getImage(imageURL);
+                        tempImage = Toolkit.getDefaultToolkit().getImage(path);
                 }
                 catch (Exception e)
                 {
@@ -71,4 +72,5 @@ public class RotateFunction{
                 this.spiral = blankCanvas;
         }
     /////////////////////////////////////////////////////////////////
+ 
 }

@@ -41,6 +41,7 @@ import javax.swing.border.EtchedBorder;
 import net.sf.image4j.util.ConvertUtil;
 
 public class SaveImage extends JFrame {
+	 JFileChooser c = PhotoEdit.save;
 	static int licznik;
 	String digitss="";
     Vector<Integer> digits_vector=new Vector<Integer>();
@@ -140,7 +141,13 @@ public class SaveImage extends JFrame {
 			//step_value =step_value + Integer.parseInt(step.getText());
 			Nazwa.setText(nazwaa);
 			Option_1_set.setEnabled(false);
-
+			Save1.setEnabled(true);
+			licznik=start;
+			((JTextField)name).setEditable(false);
+			((JTextField)start_value).setEditable(false);
+			((JTextField)step).setEditable(false);
+			((JTextField)digits).setEditable(false);
+			((JTextField)where).setEditable(false);
 		}
     });
     
@@ -148,9 +155,10 @@ public class SaveImage extends JFrame {
     {
 
 		public void actionPerformed(ActionEvent e) {
-			int flag=0;
 			
-			licznik=licznik+step_value;
+			
+			//licznik=licznik+step_value;
+			 disableTextField(c.getComponents());
 			
 			if(licznik>=((int)Math.pow(10, digits_vector.size())))
 			{{Object[] options = {"OK"};
@@ -168,10 +176,13 @@ public class SaveImage extends JFrame {
 			second_part="";
 			digits_vector.clear();
 			digitss="";
+			licznik=0;
+			Save1.setEnabled(false);
 			}
-			
-			
-			
+			else
+			{
+				
+
 			char[] licznikk = Integer.toString(licznik).toCharArray();
 			for (int i=0;i<licznikk.length;i++)
 			{
@@ -190,8 +201,153 @@ public class SaveImage extends JFrame {
 			System.out.println(first_part+digitss+second_part);
 			
 			
-			digitss="";
-			
+			//Basic save
+			 disableTextField(c.getComponents());
+   	      // Demonstrate "Save" dialog:
+   	      int rVal = c.showSaveDialog(SaveImage.this);
+   	      if (rVal == JFileChooser.APPROVE_OPTION) {
+   	        filename.setText(first_part+digitss+second_part);
+   	        dir.setText(c.getCurrentDirectory().toString());
+   	        
+   	    	  if(chosen_type  == "jpeg")
+   	          {
+   	  		  	
+
+   	          	  try 
+   	                {  
+   	          		  	ImageIO.write(image_to_save, "JPEG", new File(c.getCurrentDirectory().toString()+ '\\' +(first_part+digitss+second_part)+".jpeg"));  
+   	          		  	
+   	          		  	if(which_mode == 1)
+   	          		  	{
+   	          		  		System.exit(0);
+   	          		  	}
+   	                }  
+   	                catch ( IOException x ) {  
+   	                    // Complain if there was any problem writing   
+   	                    // the output file.  
+   	                    x.printStackTrace();  
+   	                }         
+   	          }
+   	    	  else if(chosen_type == "jpg")
+   	    	  {
+
+   	    		  try 
+   	              {  
+   	    			    ImageIO.write(image_to_save, "JPG", new File(c.getCurrentDirectory().toString()+ '\\' +(first_part+digitss+second_part)+".jpg"));  
+   	    			    
+   	    			    if(which_mode == 1)
+   	          		  	{
+   	          		  		System.exit(0);
+   	          		  	}
+
+   	                  
+   	              }  
+   	              catch ( IOException x ) {  
+   	                  // Complain if there was any problem writing   
+   	                  // the output file.  
+   	                  x.printStackTrace();  
+   	              } 
+   	    	  }
+   	    	  else if(chosen_type == "png")
+   	    	  {
+   	    		  
+   	    	        try 			
+   	    	        {  
+   	    	            ImageIO.write(image_to_save, "PNG", new File(c.getCurrentDirectory().toString()+ '\\' +(first_part+digitss+second_part)+".png"));  
+   	    	            
+   	    	            if(which_mode == 1)
+   	          		  	{
+   	          		  		System.exit(0);
+   	          		  	}
+   	    	        }  
+   	    	        catch ( IOException x ) {  
+   	    	            // Complain if there was any problem writing   
+   	    	            // the output file.  
+   	    	            x.printStackTrace();  
+   	    	        }         
+   	    	  }
+   	    	  else if(chosen_type == "bmp")
+   	    	  {	
+   	    		  
+   	    	     switch(chosen_depth)
+   	    	     {	
+	    	    	     case 1: 
+	    	    	     {
+	    	    	    	 try {
+	    							ImageIO.write(ConvertUtil.convert1(image_to_save), "BMP", new File(c.getCurrentDirectory().toString()+ '\\' +(first_part+digitss+second_part)+".bmp"));
+	    							if(which_mode == 1)
+	        	          		  	{
+	        	          		  		System.exit(0);
+	        	          		  	}
+	    							
+	    	    	    	 } 
+	    	    	    	 catch (IOException e1) {
+	    							// TODO Auto-generated catch block
+	    							e1.printStackTrace();
+	    						}
+	    	    	    	break;
+	    	    	     }
+	    	    	     
+	    	    	     case 8: 
+	    	    	     {
+	    	    	    	 try {
+	    							ImageIO.write(ConvertUtil.convert8(image_to_save), "BMP", new File(c.getCurrentDirectory().toString()+ '\\' +(first_part+digitss+second_part)+".bmp"));
+	    							if(which_mode == 1)
+	        	          		  	{
+	        	          		  		System.exit(0);
+	        	          		  	}
+	    	    	    	 } 
+	    	    	    	 catch (IOException e1) {
+	    							// TODO Auto-generated catch block
+	    							e1.printStackTrace();
+	    						}
+	    	    	    	break;
+	    	    	     }
+	    	    	     case 32:
+	    	    	     {
+	    	    	    	 try {
+	    							ImageIO.write(ConvertUtil.convert32(image_to_save), "BMP", new File(c.getCurrentDirectory().toString()+ '\\' +(first_part+digitss+second_part)+".bmp"));
+	    							if(which_mode == 1)
+	        	          		  	{
+	        	          		  		System.exit(0);
+	        	          		  	}
+	    	    	    	 } catch (IOException e1) {
+	    							// TODO Auto-generated catch block
+	    							e1.printStackTrace();
+	    						}
+	    	    	    	break;
+	    	    	     }
+	    	    	     
+   	    	     }
+   	    		 
+   	    	  }
+   	    	  else if (chosen_type == "tiff")
+   	    	  {
+   	    		  try 			
+ 	    	        {  
+ 	    	            ImageIO.write(image_to_save, "TIFF", new File(c.getCurrentDirectory().toString()+ '\\' +(first_part+digitss+second_part)+".tiff"));  
+ 	    	          if(which_mode == 1)
+	          		  	{
+	          		  		System.exit(0);
+	          		  	}
+ 	    	        }  
+ 	    	        catch ( IOException x ) {  
+ 	    	            // Complain if there was any problem writing   
+ 	    	            // the output file.  
+ 	    	            x.printStackTrace();  
+ 	    	        }         
+   	    	  }
+   	      }
+   	        
+   	      if (rVal == JFileChooser.CANCEL_OPTION) {
+   	        filename.setText("You pressed cancel");
+   	        dir.setText("");
+   	      }
+   	
+			//end basic save
+   	      licznik=licznik+step_value;
+   	      digitss="";
+			}
 		}
 		
     
@@ -403,9 +559,20 @@ public class SaveImage extends JFrame {
  
   }
   
-  
+  public void disableTextField(Component[] comp)
+  {
+    for(int x = 0; x < comp.length; x++)
+    {
+      if(comp[x] instanceof JPanel) disableTextField(((JPanel)comp[x]).getComponents());
+      else if(comp[x] instanceof JTextField)
+      {
+    	((JTextField)comp[x]).setText(first_part+digitss+second_part);
+        ((JTextField)comp[x]).setEditable(false);
+        return;
+      }
+    }
+  }
 
- 
   public static void main(BufferedImage image_to_save1,int mode) {
     run(new SaveImage(image_to_save1,mode), 600, 500);
   }

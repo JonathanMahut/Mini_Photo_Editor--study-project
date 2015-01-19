@@ -4,8 +4,11 @@ import java.awt.Toolkit;
 import java.awt.image.BufferedImage;
 import java.awt.image.ImageObserver;
 import java.io.File;
+import java.io.IOException;
 import java.util.HashMap;
- 
+import java.util.Map;
+
+import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
  
@@ -27,21 +30,38 @@ public class RotateFunction{
                 int counter = 0;
                
                 if (spiral == null){
-                        for(File i : map.values())   //////Moving through hashMap
+                        for(Map.Entry<JButton, File> entry: map.entrySet())   //////Moving through hashMap
                         {
                     try {
-                        spiral = getImage(i.getAbsolutePath());
+                        spiral = getImage(entry.getValue().getAbsolutePath());
                         counter++;
-                        System.out.println("Path of image " + counter + " : " +i.getAbsolutePath());  
+                        System.out.println("Path of image " + counter + " : " +entry.getValue().getAbsolutePath());  
                         rotateImage(degrees, null);
                         System.out.println("Rotating image "+counter+" by "+degrees+" degrees");
+                       BufferedImage tmp = toBufferedImage(spiral);
+                       File f;
+                       f = new File( "image.png" );  
+                       try
+                       {  
+                          
+                        ImageIO.write( tmp, "PNG", f );  
+                
+                       }  
+                       catch ( IOException x )
+                       {  
+                           // Complain if there was any problem writing  
+                           // the output file.  
+                           x.printStackTrace();  
+                       }        
+                        map.put(entry.getKey(), f);
                     }
                     catch (Exception e) {
                             // TODO Auto-generated catch block
                             e.printStackTrace();
                     }
                    
-                        }                               ///////////////////////////
+                        } 
+                        PhotoEdit.all_chosen_images.clear();
                         PhotoEdit.all_chosen_images.putAll(map);  //Putting HashMap with rotated images into global HashMap
                 }
         }
@@ -71,6 +91,24 @@ public class RotateFunction{
                 g2.drawImage(this.spiral, 0, 0, o);
                 this.spiral = blankCanvas;
         }
-    /////////////////////////////////////////////////////////////////
+    ////
+        public static BufferedImage toBufferedImage(Image img)
+        {
+            if (img instanceof BufferedImage)
+            {
+                return (BufferedImage) img;
+            }
+
+            // Create a buffered image with transparency
+            BufferedImage bimage = new BufferedImage(img.getWidth(null), img.getHeight(null), BufferedImage.TYPE_INT_ARGB);
+
+            // Draw the image on to the buffered image
+            Graphics2D bGr = bimage.createGraphics();
+            bGr.drawImage(img, 0, 0, null);
+            bGr.dispose();
+
+            // Return the buffered image
+            return bimage;
+        }/////////////////////////////////////////////////////////////
  
 }

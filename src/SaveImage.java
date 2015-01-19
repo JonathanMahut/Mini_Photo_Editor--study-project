@@ -1,8 +1,3 @@
-// : c14:FileChooserTest.java
-// Demonstration of File dialog boxes.
-// From 'Thinking in Java, 3rd ed.' (c) Bruce Eckel 2002
-// www.BruceEckel.com. See copyright notice in CopyRight.txt.
-
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Container;
@@ -13,10 +8,12 @@ import java.awt.event.ActionListener;
 
 import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
+import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import javax.swing.JFormattedTextField;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.JComboBox;
@@ -34,6 +31,8 @@ import java.awt.Choice;
 import java.io.File;
 import java.io.IOException;
 import java.text.NumberFormat;
+import java.util.Arrays;
+import java.util.Vector;
 
 import javax.swing.JCheckBox;
 import javax.swing.JLabel;
@@ -42,6 +41,13 @@ import javax.swing.border.EtchedBorder;
 import net.sf.image4j.util.ConvertUtil;
 
 public class SaveImage extends JFrame {
+	static int licznik;
+	String digitss="";
+    Vector<Integer> digits_vector=new Vector<Integer>();
+	static String nazwaa="";
+	static String first_part="";
+	static String second_part="";
+	static int step_value;
   private JTextField filename = new JTextField(), dir = new JTextField();
   private static BufferedImage image_to_save;
   private JButton save = new JButton("Save");
@@ -91,29 +97,106 @@ public class SaveImage extends JFrame {
     Option_2.add(digits);
     p.add(Option_2_a);
     JPanel save_button = new JPanel();
-    JButton Option_1_save = new JButton("Save");
-    save_button.add(Option_1_save);
+    save_button.setLayout(new BoxLayout(save_button,BoxLayout.Y_AXIS));
     Option_2_a.add(Option_2);
     Option_2_a.add(save_button);
     p.add(Option_2_a);
     
-
-
-     //wheree=Integer.parseInt(where.getText());
-    Option_1_save.addActionListener(new ActionListener()
+    JButton Save1 = new JButton("Save Check");
+    save_button.add(Save1);
+    
+    JLabel Nazwa  = new JLabel();
+    JButton Option_1_set = new JButton("Set");
+    save_button.add(Option_1_set);
+    save_button.add(Nazwa);
+    
+    Option_1_set.addActionListener(new ActionListener()
     {
 
 		public void actionPerformed(ActionEvent e) {
-			// TODO Auto-generated method stub
-			String str = name.getText();
-    char[] letters = str.toCharArray();
-			 System.out.print(letters.length);
-			for (int i=0;i<3;i++)
-    	{System.out.print(letters[i]);}
-    	System.out.print(start_value.getText());
+
+			step_value=Integer.parseInt(step.getText());
+			int  wheree=Integer.parseInt(where.getText());
+			
+			int start = Integer.parseInt(start_value.getText());
+			
+		    int digitss=Integer.parseInt(digits.getText());
+		    for (int j=0;j<digitss-1;j++)
+		    {digits_vector.addElement(0);}
+		    digits_vector.addElement(start);
+		    
+		    String str = name.getText();
+			char[] letters = str.toCharArray();
+			for (int i=0;i<wheree;i++)
+			{nazwaa=nazwaa+(letters[i]);
+			first_part=first_part+(letters[i]);}
+			for (int j=0;j<digitss;j++)
+		    {nazwaa=nazwaa+(digits_vector.get(j));}
+			
+			for (int i=wheree;i<letters.length;i++)
+			{nazwaa=nazwaa+(letters[i]);
+			second_part=second_part+(letters[i]);}
+			//start=step_value;
+			//step_value =step_value + Integer.parseInt(step.getText());
+			Nazwa.setText(nazwaa);
+			Option_1_set.setEnabled(false);
+
 		}
-    	
     });
+    
+    Save1.addActionListener(new ActionListener()
+    {
+
+		public void actionPerformed(ActionEvent e) {
+			int flag=0;
+			
+			licznik=licznik+step_value;
+			
+			if(licznik>=((int)Math.pow(10, digits_vector.size())))
+			{{Object[] options = {"OK"};
+            int n = JOptionPane.showOptionDialog(Nazwa,
+                    "You can't save image with this name","Counter exception",
+                       JOptionPane.PLAIN_MESSAGE,
+                       JOptionPane.QUESTION_MESSAGE,
+                       null,
+                       options,
+                       options[0]);}
+			Option_1_set.setEnabled(true);
+			Nazwa.setText("");
+			nazwaa="";	
+			first_part="";
+			second_part="";
+			digits_vector.clear();
+			digitss="";
+			}
+			
+			
+			
+			char[] licznikk = Integer.toString(licznik).toCharArray();
+			for (int i=0;i<licznikk.length;i++)
+			{
+				digits_vector.remove(digits_vector.size()-1);
+			}
+			
+		    for (int j=0;j<licznikk.length;j++)
+		    {	
+		    	int x = Character.getNumericValue(licznikk[j]);
+		    	digits_vector.addElement(x);
+		    }
+		    
+		    for(int i=0;i<digits_vector.size();i++)
+			{digitss=digitss+digits_vector.elementAt(i);}
+		    
+			System.out.println(first_part+digitss+second_part);
+			
+			
+			digitss="";
+			
+		}
+		
+    
+    });
+    
     
     //Magda
     
@@ -324,7 +407,7 @@ public class SaveImage extends JFrame {
 
  
   public static void main(BufferedImage image_to_save1,int mode) {
-    run(new SaveImage(image_to_save1,mode), 400, 200);
+    run(new SaveImage(image_to_save1,mode), 600, 500);
   }
 
   public static void run(JFrame frame, int width, int height) {
@@ -351,10 +434,4 @@ public class SaveImage extends JFrame {
 			}
 		});
 	}
-} ///:~
-
-
-
-           
-         
-    
+}

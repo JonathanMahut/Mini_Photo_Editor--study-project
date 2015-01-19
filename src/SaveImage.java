@@ -1,6 +1,7 @@
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Container;
+import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
@@ -42,13 +43,7 @@ import net.sf.image4j.util.ConvertUtil;
 
 public class SaveImage extends JFrame {
 	 JFileChooser c = PhotoEdit.save;
-	static int licznik;
-	String digitss="";
-    Vector<Integer> digits_vector=new Vector<Integer>();
-	static String nazwaa="";
-	static String first_part="";
-	static String second_part="";
-	static int step_value;
+
   private JTextField filename = new JTextField(), dir = new JTextField();
   private static BufferedImage image_to_save;
   private JButton save = new JButton("Save");
@@ -57,7 +52,7 @@ public class SaveImage extends JFrame {
   private  int chosen_depth = 0;
   private int which_mode;  /// this variable is to inform from which place the class was started. If just before exiting the program it will be equal 1 else 0 .
   																									//It'll informal outer class that after execution of this class the program
-  																									//must be closed.
+  																								//must be closed.
 
   SaveImage(BufferedImage merged_image,int mode) {
 	  image_to_save=merged_image;
@@ -69,33 +64,22 @@ public class SaveImage extends JFrame {
     JPanel Option_2=new JPanel();
     Option_2.setLayout(new GridLayout(0, 1));
     
-    Option_1.setBorder(BorderFactory.createTitledBorder(BorderFactory.createEtchedBorder(EtchedBorder.RAISED, Color.GRAY, Color.DARK_GRAY), "Option_1"));
+    Option_1.setBorder(BorderFactory.createTitledBorder(BorderFactory.createEtchedBorder(EtchedBorder.RAISED, Color.GRAY, Color.DARK_GRAY), "Option_1 Give name on your own"));
     Option_2_a.setBorder(BorderFactory.createTitledBorder(BorderFactory.createEtchedBorder(EtchedBorder.RAISED, Color.GRAY, Color.DARK_GRAY), "Option_2   f.ex. image001, image002 ..."));
     
     //Option 1
     
     //Option2 
-    NumberFormat numberFormat = NumberFormat.getInstance();
-    JTextField name = new JTextField();
-    JTextField start_value = new JTextField();
-    JTextField step = new JTextField();
-    JTextField digits = new JTextField();
-    JLabel name_label=new JLabel("Name");
-    JFormattedTextField where = new JFormattedTextField(numberFormat);
-    JLabel where_label=new JLabel("Appearance of counter");
-    JLabel start_value_label=new JLabel("Start value");
-    JLabel step_label=new JLabel("Step");
-    JLabel digits_label=new JLabel("Digits");
-    Option_2.add(name_label);
-    Option_2.add(name);
-    Option_2.add(where_label);
-    Option_2.add(where);
-    Option_2.add(start_value_label);
-    Option_2.add(start_value);
-    Option_2.add(step_label);
-    Option_2.add(step);
-    Option_2.add(digits_label);
-    Option_2.add(digits);
+    Option_2.add(PhotoEdit.name_label);
+    Option_2.add(PhotoEdit.name);
+    Option_2.add(PhotoEdit.where_label);
+    Option_2.add(PhotoEdit.where);
+    Option_2.add(PhotoEdit.start_value_label);
+    Option_2.add(PhotoEdit.start_value);
+    Option_2.add(PhotoEdit.step_label);
+    Option_2.add(PhotoEdit.step);
+    Option_2.add(PhotoEdit.digits_label);
+    Option_2.add(PhotoEdit.digits);
     p.add(Option_2_a);
     JPanel save_button = new JPanel();
     save_button.setLayout(new BoxLayout(save_button,BoxLayout.Y_AXIS));
@@ -103,55 +87,99 @@ public class SaveImage extends JFrame {
     Option_2_a.add(save_button);
     p.add(Option_2_a);
     
-    JButton Save1 = new JButton("Save Check");
-    save_button.add(Save1);
+    save_button.add(PhotoEdit.Save1_save);
     
-    JLabel Nazwa  = new JLabel();
-    JButton Option_1_set = new JButton("Set");
-    save_button.add(Option_1_set);
-    save_button.add(Nazwa);
+    save_button.add(PhotoEdit.Option_1_set);
+    save_button.add(PhotoEdit.Nazwa);
     
-    Option_1_set.addActionListener(new ActionListener()
+    PhotoEdit.Option_1_set.addActionListener(new ActionListener()
     {
 
 		public void actionPerformed(ActionEvent e) {
-
-			step_value=Integer.parseInt(step.getText());
-			int  wheree=Integer.parseInt(where.getText());
-			
-			int start = Integer.parseInt(start_value.getText());
-			
-		    int digitss=Integer.parseInt(digits.getText());
-		    for (int j=0;j<digitss-1;j++)
-		    {digits_vector.addElement(0);}
-		    digits_vector.addElement(start);
-		    
-		    String str = name.getText();
+			String str = PhotoEdit.name.getText();
 			char[] letters = str.toCharArray();
+			int  wheree=Integer.parseInt(PhotoEdit.where.getText());
+			PhotoEdit.step_value=Integer.parseInt(PhotoEdit.step.getText());
+			int digitss=Integer.parseInt(PhotoEdit.digits.getText());
+			int start = Integer.parseInt(PhotoEdit.start_value.getText());
+			
+			String start_char = PhotoEdit.start_value.getText();
+			char [] start_value_char=start_char.toCharArray();
+			
+			if(letters.length<0)
+			{Object[] options = {"OK"};
+            int n = JOptionPane.showOptionDialog(PhotoEdit.Nazwa,
+                    "Please pick a name.","Name exception",
+                       JOptionPane.PLAIN_MESSAGE,
+                       JOptionPane.QUESTION_MESSAGE,
+                       null,
+                       options,
+                       options[0]);}
+			else if(letters.length<wheree)
+			{Object[] options = {"OK"};
+            int n = JOptionPane.showOptionDialog(PhotoEdit.Nazwa,
+                    "Appearance of the counter cannot be included in the name. Pick smaller one.In this case maximum is"+letters.length,"Appearance of the counter exception",
+                       JOptionPane.PLAIN_MESSAGE,
+                       JOptionPane.QUESTION_MESSAGE,
+                       null,
+                       options,
+                       options[0]);
+            ((JTextField)PhotoEdit.name).setEditable(false);} //error} //error out of boundary
+			else if(start_value_char.length>digitss)
+			{Object[] options = {"OK"};
+            int n = JOptionPane.showOptionDialog(PhotoEdit.Nazwa,
+                    "Start value extends the digit limit.","Start exception.",
+                       JOptionPane.PLAIN_MESSAGE,
+                       JOptionPane.QUESTION_MESSAGE,
+                       null,
+                       options,
+                       options[0]);
+            ((JTextField)PhotoEdit.where).setEditable(false);} //error
+			else if(wheree<0||start<0||PhotoEdit.step_value<0||digitss<0)
+			{Object[] options = {"OK"};
+            int n = JOptionPane.showOptionDialog(PhotoEdit.Nazwa,
+                    "Appearance of a counter, start value, step and digits must be positive values","Negative values exception",
+                       JOptionPane.PLAIN_MESSAGE,
+                       JOptionPane.QUESTION_MESSAGE,
+                       null,
+                       options,
+                       options[0]);
+            ((JTextField)PhotoEdit.start_value).setEditable(false);} // must be >0
+			else
+			{
+		    for (int j=0;j<digitss-start_value_char.length;j++)
+		    {PhotoEdit.digits_vector.addElement(0);}
+		    for (int i=0;i<start_value_char.length;i++)
+		    {
+		    int x = Character.getNumericValue(start_value_char[i]);
+		    PhotoEdit.digits_vector.addElement(x);
+		    }
+		   
 			for (int i=0;i<wheree;i++)
-			{nazwaa=nazwaa+(letters[i]);
-			first_part=first_part+(letters[i]);}
+			{PhotoEdit.nazwaa=PhotoEdit.nazwaa+(letters[i]);
+			PhotoEdit.first_part=PhotoEdit.first_part+(letters[i]);}
 			for (int j=0;j<digitss;j++)
-		    {nazwaa=nazwaa+(digits_vector.get(j));}
+		    {PhotoEdit.nazwaa=PhotoEdit.nazwaa+(PhotoEdit.digits_vector.get(j));}
 			
 			for (int i=wheree;i<letters.length;i++)
-			{nazwaa=nazwaa+(letters[i]);
-			second_part=second_part+(letters[i]);}
+			{PhotoEdit.nazwaa=PhotoEdit.nazwaa+(letters[i]);
+			PhotoEdit.second_part=PhotoEdit.second_part+(letters[i]);}
 			//start=step_value;
 			//step_value =step_value + Integer.parseInt(step.getText());
-			Nazwa.setText(nazwaa);
-			Option_1_set.setEnabled(false);
-			Save1.setEnabled(true);
-			licznik=start;
-			((JTextField)name).setEditable(false);
-			((JTextField)start_value).setEditable(false);
-			((JTextField)step).setEditable(false);
-			((JTextField)digits).setEditable(false);
-			((JTextField)where).setEditable(false);
+			PhotoEdit.Nazwa.setText(PhotoEdit.nazwaa);
+			PhotoEdit.Option_1_set.setEnabled(false);
+			PhotoEdit.Save1_save.setEnabled(true);
+			PhotoEdit.licznik_save=start;
+			((JTextField)PhotoEdit.name).setEditable(false);
+			((JTextField)PhotoEdit.start_value).setEditable(false);
+			((JTextField)PhotoEdit.step).setEditable(false);
+			((JTextField)PhotoEdit.digits).setEditable(false);
+			((JTextField)PhotoEdit.where).setEditable(false);
+			}
 		}
     });
     
-    Save1.addActionListener(new ActionListener()
+    PhotoEdit.Save1_save.addActionListener(new ActionListener()
     {
 
 		public void actionPerformed(ActionEvent e) {
@@ -160,45 +188,45 @@ public class SaveImage extends JFrame {
 			//licznik=licznik+step_value;
 			 disableTextField(c.getComponents());
 			
-			if(licznik>=((int)Math.pow(10, digits_vector.size())))
+			if(PhotoEdit.licznik_save>=((int)Math.pow(10, PhotoEdit.digits_vector.size())))
 			{{Object[] options = {"OK"};
-            int n = JOptionPane.showOptionDialog(Nazwa,
+            int n = JOptionPane.showOptionDialog(PhotoEdit.Nazwa,
                     "You can't save image with this name","Counter exception",
                        JOptionPane.PLAIN_MESSAGE,
                        JOptionPane.QUESTION_MESSAGE,
                        null,
                        options,
                        options[0]);}
-			Option_1_set.setEnabled(true);
-			Nazwa.setText("");
-			nazwaa="";	
-			first_part="";
-			second_part="";
-			digits_vector.clear();
-			digitss="";
-			licznik=0;
-			Save1.setEnabled(false);
+			PhotoEdit.Option_1_set.setEnabled(true);
+			PhotoEdit.Nazwa.setText("");
+			PhotoEdit.nazwaa="";	
+			PhotoEdit.first_part="";
+			PhotoEdit.second_part="";
+			PhotoEdit.digits_vector.clear();
+			PhotoEdit.digitss="";
+			PhotoEdit.licznik_save=0;
+			PhotoEdit.Save1_save.setEnabled(false);
 			}
 			else
 			{
 				
 
-			char[] licznikk = Integer.toString(licznik).toCharArray();
+			char[] licznikk = Integer.toString(PhotoEdit.licznik_save).toCharArray();
 			for (int i=0;i<licznikk.length;i++)
 			{
-				digits_vector.remove(digits_vector.size()-1);
+				PhotoEdit.digits_vector.remove(PhotoEdit.digits_vector.size()-1);
 			}
 			
 		    for (int j=0;j<licznikk.length;j++)
 		    {	
 		    	int x = Character.getNumericValue(licznikk[j]);
-		    	digits_vector.addElement(x);
+		    	PhotoEdit.digits_vector.addElement(x);
 		    }
 		    
-		    for(int i=0;i<digits_vector.size();i++)
-			{digitss=digitss+digits_vector.elementAt(i);}
+		    for(int i=0;i<PhotoEdit.digits_vector.size();i++)
+			{PhotoEdit.digitss=PhotoEdit.digitss+PhotoEdit.digits_vector.elementAt(i);}
 		    
-			System.out.println(first_part+digitss+second_part);
+			System.out.println(PhotoEdit.first_part+PhotoEdit.digitss+PhotoEdit.second_part);
 			
 			
 			//Basic save
@@ -206,7 +234,7 @@ public class SaveImage extends JFrame {
    	      // Demonstrate "Save" dialog:
    	      int rVal = c.showSaveDialog(SaveImage.this);
    	      if (rVal == JFileChooser.APPROVE_OPTION) {
-   	        filename.setText(first_part+digitss+second_part);
+   	        filename.setText(PhotoEdit.first_part+PhotoEdit.digitss+PhotoEdit.second_part);
    	        dir.setText(c.getCurrentDirectory().toString());
    	        
    	    	  if(chosen_type  == "jpeg")
@@ -215,7 +243,7 @@ public class SaveImage extends JFrame {
 
    	          	  try 
    	                {  
-   	          		  	ImageIO.write(image_to_save, "JPEG", new File(c.getCurrentDirectory().toString()+ '\\' +(first_part+digitss+second_part)+".jpeg"));  
+   	          		  	ImageIO.write(image_to_save, "JPEG", new File(c.getCurrentDirectory().toString()+ '\\' +(PhotoEdit.first_part+PhotoEdit.digitss+PhotoEdit.second_part)+".jpeg"));  
    	          		  	
    	          		  	if(which_mode == 1)
    	          		  	{
@@ -233,7 +261,7 @@ public class SaveImage extends JFrame {
 
    	    		  try 
    	              {  
-   	    			    ImageIO.write(image_to_save, "JPG", new File(c.getCurrentDirectory().toString()+ '\\' +(first_part+digitss+second_part)+".jpg"));  
+   	    			    ImageIO.write(image_to_save, "JPG", new File(c.getCurrentDirectory().toString()+ '\\' +(PhotoEdit.first_part+PhotoEdit.digitss+PhotoEdit.second_part)+".jpg"));  
    	    			    
    	    			    if(which_mode == 1)
    	          		  	{
@@ -253,7 +281,7 @@ public class SaveImage extends JFrame {
    	    		  
    	    	        try 			
    	    	        {  
-   	    	            ImageIO.write(image_to_save, "PNG", new File(c.getCurrentDirectory().toString()+ '\\' +(first_part+digitss+second_part)+".png"));  
+   	    	            ImageIO.write(image_to_save, "PNG", new File(c.getCurrentDirectory().toString()+ '\\' +(PhotoEdit.first_part+PhotoEdit.digitss+PhotoEdit.second_part)+".png"));  
    	    	            
    	    	            if(which_mode == 1)
    	          		  	{
@@ -274,7 +302,7 @@ public class SaveImage extends JFrame {
 	    	    	     case 1: 
 	    	    	     {
 	    	    	    	 try {
-	    							ImageIO.write(ConvertUtil.convert1(image_to_save), "BMP", new File(c.getCurrentDirectory().toString()+ '\\' +(first_part+digitss+second_part)+".bmp"));
+	    							ImageIO.write(ConvertUtil.convert1(image_to_save), "BMP", new File(c.getCurrentDirectory().toString()+ '\\' +(PhotoEdit.first_part+PhotoEdit.digitss+PhotoEdit.second_part)+".bmp"));
 	    							if(which_mode == 1)
 	        	          		  	{
 	        	          		  		System.exit(0);
@@ -291,7 +319,7 @@ public class SaveImage extends JFrame {
 	    	    	     case 8: 
 	    	    	     {
 	    	    	    	 try {
-	    							ImageIO.write(ConvertUtil.convert8(image_to_save), "BMP", new File(c.getCurrentDirectory().toString()+ '\\' +(first_part+digitss+second_part)+".bmp"));
+	    							ImageIO.write(ConvertUtil.convert8(image_to_save), "BMP", new File(c.getCurrentDirectory().toString()+ '\\' +(PhotoEdit.first_part+PhotoEdit.digitss+PhotoEdit.second_part)+".bmp"));
 	    							if(which_mode == 1)
 	        	          		  	{
 	        	          		  		System.exit(0);
@@ -306,7 +334,7 @@ public class SaveImage extends JFrame {
 	    	    	     case 32:
 	    	    	     {
 	    	    	    	 try {
-	    							ImageIO.write(ConvertUtil.convert32(image_to_save), "BMP", new File(c.getCurrentDirectory().toString()+ '\\' +(first_part+digitss+second_part)+".bmp"));
+	    							ImageIO.write(ConvertUtil.convert32(image_to_save), "BMP", new File(c.getCurrentDirectory().toString()+ '\\' +(PhotoEdit.first_part+PhotoEdit.digitss+PhotoEdit.second_part)+".bmp"));
 	    							if(which_mode == 1)
 	        	          		  	{
 	        	          		  		System.exit(0);
@@ -325,7 +353,7 @@ public class SaveImage extends JFrame {
    	    	  {
    	    		  try 			
  	    	        {  
- 	    	            ImageIO.write(image_to_save, "TIFF", new File(c.getCurrentDirectory().toString()+ '\\' +(first_part+digitss+second_part)+".tiff"));  
+ 	    	            ImageIO.write(image_to_save, "TIFF", new File(c.getCurrentDirectory().toString()+ '\\' +(PhotoEdit.first_part+PhotoEdit.digitss+PhotoEdit.second_part)+".tiff"));  
  	    	          if(which_mode == 1)
 	          		  	{
 	          		  		System.exit(0);
@@ -341,12 +369,16 @@ public class SaveImage extends JFrame {
    	        
    	      if (rVal == JFileChooser.CANCEL_OPTION) {
    	        filename.setText("You pressed cancel");
+   	     if(PhotoEdit.step_value<PhotoEdit.licznik_save)
+   	     PhotoEdit.licznik_save=PhotoEdit.licznik_save-PhotoEdit.step_value;
    	        dir.setText("");
    	      }
-   	
+   	     if(rVal == JFileChooser.CANCEL_OPTION)
+   	     { PhotoEdit.licznik_save=PhotoEdit.licznik_save-PhotoEdit.step_value;}
+   	      
 			//end basic save
-   	      licznik=licznik+step_value;
-   	      digitss="";
+   	   PhotoEdit.licznik_save=PhotoEdit.licznik_save+PhotoEdit.step_value;
+   	PhotoEdit.digitss="";
 			}
 		}
 		
@@ -356,9 +388,10 @@ public class SaveImage extends JFrame {
     
     //Magda
     
-    
-    
-    p.add(save);
+
+    //Option_1.setPreferredSize(new Dimension(Option_2_a.getWidth(),Option_2_a.getHeight()));
+    Option_1.add(save);
+    p.add(Option_1);
     Container cp = getContentPane();
     cp.add(p, BorderLayout.SOUTH);
     dir.setEditable(false);
@@ -566,7 +599,7 @@ public class SaveImage extends JFrame {
       if(comp[x] instanceof JPanel) disableTextField(((JPanel)comp[x]).getComponents());
       else if(comp[x] instanceof JTextField)
       {
-    	((JTextField)comp[x]).setText(first_part+digitss+second_part);
+    	((JTextField)comp[x]).setText(PhotoEdit.first_part+PhotoEdit.digitss+PhotoEdit.second_part);
         ((JTextField)comp[x]).setEditable(false);
         return;
       }
@@ -583,6 +616,7 @@ public class SaveImage extends JFrame {
     frame.setVisible(true);
     frame.setLocationRelativeTo(null);
     frame.setAlwaysOnTop(true);
+    frame.setResizable(false);
   }
 	private static void addPopup(Component component, final JPopupMenu popup) {
 		component.addMouseListener(new MouseAdapter() {

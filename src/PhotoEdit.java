@@ -4,6 +4,7 @@ import java.awt.Dimension;
 import java.awt.EventQueue;
 import java.awt.Graphics;
 import java.awt.Image;
+
 import javax.swing.JDesktopPane;
 import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
@@ -27,6 +28,7 @@ import javax.swing.JSlider;
 import javax.swing.JTabbedPane;
 import javax.swing.JTextField;
 import javax.swing.ScrollPaneConstants;
+
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
@@ -42,18 +44,23 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Vector;
+
 import javax.swing.JPanel;
 import javax.swing.border.EtchedBorder;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import javax.swing.filechooser.FileFilter;
 import javax.swing.filechooser.FileNameExtensionFilter;
+
 import java.awt.BorderLayout;
+
 import javax.swing.JScrollPane;
+
 import java.awt.FlowLayout;
 import java.awt.CardLayout;
 import java.awt.GridLayout;
 import java.awt.Color;
+
 import javax.swing.JComboBox;
 import javax.swing.JRadioButton;
      
@@ -62,8 +69,31 @@ import javax.swing.JRadioButton;
     //add enlarge button
      
     public class PhotoEdit{
-   	 static JFileChooser save = new JFileChooser();
-
+    	
+    	//Save Image
+    static int licznik_save;
+	static String digitss="";
+    static Vector<Integer> digits_vector=new Vector<Integer>();
+	static String nazwaa="";
+	static String first_part="";
+	static String second_part="";
+	static int step_value;
+   	static JFileChooser save = new JFileChooser();
+   	static NumberFormat numberFormat = NumberFormat.getInstance();
+   	static JTextField name = new JTextField();
+   	static JTextField start_value = new JTextField();
+   	static JTextField step = new JTextField();
+   	static JTextField digits = new JTextField();
+   	static JLabel name_label=new JLabel("Name");
+   	static JFormattedTextField where = new JFormattedTextField(numberFormat);
+   	static JLabel where_label=new JLabel("Appearance of counter");
+   	static JLabel start_value_label=new JLabel("Start value");
+   	static JLabel step_label=new JLabel("Step");
+   	static JLabel digits_label=new JLabel("Digits");
+    static JButton Save1_save = new JButton("Save Check");
+    static JLabel Nazwa  = new JLabel();
+    static JButton Option_1_set = new JButton("Set");
+//end of Save Image
     	static File dir=new java.io.File(".");//variable handling current directory
     	static int deg=180;
     	static Vector<String> pathToImage=new Vector<String>();

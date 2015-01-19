@@ -93,6 +93,7 @@ public class RotateFunction{
         }
     ////
         ///////Komentarz
+        //Mowa ciala to podstawa
         public static BufferedImage toBufferedImage(Image img)
         {
             if (img instanceof BufferedImage)

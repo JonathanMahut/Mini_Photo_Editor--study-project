@@ -92,6 +92,7 @@ public class RotateFunction{
                 this.spiral = blankCanvas;
         }
     ////
+        ///////Komentarz
         public static BufferedImage toBufferedImage(Image img)
         {
             if (img instanceof BufferedImage)

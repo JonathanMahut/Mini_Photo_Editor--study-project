@@ -179,6 +179,61 @@ public class SaveImage extends JFrame {
 		}
     });
     
+
+    //Option_1.setPreferredSize(new Dimension(Option_2_a.getWidth(),Option_2_a.getHeight()));
+    Option_1.add(save);
+    p.add(Option_1);
+    Container cp = getContentPane();
+    cp.add(p, BorderLayout.SOUTH);
+    dir.setEditable(false);
+    filename.setEditable(false);
+    p = new JPanel();
+    p.setLayout(new GridLayout(2, 1));
+    p.add(filename);
+    p.add(dir);
+    p.setBounds(200, 200, 900, 500);
+    cp.add(p, BorderLayout.NORTH);
+    
+    getContentPane().add(panel, BorderLayout.CENTER);
+    panel.setLayout(null);
+    
+    JLabel lblTypeOfImage = new JLabel("Type of image");
+    lblTypeOfImage.setBounds(97, 11, 112, 50);
+    panel.add(lblTypeOfImage);
+    JComboBox<String> comboBox =new JComboBox<String>();
+    
+    panel.add(comboBox);
+    comboBox.setBounds(97, 58, 100, 20);
+    comboBox.addItem("png");
+    comboBox.addItem("jpeg");
+    comboBox.addItem("jpg");
+    comboBox.addItem("bmp");
+    comboBox.addItem("tiff");
+    
+    JComboBox<String> comboBox2 = new JComboBox<String>();
+    comboBox2.setBounds(207, 58, 112, 20);
+    comboBox2.addItem("1");
+    comboBox2.addItem("8");
+    comboBox2.addItem("16");
+    comboBox2.addItem("24");
+    comboBox2.addItem("32");
+    
+    comboBox2.addActionListener(new ActionListener() {
+    	public void actionPerformed(ActionEvent arg0) {
+    		chosen_depth =(int) comboBox2.getSelectedItem();
+    	}
+    });
+    panel.add(comboBox2);
+    
+    JLabel lblDepth = new JLabel("Depth");
+    lblDepth.setBounds(242, 29, 46, 14);
+    panel.add(lblDepth);
+    comboBox.addActionListener(new ActionListener() {
+    	public void actionPerformed(ActionEvent arg0) {
+    		chosen_type =(String) comboBox.getSelectedItem();
+    	}
+    });
+    // Save z default name
     PhotoEdit.Save1_save.addActionListener(new ActionListener()
     {
 
@@ -388,60 +443,9 @@ public class SaveImage extends JFrame {
     
     //Magda
     
-
-    //Option_1.setPreferredSize(new Dimension(Option_2_a.getWidth(),Option_2_a.getHeight()));
-    Option_1.add(save);
-    p.add(Option_1);
-    Container cp = getContentPane();
-    cp.add(p, BorderLayout.SOUTH);
-    dir.setEditable(false);
-    filename.setEditable(false);
-    p = new JPanel();
-    p.setLayout(new GridLayout(2, 1));
-    p.add(filename);
-    p.add(dir);
-    p.setBounds(200, 200, 900, 500);
-    cp.add(p, BorderLayout.NORTH);
     
-    getContentPane().add(panel, BorderLayout.CENTER);
-    panel.setLayout(null);
     
-    JLabel lblTypeOfImage = new JLabel("Type of image");
-    lblTypeOfImage.setBounds(97, 11, 112, 50);
-    panel.add(lblTypeOfImage);
-    JComboBox<String> comboBox =new JComboBox<String>();
-    
-    panel.add(comboBox);
-    comboBox.setBounds(97, 58, 100, 20);
-    comboBox.addItem("png");
-    comboBox.addItem("jpeg");
-    comboBox.addItem("jpg");
-    comboBox.addItem("bmp");
-    comboBox.addItem("tiff");
-    
-    JComboBox<String> comboBox2 = new JComboBox<String>();
-    comboBox2.setBounds(207, 58, 112, 20);
-    comboBox2.addItem("1");
-    comboBox2.addItem("8");
-    comboBox2.addItem("16");
-    comboBox2.addItem("24");
-    comboBox2.addItem("32");
-    
-    comboBox2.addActionListener(new ActionListener() {
-    	public void actionPerformed(ActionEvent arg0) {
-    		chosen_depth =(int) comboBox2.getSelectedItem();
-    	}
-    });
-    panel.add(comboBox2);
-    
-    JLabel lblDepth = new JLabel("Depth");
-    lblDepth.setBounds(242, 29, 46, 14);
-    panel.add(lblDepth);
-    comboBox.addActionListener(new ActionListener() {
-    	public void actionPerformed(ActionEvent arg0) {
-    		chosen_type =(String) comboBox.getSelectedItem();
-    	}
-    });
+    // Save zwykły
     System.out.println("Variable after exiting actionlistner" + chosen_type);
     save.addActionListener(new ActionListener() {
     	public void actionPerformed(ActionEvent arg0) {

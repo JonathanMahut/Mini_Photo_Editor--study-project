@@ -451,12 +451,12 @@ import javax.swing.JRadioButton;
                     JMenuItem mntmSave = new JMenuItem("Save");
                     mntmSave.addActionListener(new ActionListener() {
                             public void actionPerformed(ActionEvent arg0) {
-                                   // merged_image=Display.imgglobal;
-                                   // if(merged_image != null)
-                                   // {
+                                   merged_image=Display.imgglobal;
+                                   if(merged_image != null)
+                                    {
                                     	SaveImage.main(merged_image,0);
-                                   
-                                   /* merged_image=null;
+                                                    
+                                    merged_image=null;
                                     Display.imgglobal=null;}
                                     else
                                     {
@@ -468,7 +468,7 @@ import javax.swing.JRadioButton;
                                                                null,
                                                                options,
                                                                options[0]);
-                                    }*/
+                                    }
                             }
                     });
                     mnFile.add(mntmSave);

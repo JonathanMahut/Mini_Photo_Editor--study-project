@@ -5,6 +5,7 @@ import java.awt.EventQueue;
 import java.awt.Graphics;
 import java.awt.GridBagLayout;
 import java.awt.Image;
+import java.awt.Toolkit;
 
 import javax.swing.JDesktopPane;
 import javax.imageio.ImageIO;
@@ -42,6 +43,7 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.Array;
+import java.net.URL;
 import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -103,7 +105,7 @@ import javax.swing.JRadioButton;
     	static Vector<String> pathToImage=new Vector<String>();
             JDesktopPane center= new JDesktopPane();
             /*{
-                ImageIcon backImage = new ImageIcon("pixelpro_logo_done.png"); //logo
+                ImageIcon backImage = new ImageIcon("PixelPro.jpg"); //logo
                 Image image = backImage.getImage();
                 {setOpaque(false);}
                 //Override
@@ -154,10 +156,11 @@ import javax.swing.JRadioButton;
              * Initialize the contents of the frame.
              */
             private void initialize() {
-                    frame = new JFrame();
+                    frame = new JFrame("Pixel Pro");
                     frame.setBounds(200, 200, 1300, 720);
             
-              
+                    ImageIcon logo = new ImageIcon("Logo/PixelPro.jpg");
+                    frame.setIconImage(logo.getImage());
                    
                     //////////////////
                     // Ask before close if user want to save image

@@ -125,6 +125,7 @@ import javax.swing.JRadioButton;
             static int black_or_white = 0;// list where all loaded images are as buttons
             static int different_sizes = 0; // store user choice about option for merge when images are different sizes
             static int different_sizes1 = 0; // same what above but for obligatory function 3 
+            static boolean check = false;
             /**
              * Launch the application.
              */
@@ -1085,9 +1086,11 @@ import javax.swing.JRadioButton;
             cut_frame.addItemListener(new ItemListener()  {
             		public void itemStateChanged(ItemEvent e) {
             			if(e.getStateChange() == ItemEvent.SELECTED)
-            			{System.out.println("selected");}
+            			{check = true;
+            				System.out.println("selected");}
             			else
-            			{System.out.println("deselected");}
+            			{check = false;
+            				System.out.println("deselected");}
             		}
             });
             cut_frame.setBounds(78, 41, 60, 23);
@@ -1107,6 +1110,7 @@ import javax.swing.JRadioButton;
            
             
             JRadioButton white_rdbutton = new JRadioButton("White background");
+            white_rdbutton.setSelected(true);
             white_rdbutton.addActionListener(new ActionListener() {
                     public void actionPerformed(ActionEvent arg0) {
                            //

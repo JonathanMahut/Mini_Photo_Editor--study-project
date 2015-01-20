@@ -1,3 +1,4 @@
+import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.Toolkit;
@@ -17,12 +18,11 @@ public class RotateFunction{
        
         HashMap<JButton,File> map;
         Image spiral;
-        double degrees;
+        
        
         RotateFunction(HashMap<JButton,File> source_of_image)
         {
                 map = AddDirectory.all_chosen;
-                degrees = PhotoEdit.deg;
         }
        
        
@@ -36,8 +36,14 @@ public class RotateFunction{
                         spiral = getImage(entry.getValue().getAbsolutePath());
                         counter++;
                         System.out.println("Path of image " + counter + " : " +entry.getValue().getAbsolutePath());  
-                        rotateImage(degrees, null);
-                        System.out.println("Rotating image "+counter+" by "+degrees+" degrees");
+                        if (PhotoEdit.check == true){
+                        	rotateImage(PhotoEdit.deg, null);
+                        	System.out.println("Rotating image "+counter+" by "+PhotoEdit.deg+" degrees (edge cut)");
+                        }
+                        else{
+                        	rotateImage1(PhotoEdit.deg, null);
+                        	System.out.println("Rotating image "+counter+" by "+PhotoEdit.deg+" degrees (bigger frame)"); 	
+                        }
                        BufferedImage tmp = toBufferedImage(spiral);
                        File f;
                        f = new File( "image.png" );  
@@ -91,7 +97,25 @@ public class RotateFunction{
                 g2.drawImage(this.spiral, 0, 0, o);
                 this.spiral = blankCanvas;
         }
-    ////
+        
+        public void rotateImage1(double degrees, ImageObserver o){
+        	double sin = Math.abs(Math.sin(Math.toRadians(degrees)));
+        	double cos = Math.abs(Math.cos(Math.toRadians(degrees)));
+            ImageIcon icon = new ImageIcon(this.spiral);
+            int w = icon.getIconWidth();
+        	int h = icon.getIconHeight();
+            int neww = (int)Math.floor(w*cos+h*sin);
+            int newh = (int)Math.floor(h*cos+w*sin);
+            BufferedImage blankCanvas = new BufferedImage(neww, newh, BufferedImage.TYPE_INT_ARGB);
+            Graphics2D g2 = (Graphics2D)blankCanvas.getGraphics();
+            g2.translate((neww-w)/2, (newh-h)/2);
+            g2.rotate(Math.toRadians(degrees), icon.getIconWidth()/2, icon.getIconHeight()/2);
+            g2.drawImage(this.spiral, 0, 0, o);
+            g2.setBackground(Color.PINK);
+            this.spiral = blankCanvas;
+    }
+    //////////////////////////////////////////////////////////////////////////
+        
         public static BufferedImage toBufferedImage(Image img)
         {
             if (img instanceof BufferedImage)
@@ -109,6 +133,6 @@ public class RotateFunction{
 
             // Return the buffered image
             return bimage;
-        }/////////////////////////////////////////////////////////////
+        }
  
 }

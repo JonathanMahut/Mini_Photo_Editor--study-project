@@ -125,7 +125,8 @@ import javax.swing.JRadioButton;
             static int black_or_white = 0;// list where all loaded images are as buttons
             static int different_sizes = 0; // store user choice about option for merge when images are different sizes
             static int different_sizes1 = 0; // same what above but for obligatory function 3 
-            static boolean check = false;
+            static boolean check = true;
+            static boolean black = false;
             /**
              * Launch the application.
              */
@@ -1083,6 +1084,7 @@ import javax.swing.JRadioButton;
             radio_buttons_rotate.setLayout(new BoxLayout(radio_buttons_rotate, BoxLayout.Y_AXIS));
             
             JCheckBox cut_frame = new JCheckBox("Cut edges");
+            cut_frame.setSelected(true);
             cut_frame.addItemListener(new ItemListener()  {
             		public void itemStateChanged(ItemEvent e) {
             			if(e.getStateChange() == ItemEvent.SELECTED)
@@ -1099,8 +1101,7 @@ import javax.swing.JRadioButton;
             JRadioButton black_rdbutton = new JRadioButton("Black background");
             black_rdbutton.addActionListener(new ActionListener() {
                     public void actionPerformed(ActionEvent arg0) {
-                           //
-                    	black_or_white = 1;
+                           black = true;
                     }
             });
 
@@ -1113,8 +1114,7 @@ import javax.swing.JRadioButton;
             white_rdbutton.setSelected(true);
             white_rdbutton.addActionListener(new ActionListener() {
                     public void actionPerformed(ActionEvent arg0) {
-                           //
-                    	black_or_white = 2;
+                          black = false;
                     }
             });
 
@@ -1170,8 +1170,8 @@ import javax.swing.JRadioButton;
                            
                             for(File i : all_chosen_images.values()){
                                     try{
-                                    kk = ImageIO.read(new File(i.getAbsolutePath())); 
-                                    disp.createFrame(center, i, kk); //create new frame with image
+                                    kk = ImageIO.read(new File(i.getAbsolutePath()));
+                                    disp.createFrame(center, i, kk); //create new frame with image 
                                     }
                                     catch (IOException es){
                                             es.printStackTrace();

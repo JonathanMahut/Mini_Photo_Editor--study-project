@@ -1,3 +1,4 @@
+import java.awt.Color;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -77,6 +78,14 @@ public class Display extends JFrame implements InternalFrameListener, ActionList
         try {
             frame.setSelected(true);
         } catch (java.beans.PropertyVetoException e) {
+        }
+        if (PhotoEdit.black == true){
+        	container.setBackground(Color.BLACK);
+        	image.setBackground(Color.BLACK);
+        }
+        else if (PhotoEdit.black == false){
+        	container.setBackground(Color.WHITE);
+        	image.setBackground(Color.WHITE);
         }
         image.repaint(); 
 		image.validate();

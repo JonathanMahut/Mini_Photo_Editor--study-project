@@ -111,7 +111,6 @@ public class RotateFunction{
             g2.translate((neww-w)/2, (newh-h)/2);
             g2.rotate(Math.toRadians(degrees), icon.getIconWidth()/2, icon.getIconHeight()/2);
             g2.drawImage(this.spiral, 0, 0, o);
-            g2.setBackground(Color.PINK);
             this.spiral = blankCanvas;
     }
     //////////////////////////////////////////////////////////////////////////

@@ -579,16 +579,7 @@ import javax.swing.JRadioButton;
                     JPanel radiopanel_first =new JPanel();
                     radiopanel_first.setLayout(new BoxLayout(radiopanel_first, BoxLayout.Y_AXIS));
                     
-                    JRadioButton rdbtnCenter = new JRadioButton("Center");
-                    rdbtnCenter.addActionListener(new ActionListener() {
-                            public void actionPerformed(ActionEvent e) {
-                                    //
-                            	different_sizes = 1;
-                            }
-                    });
-                    rdbtnCenter.setBounds(78, 67, 47, 23);
-                    radiopanel_first.add(rdbtnCenter);
-                   
+              
                     JRadioButton rdbtnEnlarge = new JRadioButton("Enlarge");
                     rdbtnEnlarge.addActionListener(new ActionListener() {
                             public void actionPerformed(ActionEvent e) {
@@ -623,7 +614,6 @@ import javax.swing.JRadioButton;
 
                     
                     ButtonGroup group_first = new ButtonGroup();
-                    group_first.add(rdbtnCenter);
                     group_first.add(rdbtnEnlarge);
                     group_first.add(rdbtnShrink);
                     group_first.add(rdbtnCut);

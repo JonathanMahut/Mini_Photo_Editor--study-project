@@ -3,6 +3,7 @@ import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.EventQueue;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.GridBagLayout;
 import java.awt.Image;
 import java.awt.Toolkit;
@@ -103,7 +104,7 @@ import javax.swing.JRadioButton;
     	static File dir=new java.io.File(".");//variable handling current directory
     	static int deg=180;
     	static Vector<String> pathToImage=new Vector<String>();
-            JDesktopPane center= new JDesktopPane();
+            Background center= new Background();
             /*{
                 ImageIcon backImage = new ImageIcon("PixelPro.jpg"); //logo
                 Image image = backImage.getImage();
@@ -129,6 +130,8 @@ import javax.swing.JRadioButton;
             static int different_sizes1 = 0; // same what above but for obligatory function 3 
             static boolean check = true;
             static boolean black = false;
+            static ImageIcon logo = new ImageIcon("Logo/PixelPro.jpg");
+            static Image backgroundImage = logo.getImage();
             /**
              * Launch the application.
              */
@@ -148,19 +151,21 @@ import javax.swing.JRadioButton;
             /**
              * Create the application.
              */
+            
             public PhotoEdit() {
                     initialize();
             }
      
             /**
              * Initialize the contents of the frame.
-             */
+             */       
+
+            
             private void initialize() {
                     frame = new JFrame("Pixel Pro");
                     frame.setBounds(200, 200, 1300, 720);
             
-                    ImageIcon logo = new ImageIcon("Logo/PixelPro.jpg");
-                    frame.setIconImage(logo.getImage());
+                    frame.setIconImage(logo.getImage());                   
                    
                     //////////////////
                     // Ask before close if user want to save image

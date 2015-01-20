@@ -3,6 +3,7 @@ import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.EventQueue;
 import java.awt.Graphics;
+import java.awt.GridBagLayout;
 import java.awt.Image;
 
 import javax.swing.JDesktopPane;
@@ -14,6 +15,7 @@ import javax.swing.BoxLayout;
 import javax.swing.ButtonGroup;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JCheckBox;
 import javax.swing.JFileChooser;
 import javax.swing.JFormattedTextField;
 import javax.swing.JFrame;
@@ -31,6 +33,8 @@ import javax.swing.ScrollPaneConstants;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
@@ -98,6 +102,16 @@ import javax.swing.JRadioButton;
     	static int deg=180;
     	static Vector<String> pathToImage=new Vector<String>();
             JDesktopPane center= new JDesktopPane();
+            /*{
+                ImageIcon backImage = new ImageIcon("pixelpro_logo_done.png"); //logo
+                Image image = backImage.getImage();
+                {setOpaque(false);}
+                //Override
+                public void paintComponent (Graphics g) {
+                	g.drawImage(image, 0, 0, 300, 300, null);
+                  super.paintComponent(g);
+                }
+              };*/
             int flag=0;
             private JFrame frame;
             int licznik=0;
@@ -139,10 +153,9 @@ import javax.swing.JRadioButton;
              */
             private void initialize() {
                     frame = new JFrame();
-                    frame.setBounds(200, 200, 900, 650);
-                frame.setLocationRelativeTo(null);
-     
-                    //
+                    frame.setBounds(200, 200, 1000, 700);
+            
+              
                    
                     //////////////////
                     // Ask before close if user want to save image
@@ -237,21 +250,20 @@ import javax.swing.JRadioButton;
                    
                     JMenu mnFile = new JMenu("File");
                     menuBar.add(mnFile);
-                    
-                    JMenu mnHelp = new JMenu("Help");
-                    menuBar.add(mnHelp);
-                    
-                    JMenuItem mntmAbout = new JMenuItem("About");
-                    
-                    mnHelp.add(mntmAbout);
-                    mntmAbout.addActionListener(new ActionListener()
-                    {
-                    	 public void actionPerformed(ActionEvent e) {
-                    		 JOptionPane.showMessageDialog(panel, "This photo application was made by: \n\nMagdalena Baracz\nJakub Mañk\nNatalia Kazimierczak\nMaciej Miœkiewicz\nAleksander Lipka \n\nVersion 1.5\n\nCopyright © 2015", "About", JOptionPane.INFORMATION_MESSAGE);
-                    	 }
-                    });
-                    
                    
+                    JMenu mnHelp = new JMenu("Help");
+                                       menuBar.add(mnHelp);
+                                       
+                                        JMenuItem mntmAbout = new JMenuItem("About");
+                                        
+                                        mnHelp.add(mntmAbout);
+                                        mntmAbout.addActionListener(new ActionListener()
+                                        {
+                                        	 public void actionPerformed(ActionEvent e) {
+                                        		 JOptionPane.showMessageDialog(panel, "This photo application was made by: \n\nMagdalena Baracz\nJakub MaÃ±k\nNatalia Kazimierczak\nMaciej MiÂœkiewicz\nAleksander Lipka \n\nVersion 1.5\n\nCopyright Â© 2015", "About", JOptionPane.INFORMATION_MESSAGE);
+                                        	 }
+                                        });
+                    
                     JMenuItem mntmOpen = new JMenuItem("Open");
                      JFileChooser chooser=new JFileChooser(dir);
                      chooser.addChoosableFileFilter(new FileFilter() {
@@ -1066,6 +1078,52 @@ import javax.swing.JRadioButton;
             slider.setPaintLabels(true);
             slider.setLabelTable(slider.createStandardLabels(45));
             
+            JPanel radio_buttons_rotate=new JPanel();
+            radio_buttons_rotate.setLayout(new BoxLayout(radio_buttons_rotate, BoxLayout.Y_AXIS));
+            
+            JCheckBox cut_frame = new JCheckBox("Cut edges");
+            cut_frame.addItemListener(new ItemListener()  {
+            		public void itemStateChanged(ItemEvent e) {
+            			if(e.getStateChange() == ItemEvent.SELECTED)
+            			{System.out.println("selected");}
+            			else
+            			{System.out.println("deselected");}
+            		}
+            });
+            cut_frame.setBounds(78, 41, 60, 23);
+            radio_buttons_rotate.add(cut_frame);
+            
+            JRadioButton black_rdbutton = new JRadioButton("Black background");
+            black_rdbutton.addActionListener(new ActionListener() {
+                    public void actionPerformed(ActionEvent arg0) {
+                           //
+                    	black_or_white = 1;
+                    }
+            });
+
+           
+            black_rdbutton.setBounds(78, 41, 60, 23);
+            radio_buttons_rotate.add(black_rdbutton);
+           
+            
+            JRadioButton white_rdbutton = new JRadioButton("White background");
+            white_rdbutton.addActionListener(new ActionListener() {
+                    public void actionPerformed(ActionEvent arg0) {
+                           //
+                    	black_or_white = 2;
+                    }
+            });
+
+           
+            white_rdbutton.setBounds(78, 41, 60, 23);
+            radio_buttons_rotate.add(white_rdbutton);
+           
+            ButtonGroup group_frame_rotate = new ButtonGroup();
+            group_frame_rotate.add(black_rdbutton);
+            group_frame_rotate.add(white_rdbutton);
+            
+            panel_2e.add(radio_buttons_rotate);
+            
             JLabel Rotate  = new JLabel();
             Rotate.setText(deg+"\u00b0");
             panel_2e.add(slider);
@@ -1073,7 +1131,7 @@ import javax.swing.JRadioButton;
             JPanel RotatePanel=new JPanel(); 
             RotatePanel.add(Rotate);
             RotatePanel.add(btnRotate);
-            RotatePanel.setLayout(new BoxLayout(RotatePanel,BoxLayout.X_AXIS));
+            RotatePanel.setLayout(new FlowLayout());
             btnRotate.setBounds(28, 158, 89, 23);
             panel_2e.add(RotatePanel);
            
@@ -1086,8 +1144,7 @@ import javax.swing.JRadioButton;
             	 public void stateChanged(ChangeEvent ce) {
                      deg=((JSlider) ce.getSource()).getValue(); 
                     
-                     Rotate.setText(deg+"\u00b0");
-                 }
+                     Rotate.setText(deg+"\u00b0");                 }
            
             });
             btnRotate.addActionListener(new ActionListener() {
@@ -1109,7 +1166,7 @@ import javax.swing.JRadioButton;
                            
                             for(File i : all_chosen_images.values()){
                                     try{
-                                    kk = ImageIO.read(new File(i.getAbsolutePath()));
+                                    kk = ImageIO.read(new File(i.getAbsolutePath())); 
                                     disp.createFrame(center, i, kk); //create new frame with image
                                     }
                                     catch (IOException es){
@@ -1184,4 +1241,3 @@ import javax.swing.JRadioButton;
            
            
     }
-

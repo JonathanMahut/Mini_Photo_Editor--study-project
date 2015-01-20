@@ -38,9 +38,11 @@ public class AddDirectory {
 	static HashMap<JButton,File> all_chosen = new HashMap<JButton,File>();
 	static int iter=0;
 	int check_flag=0;
+	static Color color1 = Color.gray; 
 	//static JPanel image=new JPanel();
 	void AddDirect(JPanel where, File[] file_from_given_directory1, JPanel where2,HashMap<JButton, File> all_chosen_images,HashMap<JButton,File> all_chosen_temp,JButton btnClearAll2,ArrayList<JButton> buttonList,JFrame frame,JButton delete1,HashMap<JButton,File> clear,ArrayList<JButton> buttonListTemp2){
 		HashMap<JButton,File> clear_inner = new HashMap<JButton,File>();
+		
 		clear_inner.putAll(clear);
 		check_flag=0;
 		File file_from_given_directory[]=file_from_given_directory1;	
@@ -49,7 +51,8 @@ public class AddDirectory {
 			 ArrayList<JButton> buttonList1=buttonList;
 			 JPanel directory=new JPanel();
 			JPanel image=new JPanel();
-		 
+			
+		
 		for(int i =0; i<file_from_given_directory.length; i++)
 		{image.add(buttonList1.get(i));}
 		
@@ -89,14 +92,18 @@ public class AddDirectory {
 		  directory.add(buttons);
 		  where.add(directory);
 		  buttonList1.clear(); 
-		  
+		  //check_flag gives me the number how many times user selected one and the same directory
 		  select1.addActionListener(new ActionListener() {
 		      public void actionPerformed(ActionEvent e) {
+		    	  image_main.setBackground(color1);
+		  		image.setBackground(color1);
+		  		directory.setBackground(color1);
+		    	 
 		    	  all_chosen_temp.putAll(clear_inner);
 
 		  		all_chosen_images.putAll(all_chosen_temp);
 		    	  JPanel image_main= new JPanel(new BorderLayout());
-					 
+		    	 
 		    	  if(check_flag>=1)
 		    	  {all_chosen_images.putAll(all_chosen_temp);}
 		    	  check_flag++;

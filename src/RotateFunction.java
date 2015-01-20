@@ -19,10 +19,10 @@ public class RotateFunction{
         Image spiral;
         double degrees;
        
-        RotateFunction(HashMap<JButton,File> source_of_image,double deg)
+        RotateFunction(HashMap<JButton,File> source_of_image)
         {
                 map = AddDirectory.all_chosen;
-                degrees = deg;
+                degrees = PhotoEdit.deg;
         }
        
        
@@ -92,8 +92,6 @@ public class RotateFunction{
                 this.spiral = blankCanvas;
         }
     ////
-        ///////Komentarz
-        //Mowa ciala to podstawa
         public static BufferedImage toBufferedImage(Image img)
         {
             if (img instanceof BufferedImage)

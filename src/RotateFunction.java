@@ -69,6 +69,7 @@ public class RotateFunction{
                         } 
                         PhotoEdit.all_chosen_images.clear();
                         PhotoEdit.all_chosen_images.putAll(map);  //Putting HashMap with rotated images into global HashMap
+                        System.out.println("Images have been successfully rotated");
                 }
         }
        

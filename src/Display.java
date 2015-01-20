@@ -44,7 +44,7 @@ public class Display extends JFrame implements InternalFrameListener, ActionList
                     true, //maximizable
                     true);//iconifiable
  
-            setSize(300, 200);
+            setSize(720, 600);
         }    
         
 	}

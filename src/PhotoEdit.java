@@ -155,7 +155,7 @@ import javax.swing.JRadioButton;
              */
             private void initialize() {
                     frame = new JFrame();
-                    frame.setBounds(200, 200, 1000, 700);
+                    frame.setBounds(200, 200, 1300, 720);
             
               
                    
@@ -1089,10 +1089,10 @@ import javax.swing.JRadioButton;
             		public void itemStateChanged(ItemEvent e) {
             			if(e.getStateChange() == ItemEvent.SELECTED)
             			{check = true;
-            				System.out.println("selected");}
+            				System.out.println("Cut-edge mode selected");}
             			else
             			{check = false;
-            				System.out.println("deselected");}
+            				System.out.println("Cut-edge mode deselected");}
             		}
             });
             cut_frame.setBounds(78, 41, 60, 23);

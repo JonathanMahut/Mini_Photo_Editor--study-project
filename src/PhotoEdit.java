@@ -237,6 +237,20 @@ import javax.swing.JRadioButton;
                    
                     JMenu mnFile = new JMenu("File");
                     menuBar.add(mnFile);
+                    
+                    JMenu mnHelp = new JMenu("Help");
+                    menuBar.add(mnHelp);
+                    
+                    JMenuItem mntmAbout = new JMenuItem("About");
+                    
+                    mnHelp.add(mntmAbout);
+                    mntmAbout.addActionListener(new ActionListener()
+                    {
+                    	 public void actionPerformed(ActionEvent e) {
+                    		 JOptionPane.showMessageDialog(panel, "This photo application was made by: \n\nMagdalena Baracz\nJakub Mañk\nNatalia Kazimierczak\nMaciej Miœkiewicz\nAleksander Lipka \n\nVersion 1.5\n\nCopyright © 2015", "About", JOptionPane.INFORMATION_MESSAGE);
+                    	 }
+                    });
+                    
                    
                     JMenuItem mntmOpen = new JMenuItem("Open");
                      JFileChooser chooser=new JFileChooser(dir);
@@ -1053,7 +1067,7 @@ import javax.swing.JRadioButton;
             slider.setLabelTable(slider.createStandardLabels(45));
             
             JLabel Rotate  = new JLabel();
-            Rotate.setText(deg+"Â°");
+            Rotate.setText(deg+"\u00b0");
             panel_2e.add(slider);
             JButton btnRotate = new JButton("Rotate");
             JPanel RotatePanel=new JPanel(); 
@@ -1072,7 +1086,7 @@ import javax.swing.JRadioButton;
             	 public void stateChanged(ChangeEvent ce) {
                      deg=((JSlider) ce.getSource()).getValue(); 
                     
-                     Rotate.setText(deg+"Â°");
+                     Rotate.setText(deg+"\u00b0");
                  }
            
             });
@@ -1088,7 +1102,7 @@ import javax.swing.JRadioButton;
                                options,
                                options[0]);}
                 	else
-                	{RotateFunction rot = new RotateFunction(AddDirectory.all_chosen, deg);
+                	{RotateFunction rot = new RotateFunction(AddDirectory.all_chosen);
                     rot.main();
                     BufferedImage kk = null;
                             Display disp= new Display(); // invoke Display class

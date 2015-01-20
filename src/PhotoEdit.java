@@ -164,7 +164,7 @@ import javax.swing.JRadioButton;
             
             private void initialize() {
                     frame = new JFrame("Pixel Pro");
-                    frame.setBounds(200, 200, 1300, 720);
+                    frame.setBounds(200, 200, 1300, 800);
             
                     frame.setIconImage(logo.getImage());                   
                    

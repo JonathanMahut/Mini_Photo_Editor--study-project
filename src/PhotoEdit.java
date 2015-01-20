@@ -1110,11 +1110,12 @@ import javax.swing.JRadioButton;
                             for(File i : all_chosen_images.values()){
                                     try{
                                     kk = ImageIO.read(new File(i.getAbsolutePath()));
+                                    disp.createFrame(center, i, kk); //create new frame with image
                                     }
                                     catch (IOException es){
                                             es.printStackTrace();
                                     }
-                     disp.createFrame(center, i, kk); //create new frame with image
+                    
                             }
                             }
                 }

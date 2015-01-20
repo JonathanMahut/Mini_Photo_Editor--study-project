@@ -131,7 +131,8 @@ import javax.swing.JRadioButton;
             static boolean check = true;
             static boolean black = false;
             static ImageIcon logo = new ImageIcon("Logo/PixelPro.jpg");
-            static Image backgroundImage = logo.getImage();
+            static ImageIcon logoback = new ImageIcon("Logo/PixelPro-back.jpg");
+            static Image backgroundImage = logoback.getImage();
             /**
              * Launch the application.
              */

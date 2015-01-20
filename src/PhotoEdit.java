@@ -260,7 +260,7 @@ import javax.swing.JRadioButton;
                                         mntmAbout.addActionListener(new ActionListener()
                                         {
                                         	 public void actionPerformed(ActionEvent e) {
-                                        		 JOptionPane.showMessageDialog(panel, "This photo application was made by: \n\nMagdalena Baracz\nJakub Mañk\nNatalia Kazimierczak\nMaciej Mikiewicz\nAleksander Lipka \n\nVersion 1.5\n\nCopyright © 2015", "About", JOptionPane.INFORMATION_MESSAGE);
+                                        		 JOptionPane.showMessageDialog(panel, "This photo application was made by: \n\nMagdalena Baracz\nJakub Mank\nNatalia Kazimierczak\nMaciej Miskiewicz\nAleksander Lipka \n\nVersion 1.5\n\nCopyright "+"\u00A9" +" 2015", "About", JOptionPane.INFORMATION_MESSAGE);
                                         	 }
                                         });
                     

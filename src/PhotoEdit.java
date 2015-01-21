@@ -32,6 +32,8 @@ import javax.swing.JSlider;
 import javax.swing.JTabbedPane;
 import javax.swing.JTextField;
 import javax.swing.ScrollPaneConstants;
+import javax.swing.UIManager;
+import javax.swing.UnsupportedLookAndFeelException;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -104,7 +106,7 @@ import javax.swing.JRadioButton;
     	static File dir=new java.io.File(".");//variable handling current directory
     	static int deg=180;
     	static Vector<String> pathToImage=new Vector<String>();
-            Background center= new Background();
+            JDesktopPane center= new JDesktopPane();
             /*{
                 ImageIcon backImage = new ImageIcon("PixelPro.jpg"); //logo
                 Image image = backImage.getImage();
@@ -163,6 +165,23 @@ import javax.swing.JRadioButton;
 
             
             private void initialize() {
+            	try {
+                    // Set System L&F
+                UIManager.setLookAndFeel("javax.swing.plaf.nimbus.NimbusLookAndFeel");
+            } 
+            catch (UnsupportedLookAndFeelException e) {
+               // handle exception
+            }
+            catch (ClassNotFoundException e) {
+               // handle exception
+            }
+            catch (InstantiationException e) {
+               // handle exception
+            }
+            catch (IllegalAccessException e) {
+               // handle exception
+            }
+            	
                     frame = new JFrame("Pixel Pro");
                     frame.setBounds(200, 200, 1300, 800);
             
@@ -509,11 +528,12 @@ import javax.swing.JRadioButton;
                             }
                     });
                     mnFile.add(mntmSave);
+                    mnFile.addSeparator();
                     mnFile.add(mntmExit);
                    
                     //JDesktopPane center= new JDesktopPane();
                     frame.getContentPane().add(BorderLayout.CENTER, center);
-                    center.setBackground(Color.darkGray);
+                    center.setBackground(Color.getHSBColor(21, 21, 50));
                    
                     JPanel panel_1 = new JPanel();
                     frame.getContentPane().add(BorderLayout.WEST, panel_1);
@@ -621,6 +641,8 @@ import javax.swing.JRadioButton;
                     
                    //
                     JButton btnMerge = new JButton("Merge");
+                    btnMerge.setBackground(Color.DARK_GRAY);
+                    btnMerge.setForeground(Color.WHITE);
                     btnMerge.setBounds(28, 192, 89, 23);
                    
                     JPanel BasicMerge=new JPanel();
@@ -751,25 +773,31 @@ import javax.swing.JRadioButton;
             
             JPanel radio_buttons_frames=new JPanel();
             radio_buttons_frames.setLayout(new BoxLayout(radio_buttons_frames, BoxLayout.Y_AXIS));
-            
+            JButton frame_button = new JButton("Cut frame"); 
+            frame_button.setBackground(Color.DARK_GRAY);
+            frame_button.setForeground(Color.WHITE);
             JRadioButton black_radiobutton = new JRadioButton("Black background");
             black_radiobutton.addActionListener(new ActionListener() {
                     public void actionPerformed(ActionEvent arg0) {
                            //
                     	black_or_white = 1;
+                        frame_button.setBackground(Color.BLACK);
+                        frame_button.setForeground(Color.WHITE);
                     }
             });
 
            
             black_radiobutton.setBounds(78, 41, 60, 23);
             radio_buttons_frames.add(black_radiobutton);
-           
+
             
             JRadioButton white_radiobutton = new JRadioButton("White background");
             white_radiobutton.addActionListener(new ActionListener() {
                     public void actionPerformed(ActionEvent arg0) {
                            //
                     	black_or_white = 2;
+                        frame_button.setBackground(Color.WHITE);
+                        frame_button.setForeground(Color.BLACK);
                     }
             });
 
@@ -783,10 +811,9 @@ import javax.swing.JRadioButton;
             
             NumberFormat numberFormat = NumberFormat.getInstance();
             JFormattedTextField inSet = new JFormattedTextField(numberFormat);
-            JButton frame_button = new JButton("Cut frame"); 
             frame_button.addActionListener(new ActionListener() {
                 public void actionPerformed(ActionEvent arg0) {
-                	 if(AddDirectory.all_chosen.size()>=1)
+                if(AddDirectory.all_chosen.size()>=1)
                      {
                 	int treshold=0;
                 	ObligatoryFunction1 fun = new ObligatoryFunction1(black_or_white,treshold); 
@@ -836,6 +863,9 @@ import javax.swing.JRadioButton;
             GrayscalePanel.add(inSet);
             GrayscalePanel.add(SetButton);
             panel_2b.add(GrayscalePanel);
+            
+            SetButton.setBackground(Color.DARK_GRAY);
+            SetButton.setForeground(Color.WHITE);
            
             SetButton.addActionListener(new ActionListener() {
                 public void actionPerformed(ActionEvent arg0) {
@@ -980,6 +1010,8 @@ import javax.swing.JRadioButton;
             
             
             JButton SetButton1 = new JButton("SET");
+            SetButton1.setBackground(Color.DARK_GRAY);
+            SetButton1.setForeground(Color.WHITE);
 
             SetButton1.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -1136,6 +1168,8 @@ import javax.swing.JRadioButton;
             RotatePanel.add(btnRotate);
             RotatePanel.setLayout(new FlowLayout());
             btnRotate.setBounds(28, 158, 89, 23);
+            btnRotate.setBackground(Color.DARK_GRAY);
+            btnRotate.setForeground(Color.WHITE);
             panel_2e.add(RotatePanel);
            
            
@@ -1189,8 +1223,12 @@ import javax.swing.JRadioButton;
             JPanel panel_2d = new JPanel();
             JButton btnRefresh = new JButton("Refresh");
             btnRefresh.setBounds(28, 158, 89, 23);
+            btnRefresh.setBackground(Color.WHITE);
+            btnRefresh.setForeground(Color.BLACK);
             panel_2d.add(btnRefresh);
             JButton btnClear = new JButton("Clear");
+            btnClear.setBackground(Color.RED);
+            btnClear.setForeground(Color.WHITE);
             btnRefresh.setBounds(28, 158, 89, 23);
             panel_2d.add(btnClear);
            

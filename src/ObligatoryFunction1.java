@@ -10,17 +10,48 @@ import javax.imageio.ImageIO;
 import javax.swing.JButton;
 import javax.swing.JDesktopPane;
 
-
+/**
+ * The class which purpose is to cut out the frame.
+ * @author Robert Kubica
+ *
+ */
 public class ObligatoryFunction1 {
+	/**
+	 * Images  as files which are values for JButtons. 
+	 * 
+	 */
 	static HashMap<JButton, File> all_chosen_images;
+	/**
+	 * The list for selected images from given directories.
+	 */
 	static List <BufferedImage> all_images = new ArrayList<BufferedImage>();
+	/**
+	 * The list for all images (as files) on which there were proceed cut out function.
+	 */
 	static List <File> all_images_after = new ArrayList<File>();
+	/**
+	 * 
+	 * The list for all images on which there were proceed cut out function.
+	 */
 	static List <BufferedImage> all_images_after_list=new ArrayList<BufferedImage>();;
 	
+	/**
+	 * The variable storing option of cutting.
+	 * 1- cut out the black background.
+	 * 2 - cut out the white background.
+	 */
 	static int black_or_white;
+	/**
+	 * The variable storing tolerance for the brightness of the background which should be cut.
+	 * If it is high then the more brighter  pixel will be cut including the darker pixels too.
+	 */
 	static double treshold =0;
 	
-	
+	/**
+	 * constructor
+	 * @param mode which background should be cut.
+	 * @param treshold Tolerance of the pixel to cut.
+	 */
 	ObligatoryFunction1(int mode,double treshold)
 	{
 		ObligatoryFunction1.all_chosen_images = AddDirectory.all_chosen;
@@ -32,7 +63,11 @@ public class ObligatoryFunction1 {
 		
 		
 	}
-	
+	/**
+	 * Main function where there is proceeding cutting of the background.
+	 * @param img_to_cut The image on which there will be proceed cutting function.
+	 * @return The image without white or black background.
+	 */
 	static BufferedImage cutFrame(BufferedImage img_to_cut)
 	{
 		BufferedImage img1 = img_to_cut;
@@ -50,7 +85,7 @@ public class ObligatoryFunction1 {
 	        {
 	        	int argb0 = img1.getRGB(x,y);
 	        	
-	        	//System.out.println(x + "=zmienna x ||" + img1.getHeight() + "=getHeight obrazka. || " + y + " =zmienna y||" + img1.getWidth() + " =getWidth obr");
+
 	        	// Here the 'b' stands for 'blue' as well
 	        	// as for 'brightness' :-)
 	        	int b0 = argb0 & 0xFF;
@@ -103,7 +138,7 @@ public class ObligatoryFunction1 {
 		}
 		
 		}
-		//height_to_cut+=3; // ogolnie to wtf kurwa mac. bez tego niedocina do konca???????????
+		
 	
 		if(height_to_cut>0)
 		img1 = img1.getSubimage(0, height_to_cut+1, img1.getWidth()-1, (img1.getHeight()-1) - height_to_cut);
@@ -166,7 +201,7 @@ public class ObligatoryFunction1 {
 			break;
 			
 		}
-		//height_to_cut+=3; // ogolnie to wtf kurwa mac. bez tego niedocina do konca???????????
+		
 		if(height_to_cut>0)
 		img1 = img1.getSubimage(0, 0, img1.getWidth()-1, (img1.getHeight()-1) -height_to_cut);
 		
@@ -295,7 +330,10 @@ public class ObligatoryFunction1 {
 	return img1;
 		
 	}
-	
+	/**
+	 * Method in which the selected images from the hashmap are transferring into the list.
+	 * @return List of selected images.
+	 */
 	  static List<BufferedImage> saveImagesToList()
      {	
 		  
@@ -318,7 +356,11 @@ public class ObligatoryFunction1 {
              
              
      }
-	
+	/**
+	 * 
+	 * The method which perform cutting the background on all images saved in the list(as files) with selected images.
+	 * @return List of the images as files without the background.
+	 */
 	 static List<File> cutOut()
 	 {	
 		 all_images = ObligatoryFunction1.saveImagesToList();
@@ -349,7 +391,11 @@ public class ObligatoryFunction1 {
 		 
 		 return all_images_after;
 	 }
-	 
+	 /**
+		 * 
+		 * The method which perform cutting the background on all images saved in the list(as BufferedImage) with selected images.
+		 * @return List of the images as BufferedImage without the background.
+		 */
 	 static List<BufferedImage> cutOut1()
 	 {
 		 all_images = ObligatoryFunction1.saveImagesToList();

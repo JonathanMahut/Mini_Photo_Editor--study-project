@@ -15,17 +15,59 @@ import javax.imageio.ImageReader;
 import javax.imageio.stream.ImageInputStream;
 import javax.swing.JButton;
  
- 
+ /**
+  * The class dividing given images in stripes and then create the new one from the stripes.
+  * 
+  * @author Adam Malysz
+  *
+  */
 public class ObligatoryFunction3 {
+	/**
+	 * Images  as files which are values for JButtons. 
+	 * 
+	 */
         static HashMap<JButton,File> all_chosen_images;
+        /**
+    	 * The list for selected images from given directories.
+    	 */
         static List <BufferedImage> all_images;
+        /**
+         * The variable storing chosen be a user number of stripes.
+         */
         static int n_stripes;
+        /**
+         * The variable storing chosen be a user direction of cutting the image.
+         *  
+         *  V - Vertical else Horizontal
+         *  
+         */
         static String direction_of_cut;
+        /**
+         * The number of selected images from given directories.
+         */
         static int n_images;
-         // enlarge or shrink
+         /**
+          * The list storing images which are sliced on stripes. 
+          */
         static List <BufferedImage[][]> sliced_images;
+        /**
+    	 * The variable storing the option for situation when images are different sizes.
+    	 *  2 - Enlarge smaller one
+    	 *  3 - Shrink bigger one
+    	 *  4 - cut the bigger to the smaller one. 
+    	 */
         static int mode =0;
+        /**
+         * The final output 
+         */
         static BufferedImage final_image;
+        /** 
+         * constructor
+         * @param source_of_images
+         * @param how_many_stripes
+         * @param direction_of_cut1 
+         * @param diff Option for situation when images are of different sizes. 
+         */
        
         ObligatoryFunction3(HashMap<JButton,File> source_of_images,int how_many_stripes,String direction_of_cut1,int diff)
         {
@@ -45,9 +87,11 @@ public class ObligatoryFunction3 {
                 
                
         }
-       
-        private static void sliceImages ()      // this class is making sliced images and save them to list
-        {       ///REMEMBER ABOUT RESIZING EACH IMAGE
+       /**
+        * The method which is slicing the selected images in stripes.
+        */
+        private static void sliceImages ()     
+        {       
                 int count =1; // to switch images in list
                 all_images = saveImagesToList();
                 all_images = makeImagesEqual();
@@ -67,6 +111,10 @@ public class ObligatoryFunction3 {
                 }
                
         }
+        /**
+         * The method which create final image from all stripes.
+         * @return
+         */
         public static BufferedImage createImageFromSlice()
         {      
                 ///////Get Height and Width of the image
@@ -187,7 +235,14 @@ public class ObligatoryFunction3 {
             x.printStackTrace();  
         }        
          }
-       
+       /**
+        * The method which is changing a resolution of the given image.
+        * @param originalImage
+        * @param type
+        * @param destination_Widht
+        * @param destination_Height
+        * @return
+        */
         private static BufferedImage resizeImage(BufferedImage originalImage, int type,int destination_Widht,int destination_Height)
           {
                         BufferedImage resizedImage = new BufferedImage(destination_Widht, destination_Height, type);
@@ -197,6 +252,10 @@ public class ObligatoryFunction3 {
                  
                         return resizedImage;
           }
+        /**
+         * The method which is transferring selected images from the hashmap into the list. 
+         * @return
+         */
         private static List<BufferedImage> saveImagesToList()
         {
                 for(File i : all_chosen_images.values())
@@ -213,7 +272,10 @@ public class ObligatoryFunction3 {
                
                 return all_images;
         }
-       
+       /**
+        * The method which is making all selected images of the same resolution. 
+        * @return
+        */
         private static List<BufferedImage>makeImagesEqual()
         {
         		

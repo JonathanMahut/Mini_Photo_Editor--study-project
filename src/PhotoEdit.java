@@ -74,8 +74,11 @@ import javax.swing.JComboBox;
 import javax.swing.JRadioButton;
      
      
-    //add refresh button
-    //add enlarge button
+   /**
+    * The main class with the gui of the program.
+    * @author Fantomas
+    *
+    */
      
     public class PhotoEdit{
     	

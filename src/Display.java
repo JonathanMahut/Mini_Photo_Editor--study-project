@@ -19,7 +19,11 @@ import javax.swing.ScrollPaneConstants;
 import javax.swing.SwingUtilities;
 import javax.swing.event.InternalFrameEvent;
 import javax.swing.event.InternalFrameListener;
-
+/**
+ * The class displaying the image on which there were performed chose by a user options ( merge,cut out...).
+ * @author Dariusz Szpakowski
+ *
+ */
 public class Display extends JFrame implements InternalFrameListener, ActionListener {
 	static BufferedImage imgglobal=null;
 	BufferedImage merge_image = null;	

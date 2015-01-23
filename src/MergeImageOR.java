@@ -11,12 +11,29 @@ import javax.swing.JButton;
 
 public class MergeImageOR {
 	
-	
+
+	/**
+	 * The array storing all images on which there will be performed merge operation.
+	 */
 	static BufferedImage[] input;
+	/**
+	 * Images  as files which are values for JButtons. 
+	 * 
+	 */
 	static HashMap<JButton,File> list_of_images;
+	/**
+	 * The variable storing the option for situation when images are different sizes.
+	 *  2 - Enlarge smaller one
+	 *  3 - Shrink bigger one
+	 *  4 - cut the bigger to the smaller one. 
+	 */
 	static int different_sizes = 0;
 	
-
+	/**
+	 * constructor 
+	 * @param images All selected images from given directories.
+	 * @param mode  Which option should be performed when images are of different sizes.
+	 */
 	MergeImageOR(HashMap<JButton,File> images,int mode)
 	{
 		list_of_images=images;
@@ -25,7 +42,9 @@ public class MergeImageOR {
 		MergeImageOR.main(null);
 		
 	}
-	
+	/**
+	 * Transferring selected images from hashmap to the ArrayList
+	 */
 	private static void getImagesFromHashmapIntoArray()
 	{
 
@@ -44,7 +63,13 @@ public class MergeImageOR {
             }  
         }  
 	}
-	
+	/**
+	 * Method which merge two given images. 
+	 * 
+	 * @param img1 First image from the ArrayList of chosen images
+	 * @param img2 Second image from the ArrayList of chosen images
+	 * @return Merged image from the given two. 
+	 */
 	private static BufferedImage orImages(BufferedImage img1,BufferedImage img2)
 	{
 		BufferedImage img_merged = new BufferedImage(img1.getWidth(), img1.getHeight(), img1.getType());
@@ -80,7 +105,14 @@ public class MergeImageOR {
 		      
 	}
 	
-	
+	/**
+	 * Method responsible for changing a resolution of the given image.
+	 * @param originalImage 
+	 * @param type
+	 * @param destination_Widht
+	 * @param destination_Height
+	 * @return
+	 */
 	  private static BufferedImage resizeImage(BufferedImage originalImage, int type,int destination_Widht,int destination_Height)
 	  {
 			BufferedImage resizedImage = new BufferedImage(destination_Widht, destination_Height, type);
@@ -90,6 +122,10 @@ public class MergeImageOR {
 		 
 			return resizedImage;
 	  }
+	  /**
+		 * Method which will merge all images from the ArrayList with the selected directories.
+		 * @return The final merged image. 
+		 */
 	
 	private static BufferedImage mergeAll()
 	{

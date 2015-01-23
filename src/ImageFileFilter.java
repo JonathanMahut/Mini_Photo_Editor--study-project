@@ -1,7 +1,11 @@
 import java.io.File;
 import java.io.FileFilter;
 
-/*Include only those images which are here  */
+/**
+ *The  filter for JFileChooser to show only files with the format written below.
+ * @author Fantomas
+ *
+ */
 	public class ImageFileFilter implements FileFilter
 	{
 	  private final String[] okFileExtensions =							

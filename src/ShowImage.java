@@ -17,7 +17,11 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JRootPane;
 import javax.swing.KeyStroke;
-
+/**
+ * The class which is allow the user view the selected image before the operations on it.
+ * @author Fantomas
+ *
+ */
 public class ShowImage extends JDialog {
 
 	private static final long serialVersionUID = 1L;

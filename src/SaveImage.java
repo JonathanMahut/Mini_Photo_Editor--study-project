@@ -43,21 +43,51 @@ import net.sf.image4j.util.ConvertUtil;
 
 public class SaveImage extends JFrame {
 	 JFileChooser c = PhotoEdit.save;
-
+	 /**
+	  * field which store name of file
+	  */
   private JTextField filename = new JTextField(), dir = new JTextField();
+  /**
+   * final image (merged) which can be saved or discard 
+   */
   private static BufferedImage image_to_save;
+  /**
+   *  button responsible for saving image on which a user were working
+   */
   private JButton save = new JButton("Save");
+  /**
+   * 
+   * main panel for program
+   */
   private final JPanel panel = new JPanel();
+  /**
+   * format in which user want's to save the image
+   */
   private static String chosen_type = "png";
+  /**
+   * depth for format of an image
+   */
   private  int chosen_depth = 0;
-  private int which_mode;  /// this variable is to inform from which place the class was started. If just before exiting the program it will be equal 1 else 0 .
-  																									//It'll informal outer class that after execution of this class the program
-  																								//must be closed.
-
+  /**
+   * 
+   * variable responsible for  behaviour of program when the image is saving
+   * if which_mode == 1 then after save the program will quit 
+   * else 
+   * will be not closed
+   */
+  private int which_mode;  
+/**
+ * class responsible for saving the image on which usere were working
+ * @param merged_image  the image which will be optionally saved
+ * @param mode to recognize  if it is necessary to close the program after execution of SaveImage 
+ * 
+ */
   SaveImage(BufferedImage merged_image,int mode) {
 	  image_to_save=merged_image;
 	 which_mode = mode;
-	    
+	/**
+	 * panels on which there are save options    
+	 */
     JPanel p = new JPanel();
     JPanel Option_1=new JPanel();
     JPanel Option_2_a=new JPanel();
@@ -201,7 +231,9 @@ public class SaveImage extends JFrame {
     lblTypeOfImage.setBounds(97, 11, 112, 50);
     panel.add(lblTypeOfImage);
     JComboBox<String> comboBox =new JComboBox<String>();
-    
+    /**
+     * format in which user can save the image
+     */
     panel.add(comboBox);
     comboBox.setBounds(97, 58, 100, 20);
     comboBox.addItem("png");
@@ -210,6 +242,9 @@ public class SaveImage extends JFrame {
     comboBox.addItem("bmp");
     comboBox.addItem("tiff");
     
+    /**
+     * depth in which user can save the image
+     */
     JComboBox<String> comboBox2 = new JComboBox<String>();
     comboBox2.setBounds(207, 58, 112, 20);
     comboBox2.addItem("1");
@@ -218,6 +253,9 @@ public class SaveImage extends JFrame {
     comboBox2.addItem("24");
     comboBox2.addItem("32");
     
+    /**
+     * saving option which chose user (which depth)
+     */
     comboBox2.addActionListener(new ActionListener() {
     	public void actionPerformed(ActionEvent arg0) {
     		chosen_depth =(int) comboBox2.getSelectedItem();
@@ -234,6 +272,9 @@ public class SaveImage extends JFrame {
     	}
     });
     // Save z default name
+    /**
+     * Name for the image which will be saved according to instructions for option 1 
+     */
     PhotoEdit.Save1_save.addActionListener(new ActionListener()
     {
 
@@ -445,8 +486,10 @@ public class SaveImage extends JFrame {
     
     
     
-    // Save zwykły
-    System.out.println("Variable after exiting actionlistner" + chosen_type);
+    
+    /**
+     * Name of the image which will be saved according to option 2 
+     */
     save.addActionListener(new ActionListener() {
     	public void actionPerformed(ActionEvent arg0) {
     		  JFileChooser c = new JFileChooser();

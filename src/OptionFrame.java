@@ -1,4 +1,7 @@
 import javax.swing.JDialog;
+/**
+ * The prompt with the question to user.
+ */
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 public class OptionFrame {

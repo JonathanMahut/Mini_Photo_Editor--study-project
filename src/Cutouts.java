@@ -9,8 +9,13 @@ import java.util.HashMap;
 import javax.imageio.ImageIO;
 import javax.swing.JButton;
  
- 
+ /**
+  * Class cutting given image into the stripes.
+  * @author Napoleon
+  *
+  */
 public class Cutouts {
+	
         static int rows =1;
         static int columns =1;
        

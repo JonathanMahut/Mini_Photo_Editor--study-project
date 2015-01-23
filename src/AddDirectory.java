@@ -32,7 +32,11 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 import javax.swing.border.EtchedBorder;
 
-
+/**
+ * The class which store selected images.
+ * @author Fantomas
+ *
+ */
 
 public class AddDirectory {
 	static HashMap<JButton,File> all_chosen = new HashMap<JButton,File>();

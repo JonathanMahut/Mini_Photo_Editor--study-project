@@ -641,8 +641,8 @@ import javax.swing.JRadioButton;
                     
                    //
                     JButton btnMerge = new JButton("Merge");
-                    btnMerge.setBackground(Color.DARK_GRAY);
-                    btnMerge.setForeground(Color.WHITE);
+                    //btnMerge.setBackground(Color.DARK_GRAY);
+                    //btnMerge.setForeground(Color.WHITE);
                     btnMerge.setBounds(28, 192, 89, 23);
                    
                     JPanel BasicMerge=new JPanel();
@@ -774,8 +774,8 @@ import javax.swing.JRadioButton;
             JPanel radio_buttons_frames=new JPanel();
             radio_buttons_frames.setLayout(new BoxLayout(radio_buttons_frames, BoxLayout.Y_AXIS));
             JButton frame_button = new JButton("Cut frame"); 
-            frame_button.setBackground(Color.DARK_GRAY);
-            frame_button.setForeground(Color.WHITE);
+            //frame_button.setBackground(Color.DARK_GRAY);
+            //frame_button.setForeground(Color.WHITE);
             JRadioButton black_radiobutton = new JRadioButton("Black background");
             black_radiobutton.addActionListener(new ActionListener() {
                     public void actionPerformed(ActionEvent arg0) {
@@ -864,8 +864,8 @@ import javax.swing.JRadioButton;
             GrayscalePanel.add(SetButton);
             panel_2b.add(GrayscalePanel);
             
-            SetButton.setBackground(Color.DARK_GRAY);
-            SetButton.setForeground(Color.WHITE);
+            //SetButton.setBackground(Color.DARK_GRAY);
+            //SetButton.setForeground(Color.WHITE);
            
             SetButton.addActionListener(new ActionListener() {
                 public void actionPerformed(ActionEvent arg0) {
@@ -1010,8 +1010,8 @@ import javax.swing.JRadioButton;
             
             
             JButton SetButton1 = new JButton("SET");
-            SetButton1.setBackground(Color.DARK_GRAY);
-            SetButton1.setForeground(Color.WHITE);
+            //SetButton1.setBackground(Color.DARK_GRAY);
+            //SetButton1.setForeground(Color.WHITE);
 
             SetButton1.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -1168,8 +1168,8 @@ import javax.swing.JRadioButton;
             RotatePanel.add(btnRotate);
             RotatePanel.setLayout(new FlowLayout());
             btnRotate.setBounds(28, 158, 89, 23);
-            btnRotate.setBackground(Color.DARK_GRAY);
-            btnRotate.setForeground(Color.WHITE);
+            //btnRotate.setBackground(Color.DARK_GRAY);
+            //btnRotate.setForeground(Color.WHITE);
             panel_2e.add(RotatePanel);
            
            

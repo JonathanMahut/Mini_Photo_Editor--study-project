@@ -533,7 +533,7 @@ import javax.swing.JRadioButton;
                    
                     //JDesktopPane center= new JDesktopPane();
                     frame.getContentPane().add(BorderLayout.CENTER, center);
-                    center.setBackground(Color.getHSBColor(21, 21, 50));
+                    center.setBackground(Color.darkGray);
                    
                     JPanel panel_1 = new JPanel();
                     frame.getContentPane().add(BorderLayout.WEST, panel_1);
@@ -1223,12 +1223,12 @@ import javax.swing.JRadioButton;
             JPanel panel_2d = new JPanel();
             JButton btnRefresh = new JButton("Refresh");
             btnRefresh.setBounds(28, 158, 89, 23);
-            btnRefresh.setBackground(Color.WHITE);
-            btnRefresh.setForeground(Color.BLACK);
+           // btnRefresh.setBackground(Color.WHITE);
+           // btnRefresh.setForeground(Color.BLACK);
             panel_2d.add(btnRefresh);
             JButton btnClear = new JButton("Clear desktop");
-            btnClear.setBackground(Color.RED);
-            btnClear.setForeground(Color.WHITE);
+           // btnClear.setBackground(Color.RED);
+           // btnClear.setForeground(Color.WHITE);
             btnRefresh.setBounds(28, 158, 89, 23);
             panel_2d.add(btnClear);
            

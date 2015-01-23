@@ -10,7 +10,7 @@ import javax.imageio.ImageIO;
 import javax.swing.JButton;
  
  /**
-  * Class cutting given image into the stripes.
+  * The class cutting given image into the stripes.
   * @author Napoleon
   *
   */

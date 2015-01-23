@@ -165,7 +165,7 @@ public class ObligatoryFunction3 {
                 }
                 else /// HORIZONTAL
                 {
-                	System.out.println(direction_of_cut);
+                	
                         for(int i =0; i<n_stripes * n_images; i++)
                         {                              
                                                                 //rows = n_stripes

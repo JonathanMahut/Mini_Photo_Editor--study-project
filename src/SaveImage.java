@@ -24,6 +24,7 @@ import java.awt.Component;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
+import java.awt.image.DataBufferByte;
 
 import javax.swing.JCheckBoxMenuItem;
 import javax.swing.JRadioButtonMenuItem;
@@ -258,7 +259,8 @@ public class SaveImage extends JFrame {
      */
     comboBox2.addActionListener(new ActionListener() {
     	public void actionPerformed(ActionEvent arg0) {
-    		chosen_depth =(int) comboBox2.getSelectedItem();
+    		chosen_depth= Integer.parseInt((String) comboBox2.getSelectedItem());
+    		
     	}
     });
     panel.add(comboBox2);
@@ -280,7 +282,7 @@ public class SaveImage extends JFrame {
 
 		public void actionPerformed(ActionEvent e) {
 			
-			
+	
 			//licznik=licznik+step_value;
 			 disableTextField(c.getComponents());
 			
@@ -332,6 +334,70 @@ public class SaveImage extends JFrame {
    	      if (rVal == JFileChooser.APPROVE_OPTION) {
    	        filename.setText(PhotoEdit.first_part+PhotoEdit.digitss+PhotoEdit.second_part);
    	        dir.setText(c.getCurrentDirectory().toString());
+   	      
+   	     int pixels[][] = convertTo2DWithoutUsingGetRGB(image_to_save);
+   	  if(chosen_depth == 1){//1b 
+      	BufferedImage im = new BufferedImage(image_to_save.getWidth(), image_to_save.getHeight(), BufferedImage.TYPE_BYTE_BINARY);
+      	for (int y = 0; y < image_to_save.getHeight(); y++) {
+      		for (int x = 0; x < image_to_save.getWidth(); x++) {
+      			im.setRGB(x, y, new Color(pixels[x][y], pixels[x][y], pixels[x][y]).getRGB());
+      		}
+      	}
+      	
+      	image_to_save = im;
+
+      }
+      else if(chosen_depth == 8){ //8 
+      	BufferedImage im1 = new BufferedImage(image_to_save.getWidth(), image_to_save.getHeight(), BufferedImage.TYPE_BYTE_GRAY);
+      	for (int y = 0; y < image_to_save.getHeight(); y++) {
+      		for (int x = 0; x < image_to_save.getWidth(); x++) {
+      			im1.setRGB(x, y, new Color(pixels[x][y], pixels[x][y], pixels[x][y]).getRGB());
+      		}
+      	}
+      	image_to_save = im1;
+
+      }
+      else if(chosen_depth == 16){ //16
+      	BufferedImage im2 = new BufferedImage(image_to_save.getWidth(), image_to_save.getHeight(), BufferedImage.TYPE_USHORT_565_RGB);
+      	for (int y = 0; y < image_to_save.getHeight(); y++) {
+      		for (int x = 0; x < image_to_save.getWidth(); x++) {
+      			im2.setRGB(x, y, new Color(pixels[x][y], pixels[x][y], pixels[x][y]).getRGB());
+      		}
+      	}
+      	System.out.println(chosen_depth + "WYBRANA DEPTH");
+      	image_to_save = im2;
+
+      }
+      else if(chosen_depth == 24){//24 
+      	BufferedImage im3 = new BufferedImage(image_to_save.getWidth(), image_to_save.getHeight(), BufferedImage.TYPE_INT_RGB);
+      	for (int y = 0; y < image_to_save.getHeight(); y++) {
+      		for (int x = 0; x < image_to_save.getWidth(); x++) {
+      			im3.setRGB(x, y, new Color(pixels[x][y], pixels[x][y], pixels[x][y]).getRGB());
+      		}
+      	}
+      	image_to_save = im3;
+      }
+      else if(chosen_depth == 32){ //32 
+      	BufferedImage im4 = new BufferedImage(image_to_save.getWidth(), image_to_save.getHeight(), BufferedImage.TYPE_INT_ARGB);
+      	for (int y = 0; y < image_to_save.getHeight(); y++) {
+      		for (int x = 0; x < image_to_save.getWidth(); x++) {
+      			im4.setRGB(x, y, new Color(pixels[x][y], pixels[x][y], pixels[x][y]).getRGB());
+      		}
+      	}
+      	image_to_save = im4;
+
+      }
+      else{
+
+      	BufferedImage im5 = new BufferedImage(image_to_save.getWidth(), image_to_save.getHeight(), BufferedImage.TYPE_INT_RGB);
+      	for (int y = 0; y < image_to_save.getHeight(); y++) {
+      		for (int x = 0; x < image_to_save.getWidth(); x++) {
+      			im5.setRGB(x, y, new Color(pixels[x][y], pixels[x][y], pixels[x][y]).getRGB());
+      		}
+      	}
+      	image_to_save = im5;
+
+      }
    	        
    	    	  if(chosen_type  == "jpeg")
    	          {
@@ -339,6 +405,7 @@ public class SaveImage extends JFrame {
 
    	          	  try 
    	                {  
+   	          		  
    	          		  	ImageIO.write(image_to_save, "JPEG", new File(c.getCurrentDirectory().toString()+ '\\' +(PhotoEdit.first_part+PhotoEdit.digitss+PhotoEdit.second_part)+".jpeg"));  
    	          		  	
    	          		  	if(which_mode == 1)
@@ -390,60 +457,8 @@ public class SaveImage extends JFrame {
    	    	            x.printStackTrace();  
    	    	        }         
    	    	  }
-   	    	  else if(chosen_type == "bmp")
-   	    	  {	
-   	    		  
-   	    	     switch(chosen_depth)
-   	    	     {	
-	    	    	     case 1: 
-	    	    	     {
-	    	    	    	 try {
-	    							ImageIO.write(ConvertUtil.convert1(image_to_save), "BMP", new File(c.getCurrentDirectory().toString()+ '\\' +(PhotoEdit.first_part+PhotoEdit.digitss+PhotoEdit.second_part)+".bmp"));
-	    							if(which_mode == 1)
-	        	          		  	{
-	        	          		  		System.exit(0);
-	        	          		  	}
-	    							
-	    	    	    	 } 
-	    	    	    	 catch (IOException e1) {
-	    							// TODO Auto-generated catch block
-	    							e1.printStackTrace();
-	    						}
-	    	    	    	break;
-	    	    	     }
-	    	    	     
-	    	    	     case 8: 
-	    	    	     {
-	    	    	    	 try {
-	    							ImageIO.write(ConvertUtil.convert8(image_to_save), "BMP", new File(c.getCurrentDirectory().toString()+ '\\' +(PhotoEdit.first_part+PhotoEdit.digitss+PhotoEdit.second_part)+".bmp"));
-	    							if(which_mode == 1)
-	        	          		  	{
-	        	          		  		System.exit(0);
-	        	          		  	}
-	    	    	    	 } 
-	    	    	    	 catch (IOException e1) {
-	    							// TODO Auto-generated catch block
-	    							e1.printStackTrace();
-	    						}
-	    	    	    	break;
-	    	    	     }
-	    	    	     case 32:
-	    	    	     {
-	    	    	    	 try {
-	    							ImageIO.write(ConvertUtil.convert32(image_to_save), "BMP", new File(c.getCurrentDirectory().toString()+ '\\' +(PhotoEdit.first_part+PhotoEdit.digitss+PhotoEdit.second_part)+".bmp"));
-	    							if(which_mode == 1)
-	        	          		  	{
-	        	          		  		System.exit(0);
-	        	          		  	}
-	    	    	    	 } catch (IOException e1) {
-	    							// TODO Auto-generated catch block
-	    							e1.printStackTrace();
-	    						}
-	    	    	    	break;
-	    	    	     }
-	    	    	     
-   	    	     }
-   	    		 
+   	    	  
+
    	    	  }
    	    	  else if (chosen_type == "tiff")
    	    	  {
@@ -461,7 +476,23 @@ public class SaveImage extends JFrame {
  	    	            x.printStackTrace();  
  	    	        }         
    	    	  }
-   	      }
+   	    	 else if (chosen_type == "bmp")
+  	    	  {
+  	    		  try 			
+	    	        {  
+	    	            ImageIO.write(image_to_save, "BMP", new File(c.getCurrentDirectory().toString()+ '\\' +(PhotoEdit.first_part+PhotoEdit.digitss+PhotoEdit.second_part)+".bmp"));  
+	    	          if(which_mode == 1)
+	          		  	{
+	          		  		System.exit(0);
+	          		  	}
+	    	        }  
+	    	        catch ( IOException x ) {  
+	    	            // Complain if there was any problem writing   
+	    	            // the output file.  
+	    	            x.printStackTrace();  
+	    	        }         
+  	    	  }
+   	      
    	        
    	      if (rVal == JFileChooser.CANCEL_OPTION) {
    	        filename.setText("You pressed cancel");
@@ -499,6 +530,72 @@ public class SaveImage extends JFrame {
     	        filename.setText(c.getSelectedFile().getName());
     	        dir.setText(c.getCurrentDirectory().toString());
     	        
+    	        
+    	        int pixels[][] = convertTo2DWithoutUsingGetRGB(image_to_save);
+    	   	     
+    	   	     	
+    	        if(chosen_depth == 1){//1b 
+    	        	BufferedImage im = new BufferedImage(image_to_save.getWidth(), image_to_save.getHeight(), BufferedImage.TYPE_BYTE_BINARY);
+    	        	for (int y = 0; y < image_to_save.getHeight(); y++) {
+    	        		for (int x = 0; x < image_to_save.getWidth(); x++) {
+    	        			im.setRGB(x, y, new Color(pixels[x][y], pixels[x][y], pixels[x][y]).getRGB());
+    	        		}
+    	        	}
+    	        	System.out.println(chosen_depth + "WYBRANA DEPTH");
+    	        	image_to_save = im;
+
+    	        }
+    	        else if(chosen_depth == 8){ //8 
+    	        	BufferedImage im1 = new BufferedImage(image_to_save.getWidth(), image_to_save.getHeight(), BufferedImage.TYPE_BYTE_GRAY);
+    	        	for (int y = 0; y < image_to_save.getHeight(); y++) {
+    	        		for (int x = 0; x < image_to_save.getWidth(); x++) {
+    	        			im1.setRGB(x, y, new Color(pixels[x][y], pixels[x][y], pixels[x][y]).getRGB());
+    	        		}
+    	        	}
+    	        	image_to_save = im1;
+
+    	        }
+    	        else if(chosen_depth == 16){ //16
+    	        	BufferedImage im2 = new BufferedImage(image_to_save.getWidth(), image_to_save.getHeight(), BufferedImage.TYPE_USHORT_565_RGB);
+    	        	for (int y = 0; y < image_to_save.getHeight(); y++) {
+    	        		for (int x = 0; x < image_to_save.getWidth(); x++) {
+    	        			im2.setRGB(x, y, new Color(pixels[x][y], pixels[x][y], pixels[x][y]).getRGB());
+    	        		}
+    	        	}
+    	        	System.out.println(chosen_depth + "WYBRANA DEPTH");
+    	        	image_to_save = im2;
+
+    	        }
+    	        else if(chosen_depth == 24){//24 
+    	        	BufferedImage im3 = new BufferedImage(image_to_save.getWidth(), image_to_save.getHeight(), BufferedImage.TYPE_INT_RGB);
+    	        	for (int y = 0; y < image_to_save.getHeight(); y++) {
+    	        		for (int x = 0; x < image_to_save.getWidth(); x++) {
+    	        			im3.setRGB(x, y, new Color(pixels[x][y], pixels[x][y], pixels[x][y]).getRGB());
+    	        		}
+    	        	}
+    	        	image_to_save = im3;
+    	        }
+    	        else if(chosen_depth == 32){ //32 
+    	        	BufferedImage im4 = new BufferedImage(image_to_save.getWidth(), image_to_save.getHeight(), BufferedImage.TYPE_INT_ARGB);
+    	        	for (int y = 0; y < image_to_save.getHeight(); y++) {
+    	        		for (int x = 0; x < image_to_save.getWidth(); x++) {
+    	        			im4.setRGB(x, y, new Color(pixels[x][y], pixels[x][y], pixels[x][y]).getRGB());
+    	        		}
+    	        	}
+    	        	image_to_save = im4;
+
+    	        }
+    	        else{
+
+    	        	BufferedImage im5 = new BufferedImage(image_to_save.getWidth(), image_to_save.getHeight(), BufferedImage.TYPE_INT_RGB);
+    	        	for (int y = 0; y < image_to_save.getHeight(); y++) {
+    	        		for (int x = 0; x < image_to_save.getWidth(); x++) {
+    	        			im5.setRGB(x, y, new Color(pixels[x][y], pixels[x][y], pixels[x][y]).getRGB());
+    	        		}
+    	        	}
+    	        	image_to_save = im5;
+
+    	        }
     	    	  if(chosen_type  == "jpeg")
     	          {
     	  		  	
@@ -556,66 +653,28 @@ public class SaveImage extends JFrame {
     	    	            x.printStackTrace();  
     	    	        }         
     	    	  }
-    	    	  else if(chosen_type == "bmp")
-    	    	  {	
-    	    		  
-    	    	     switch(chosen_depth)
-    	    	     {	
-	    	    	     case 1: 
-	    	    	     {
-	    	    	    	 try {
-	    							ImageIO.write(ConvertUtil.convert1(image_to_save), "BMP", new File(c.getCurrentDirectory().toString()+ '\\' +c.getSelectedFile().getName()+".bmp"));
-	    							if(which_mode == 1)
-	        	          		  	{
-	        	          		  		System.exit(0);
-	        	          		  	}
-	    							
-	    	    	    	 } 
-	    	    	    	 catch (IOException e) {
-	    							// TODO Auto-generated catch block
-	    							e.printStackTrace();
-	    						}
-	    	    	    	break;
-	    	    	     }
-	    	    	     
-	    	    	     case 8: 
-	    	    	     {
-	    	    	    	 try {
-	    							ImageIO.write(ConvertUtil.convert8(image_to_save), "BMP", new File(c.getCurrentDirectory().toString()+ '\\' +c.getSelectedFile().getName()+".bmp"));
-	    							if(which_mode == 1)
-	        	          		  	{
-	        	          		  		System.exit(0);
-	        	          		  	}
-	    	    	    	 } 
-	    	    	    	 catch (IOException e) {
-	    							// TODO Auto-generated catch block
-	    							e.printStackTrace();
-	    						}
-	    	    	    	break;
-	    	    	     }
-	    	    	     case 32:
-	    	    	     {
-	    	    	    	 try {
-	    							ImageIO.write(ConvertUtil.convert32(image_to_save), "BMP", new File(c.getCurrentDirectory().toString()+ '\\' +c.getSelectedFile().getName()+".bmp"));
-	    							if(which_mode == 1)
-	        	          		  	{
-	        	          		  		System.exit(0);
-	        	          		  	}
-	    	    	    	 } catch (IOException e) {
-	    							// TODO Auto-generated catch block
-	    							e.printStackTrace();
-	    						}
-	    	    	    	break;
-	    	    	     }
-	    	    	     
-    	    	     }
-    	    		 
-    	    	  }
+    	    	  
     	    	  else if (chosen_type == "tiff")
     	    	  {
     	    		  try 			
   	    	        {  
   	    	            ImageIO.write(image_to_save, "TIFF", new File(c.getCurrentDirectory().toString()+ '\\' +c.getSelectedFile().getName()+".tiff"));  
+  	    	          if(which_mode == 1)
+	          		  	{
+	          		  		System.exit(0);
+	          		  	}
+  	    	        }  
+  	    	        catch ( IOException x ) {  
+  	    	            // Complain if there was any problem writing   
+  	    	            // the output file.  
+  	    	            x.printStackTrace();  
+  	    	        }         
+    	    	  }
+    	    	  else if (chosen_type == "bmp")
+    	    	  {
+    	    		  try 			
+  	    	        {  
+  	    	            ImageIO.write(image_to_save, "BMP", new File(c.getCurrentDirectory().toString()+ '\\' +c.getSelectedFile().getName()+".bmp"));  
   	    	          if(which_mode == 1)
 	          		  	{
 	          		  		System.exit(0);
@@ -682,4 +741,22 @@ public class SaveImage extends JFrame {
 			}
 		});
 	}
+
+
+private static int[][] convertTo2DWithoutUsingGetRGB(BufferedImage image) {
+
+	 int width = image.getWidth();
+     int height = image.getHeight();
+     int[][] result = new int[width][height];
+
+     for (int row = 0; row < height; row++) {
+        for (int col = 0; col < width; col++) {
+        	Color color = new Color (image.getRGB(col, row));
+           result[col][row] = color.getBlue();
+        }
+     }
+
+     return result;
+ }
+
 }

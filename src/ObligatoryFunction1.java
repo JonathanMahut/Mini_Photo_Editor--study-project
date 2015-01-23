@@ -76,7 +76,6 @@ public class ObligatoryFunction1 {
 		boolean all_row = false;
 		
 		
-		
 		////////////////////////////////////////
 		//// from top
 		for(int y = 0; y < img1.getHeight(); y++)
@@ -92,7 +91,9 @@ public class ObligatoryFunction1 {
 	        	
 	        	if(black_or_white == 1) // black
 	        	{
-		        	if( b0==0)
+	        		
+	        		return img1 = getCroppedImage(img1,0.8);
+		        	/*if( b0==0)
 		        	{
 		        		all_row = true;
 		        	}
@@ -100,10 +101,15 @@ public class ObligatoryFunction1 {
 		        	{
 		        		all_row = false;
 		        		break;
-		        	}
+		        	}*/
 	        	}
 	        	else if (black_or_white == 2) // white
-	        		if(b0==255)
+	        	{	
+	        		
+	        		return img1 = getCroppedImage(img1,0.8);
+	        		
+	        		
+	        		/*if(b0==255)
 		        	{
 		        		all_row = true;
 		        	}
@@ -111,7 +117,8 @@ public class ObligatoryFunction1 {
 		        	{
 		        		all_row = false;
 		        		break;
-		        	}
+		        	}*/
+	        	}
 	        	else
 	        	{
 	        		if(b0 < treshold )
@@ -130,7 +137,7 @@ public class ObligatoryFunction1 {
 	        }
 		if(all_row==true)
 			height_to_cut++; // one row is all white
-			
+		
 		else
 		{
 			
@@ -139,8 +146,9 @@ public class ObligatoryFunction1 {
 		
 		}
 		
-	
+			
 		if(height_to_cut>0)
+			System.out.println("alalalla");
 		img1 = img1.getSubimage(0, height_to_cut+1, img1.getWidth()-1, (img1.getHeight()-1) - height_to_cut);
 		
 		/////////////////////////////////////////
@@ -170,7 +178,7 @@ public class ObligatoryFunction1 {
 		        		break;
 		        	}
 	        	}
-	        	else if (black_or_white == 2) //white
+	        	/*else if (black_or_white == 2) //white
 	        		if(b0==255)
 		        	{
 		        		all_row = true;
@@ -179,7 +187,7 @@ public class ObligatoryFunction1 {
 		        	{
 		        		all_row = false;
 		        		break;
-		        	}
+		        	}*/
 	        	else
 	        	{
 	        		if(b0 < treshold )
@@ -232,7 +240,7 @@ public class ObligatoryFunction1 {
 		        		break;
 		        	}
 	        	}
-	        	else if (black_or_white == 2)
+	        	/*else if (black_or_white == 2)
 	        		if(b0==255)
 		        	{
 		        		all_row = true;
@@ -241,7 +249,7 @@ public class ObligatoryFunction1 {
 		        	{
 		        		all_row = false;
 		        		break;
-		        	}
+		        	}*/
 	        	else
 	        	{
 	        		if(b0 < treshold )
@@ -293,7 +301,7 @@ public class ObligatoryFunction1 {
 		        		break;
 		        	}
 	        	}
-	        	else if (black_or_white == 2) // white
+	        /*	else if (black_or_white == 2) // white
 	        		if(b0==255)
 		        	{
 		        		all_row = true;
@@ -302,7 +310,7 @@ public class ObligatoryFunction1 {
 		        	{
 		        		all_row = false;
 		        		break;
-		        	}
+		        	}*/
 	        	else
 	        	{
 	        		if(b0 < treshold )
@@ -412,15 +420,8 @@ public class ObligatoryFunction1 {
 	
 	 public static BufferedImage getCroppedImage(BufferedImage source, double tolerance) {
 		   // Get our top-left pixel color as our "baseline" for cropping
-		 int baseColor = 0;
-		 //if(black_or_white == 1)
-			  baseColor =  source.getRGB(0, 0);
-		/* else if (black_or_white == 2)
-			 baseColor =  -1;
-		 else
-			 baseColor = Color.white.getRGB();*/
-		 
-		 //System.out.println(baseColor + "=baseColor" + black_or_white + "mode");
+		   int baseColor = source.getRGB(0, 0);
+
 		   int width = source.getWidth();
 		   int height = source.getHeight();
 
@@ -469,9 +470,6 @@ public class ObligatoryFunction1 {
 
 		    return (percentAway > tolerance);
 		}
-
-
 }
-
 
 

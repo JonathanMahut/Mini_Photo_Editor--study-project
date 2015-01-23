@@ -337,65 +337,65 @@ public class SaveImage extends JFrame {
    	      
    	     int pixels[][] = convertTo2DWithoutUsingGetRGB(image_to_save);
    	  if(chosen_depth == 1){//1b 
-      	BufferedImage im = new BufferedImage(image_to_save.getWidth(), image_to_save.getHeight(), BufferedImage.TYPE_BYTE_BINARY);
+      	BufferedImage image1 = new BufferedImage(image_to_save.getWidth(), image_to_save.getHeight(), BufferedImage.TYPE_BYTE_BINARY);
       	for (int y = 0; y < image_to_save.getHeight(); y++) {
       		for (int x = 0; x < image_to_save.getWidth(); x++) {
-      			im.setRGB(x, y, new Color(pixels[x][y], pixels[x][y], pixels[x][y]).getRGB());
-      		}
-      	}
-      	
-      	image_to_save = im;
-
-      }
-      else if(chosen_depth == 8){ //8 
-      	BufferedImage im1 = new BufferedImage(image_to_save.getWidth(), image_to_save.getHeight(), BufferedImage.TYPE_BYTE_GRAY);
-      	for (int y = 0; y < image_to_save.getHeight(); y++) {
-      		for (int x = 0; x < image_to_save.getWidth(); x++) {
-      			im1.setRGB(x, y, new Color(pixels[x][y], pixels[x][y], pixels[x][y]).getRGB());
-      		}
-      	}
-      	image_to_save = im1;
-
-      }
-      else if(chosen_depth == 16){ //16
-      	BufferedImage im2 = new BufferedImage(image_to_save.getWidth(), image_to_save.getHeight(), BufferedImage.TYPE_USHORT_565_RGB);
-      	for (int y = 0; y < image_to_save.getHeight(); y++) {
-      		for (int x = 0; x < image_to_save.getWidth(); x++) {
-      			im2.setRGB(x, y, new Color(pixels[x][y], pixels[x][y], pixels[x][y]).getRGB());
+      			image1.setRGB(x, y, new Color(pixels[x][y], pixels[x][y], pixels[x][y]).getRGB());
       		}
       	}
       	System.out.println(chosen_depth + "WYBRANA DEPTH");
-      	image_to_save = im2;
+      	image_to_save = image1;
+
+      }
+      else if(chosen_depth == 8){ //8 
+      	BufferedImage image8 = new BufferedImage(image_to_save.getWidth(), image_to_save.getHeight(), BufferedImage.TYPE_BYTE_GRAY);
+      	for (int y = 0; y < image_to_save.getHeight(); y++) {
+      		for (int x = 0; x < image_to_save.getWidth(); x++) {
+      			image8.setRGB(x, y, new Color(pixels[x][y], pixels[x][y], pixels[x][y]).getRGB());
+      		}
+      	}
+      	image_to_save = image8;
+
+      }
+      else if(chosen_depth == 16){ //16
+      	BufferedImage image16 = new BufferedImage(image_to_save.getWidth(), image_to_save.getHeight(), BufferedImage.TYPE_USHORT_565_RGB);
+      	for (int y = 0; y < image_to_save.getHeight(); y++) {
+      		for (int x = 0; x < image_to_save.getWidth(); x++) {
+      			image16.setRGB(x, y, new Color(pixels[x][y], pixels[x][y], pixels[x][y]).getRGB());
+      		}
+      	}
+      	System.out.println(chosen_depth + "WYBRANA DEPTH");
+      	image_to_save = image16;
 
       }
       else if(chosen_depth == 24){//24 
-      	BufferedImage im3 = new BufferedImage(image_to_save.getWidth(), image_to_save.getHeight(), BufferedImage.TYPE_INT_RGB);
+      	BufferedImage image24 = new BufferedImage(image_to_save.getWidth(), image_to_save.getHeight(), BufferedImage.TYPE_INT_RGB);
       	for (int y = 0; y < image_to_save.getHeight(); y++) {
       		for (int x = 0; x < image_to_save.getWidth(); x++) {
-      			im3.setRGB(x, y, new Color(pixels[x][y], pixels[x][y], pixels[x][y]).getRGB());
+      			image24.setRGB(x, y, new Color(pixels[x][y], pixels[x][y], pixels[x][y]).getRGB());
       		}
       	}
-      	image_to_save = im3;
+      	image_to_save = image24;
       }
       else if(chosen_depth == 32){ //32 
-      	BufferedImage im4 = new BufferedImage(image_to_save.getWidth(), image_to_save.getHeight(), BufferedImage.TYPE_INT_ARGB);
+      	BufferedImage image32 = new BufferedImage(image_to_save.getWidth(), image_to_save.getHeight(), BufferedImage.TYPE_INT_ARGB);
       	for (int y = 0; y < image_to_save.getHeight(); y++) {
       		for (int x = 0; x < image_to_save.getWidth(); x++) {
-      			im4.setRGB(x, y, new Color(pixels[x][y], pixels[x][y], pixels[x][y]).getRGB());
+      			image32.setRGB(x, y, new Color(pixels[x][y], pixels[x][y], pixels[x][y]).getRGB());
       		}
       	}
-      	image_to_save = im4;
+      	image_to_save = image32;
 
       }
       else{
 
-      	BufferedImage im5 = new BufferedImage(image_to_save.getWidth(), image_to_save.getHeight(), BufferedImage.TYPE_INT_RGB);
+      	BufferedImage image5 = new BufferedImage(image_to_save.getWidth(), image_to_save.getHeight(), BufferedImage.TYPE_INT_RGB);
       	for (int y = 0; y < image_to_save.getHeight(); y++) {
       		for (int x = 0; x < image_to_save.getWidth(); x++) {
-      			im5.setRGB(x, y, new Color(pixels[x][y], pixels[x][y], pixels[x][y]).getRGB());
+      			image5.setRGB(x, y, new Color(pixels[x][y], pixels[x][y], pixels[x][y]).getRGB());
       		}
       	}
-      	image_to_save = im5;
+      	image_to_save = image5;
 
       }
    	        
@@ -535,65 +535,65 @@ public class SaveImage extends JFrame {
     	   	     
     	   	     	
     	        if(chosen_depth == 1){//1b 
-    	        	BufferedImage im = new BufferedImage(image_to_save.getWidth(), image_to_save.getHeight(), BufferedImage.TYPE_BYTE_BINARY);
+    	        	BufferedImage image1 = new BufferedImage(image_to_save.getWidth(), image_to_save.getHeight(), BufferedImage.TYPE_BYTE_BINARY);
     	        	for (int y = 0; y < image_to_save.getHeight(); y++) {
     	        		for (int x = 0; x < image_to_save.getWidth(); x++) {
-    	        			im.setRGB(x, y, new Color(pixels[x][y], pixels[x][y], pixels[x][y]).getRGB());
+    	        			image1.setRGB(x, y, new Color(pixels[x][y], pixels[x][y], pixels[x][y]).getRGB());
     	        		}
     	        	}
     	        	System.out.println(chosen_depth + "WYBRANA DEPTH");
-    	        	image_to_save = im;
+    	        	image_to_save = image1;
 
     	        }
     	        else if(chosen_depth == 8){ //8 
-    	        	BufferedImage im1 = new BufferedImage(image_to_save.getWidth(), image_to_save.getHeight(), BufferedImage.TYPE_BYTE_GRAY);
+    	        	BufferedImage image8 = new BufferedImage(image_to_save.getWidth(), image_to_save.getHeight(), BufferedImage.TYPE_BYTE_GRAY);
     	        	for (int y = 0; y < image_to_save.getHeight(); y++) {
     	        		for (int x = 0; x < image_to_save.getWidth(); x++) {
-    	        			im1.setRGB(x, y, new Color(pixels[x][y], pixels[x][y], pixels[x][y]).getRGB());
+    	        			image8.setRGB(x, y, new Color(pixels[x][y], pixels[x][y], pixels[x][y]).getRGB());
     	        		}
     	        	}
-    	        	image_to_save = im1;
+    	        	image_to_save = image8;
 
     	        }
     	        else if(chosen_depth == 16){ //16
-    	        	BufferedImage im2 = new BufferedImage(image_to_save.getWidth(), image_to_save.getHeight(), BufferedImage.TYPE_USHORT_565_RGB);
+    	        	BufferedImage image16 = new BufferedImage(image_to_save.getWidth(), image_to_save.getHeight(), BufferedImage.TYPE_USHORT_565_RGB);
     	        	for (int y = 0; y < image_to_save.getHeight(); y++) {
     	        		for (int x = 0; x < image_to_save.getWidth(); x++) {
-    	        			im2.setRGB(x, y, new Color(pixels[x][y], pixels[x][y], pixels[x][y]).getRGB());
+    	        			image16.setRGB(x, y, new Color(pixels[x][y], pixels[x][y], pixels[x][y]).getRGB());
     	        		}
     	        	}
     	        	System.out.println(chosen_depth + "WYBRANA DEPTH");
-    	        	image_to_save = im2;
+    	        	image_to_save = image16;
 
     	        }
     	        else if(chosen_depth == 24){//24 
-    	        	BufferedImage im3 = new BufferedImage(image_to_save.getWidth(), image_to_save.getHeight(), BufferedImage.TYPE_INT_RGB);
+    	        	BufferedImage image24 = new BufferedImage(image_to_save.getWidth(), image_to_save.getHeight(), BufferedImage.TYPE_INT_RGB);
     	        	for (int y = 0; y < image_to_save.getHeight(); y++) {
     	        		for (int x = 0; x < image_to_save.getWidth(); x++) {
-    	        			im3.setRGB(x, y, new Color(pixels[x][y], pixels[x][y], pixels[x][y]).getRGB());
+    	        			image24.setRGB(x, y, new Color(pixels[x][y], pixels[x][y], pixels[x][y]).getRGB());
     	        		}
     	        	}
-    	        	image_to_save = im3;
+    	        	image_to_save = image24;
     	        }
     	        else if(chosen_depth == 32){ //32 
-    	        	BufferedImage im4 = new BufferedImage(image_to_save.getWidth(), image_to_save.getHeight(), BufferedImage.TYPE_INT_ARGB);
+    	        	BufferedImage image32 = new BufferedImage(image_to_save.getWidth(), image_to_save.getHeight(), BufferedImage.TYPE_INT_ARGB);
     	        	for (int y = 0; y < image_to_save.getHeight(); y++) {
     	        		for (int x = 0; x < image_to_save.getWidth(); x++) {
-    	        			im4.setRGB(x, y, new Color(pixels[x][y], pixels[x][y], pixels[x][y]).getRGB());
+    	        			image32.setRGB(x, y, new Color(pixels[x][y], pixels[x][y], pixels[x][y]).getRGB());
     	        		}
     	        	}
-    	        	image_to_save = im4;
+    	        	image_to_save = image32;
 
     	        }
     	        else{
 
-    	        	BufferedImage im5 = new BufferedImage(image_to_save.getWidth(), image_to_save.getHeight(), BufferedImage.TYPE_INT_RGB);
+    	        	BufferedImage image5 = new BufferedImage(image_to_save.getWidth(), image_to_save.getHeight(), BufferedImage.TYPE_INT_RGB);
     	        	for (int y = 0; y < image_to_save.getHeight(); y++) {
     	        		for (int x = 0; x < image_to_save.getWidth(); x++) {
-    	        			im5.setRGB(x, y, new Color(pixels[x][y], pixels[x][y], pixels[x][y]).getRGB());
+    	        			image5.setRGB(x, y, new Color(pixels[x][y], pixels[x][y], pixels[x][y]).getRGB());
     	        		}
     	        	}
-    	        	image_to_save = im5;
+    	        	image_to_save = image5;
 
     	        }
     	    	  if(chosen_type  == "jpeg")
@@ -658,7 +658,8 @@ public class SaveImage extends JFrame {
     	    	  {
     	    		  try 			
   	    	        {  
-  	    	            ImageIO.write(image_to_save, "TIFF", new File(c.getCurrentDirectory().toString()+ '\\' +c.getSelectedFile().getName()+".tiff"));  
+    	    			  System.out.println("TIFFFFFFFFFFFFFFFF");
+  	    	            ImageIO.write(image_to_save, "TIF", new File(c.getCurrentDirectory().toString()+ '\\' +c.getSelectedFile().getName()+".tiff"));  
   	    	          if(which_mode == 1)
 	          		  	{
 	          		  		System.exit(0);

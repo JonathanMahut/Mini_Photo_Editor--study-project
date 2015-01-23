@@ -102,7 +102,7 @@ import javax.swing.JRadioButton;
    	static JLabel start_value_label=new JLabel("Start value");
    	static JLabel step_label=new JLabel("Step");
    	static JLabel digits_label=new JLabel("Digits");
-    static JButton Save1_save = new JButton("Save Check");
+    static JButton Save1_save = new JButton("Save");
     static JLabel Nazwa  = new JLabel();
     static JButton Option_1_set = new JButton("Set");
 //end of Save Image

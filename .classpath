@@ -13,6 +13,6 @@
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="lib" path="lib/image4j.jar"/>
-	<classpathentry kind="lib" path="lib/jai_imageio_windows-i586.jar"/>
+	<classpathentry kind="lib" path="lib/jai_imageio-1.1(1).jar"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>

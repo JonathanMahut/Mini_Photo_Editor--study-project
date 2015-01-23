@@ -83,7 +83,7 @@ public class Display extends JFrame implements InternalFrameListener, ActionList
             frame.setSelected(true);
         } catch (java.beans.PropertyVetoException e) {
         }
-        if (PhotoEdit.black == true){
+       /* if (PhotoEdit.black == true){
         	container.setBackground(Color.BLACK);
         	image.setBackground(Color.BLACK);
         }
@@ -91,6 +91,7 @@ public class Display extends JFrame implements InternalFrameListener, ActionList
         	container.setBackground(Color.WHITE);
         	image.setBackground(Color.WHITE);
         }
+        */
         image.repaint(); 
 		image.validate();
 		

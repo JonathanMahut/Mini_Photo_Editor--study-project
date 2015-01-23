@@ -165,7 +165,7 @@ import javax.swing.JRadioButton;
 
             
             private void initialize() {
-            	try {
+            	/*try {
                     // Set System L&F
                 UIManager.setLookAndFeel("javax.swing.plaf.nimbus.NimbusLookAndFeel");
             } 
@@ -180,7 +180,7 @@ import javax.swing.JRadioButton;
             }
             catch (IllegalAccessException e) {
                // handle exception
-            }
+            }*/
             	
                     frame = new JFrame("Pixel Pro");
                     frame.setBounds(200, 200, 1300, 800);
@@ -1196,7 +1196,7 @@ import javax.swing.JRadioButton;
                                options,
                                options[0]);}
                 	else
-                	{RotateFunction rot = new RotateFunction(AddDirectory.all_chosen);
+                	{RotateFunction rot = new RotateFunction();
                     rot.main();
                     BufferedImage kk = null;
                             Display disp= new Display(); // invoke Display class
@@ -1226,7 +1226,7 @@ import javax.swing.JRadioButton;
             btnRefresh.setBackground(Color.WHITE);
             btnRefresh.setForeground(Color.BLACK);
             panel_2d.add(btnRefresh);
-            JButton btnClear = new JButton("Clear");
+            JButton btnClear = new JButton("Clear desktop");
             btnClear.setBackground(Color.RED);
             btnClear.setForeground(Color.WHITE);
             btnRefresh.setBounds(28, 158, 89, 23);

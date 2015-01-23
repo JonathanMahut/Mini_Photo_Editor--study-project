@@ -19,14 +19,11 @@ public class RotateFunction{
         HashMap<JButton,File> map;
         Image spiral;
         
-       
-        RotateFunction(HashMap<JButton,File> source_of_image)
-        {
-                map = AddDirectory.all_chosen;
-        }
-       
+
        
          public void main(){
+
+        	 map = AddDirectory.all_chosen;
                 int counter = 0;
                
                 if (spiral == null){

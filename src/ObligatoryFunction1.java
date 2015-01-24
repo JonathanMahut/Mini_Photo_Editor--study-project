@@ -88,39 +88,7 @@ public class ObligatoryFunction1 {
 	        	// Here the 'b' stands for 'blue' as well
 	        	// as for 'brightness' :-)
 	        	int b0 = argb0 & 0xFF;
-	        	
-	        	if(black_or_white == 1) // black
-	        	{
-	        		
-	        		return img1 = getCroppedImage(img1,0.8);
-		        	/*if( b0==0)
-		        	{
-		        		all_row = true;
-		        	}
-		        	else 
-		        	{
-		        		all_row = false;
-		        		break;
-		        	}*/
-	        	}
-	        	else if (black_or_white == 2) // white
-	        	{	
-	        		
-	        		return img1 = getCroppedImage(img1,0.8);
-	        		
-	        		
-	        		/*if(b0==255)
-		        	{
-		        		all_row = true;
-		        	}
-		        	else 
-		        	{
-		        		all_row = false;
-		        		break;
-		        	}*/
-	        	}
-	        	else
-	        	{
+
 	        		if(b0 < treshold )
 	        		{
 	        			all_row = true;
@@ -132,24 +100,25 @@ public class ObligatoryFunction1 {
 	        			
 	        			break;
 	        		}
-	        	}
+	        	
  	
 	        }
 		if(all_row==true)
 			height_to_cut++; // one row is all white
 		
 		else
-		{
-			
+
 			break;
-		}
+		
 		
 		}
-		
-			
+	
 		if(height_to_cut>0)
-			System.out.println("alalalla");
-		img1 = img1.getSubimage(0, height_to_cut+1, img1.getWidth()-1, (img1.getHeight()-1) - height_to_cut);
+		{
+			System.out.println(img1.getHeight() + "wysokosc obrazka" + height_to_cut + "wysokosc do ciecia");
+			img1 = img1.getSubimage(0, height_to_cut-1, img1.getWidth(), (img1.getHeight()) - height_to_cut+1);
+
+		}
 		
 		/////////////////////////////////////////
 						//from bottom
@@ -166,30 +135,7 @@ public class ObligatoryFunction1 {
 	        	// as for 'brightness' :-)
 	        	int b0 = argb0 & 0xFF;
 	        	
-	        	if(black_or_white == 1) // black
-	        	{
-		        	if(b0==0)
-		        	{
-		        		all_row = true;
-		        	}
-		        	else 
-		        	{
-		        		all_row = false;
-		        		break;
-		        	}
-	        	}
-	        	/*else if (black_or_white == 2) //white
-	        		if(b0==255)
-		        	{
-		        		all_row = true;
-		        	}
-		        	else 
-		        	{
-		        		all_row = false;
-		        		break;
-		        	}*/
-	        	else
-	        	{
+	        
 	        		if(b0 < treshold )
 	        		{
 	        			all_row = true;
@@ -200,7 +146,7 @@ public class ObligatoryFunction1 {
 	        			all_row = false;
 	        			break;
 	        		}
-	        	}
+	        	
  	
 	        }
 		if(all_row==true)
@@ -227,31 +173,7 @@ public class ObligatoryFunction1 {
 	        	// Here the 'b' stands for 'blue' as well
 	        	// as for 'brightness' :-)
 	        	int b0 = argb0 & 0xFF;
-	        	
-	        	if(black_or_white == 1) // black
-	        	{
-		        	if(b0==0)
-		        	{
-		        		all_row = true;
-		        	}
-		        	else 
-		        	{
-		        		all_row = false;
-		        		break;
-		        	}
-	        	}
-	        	/*else if (black_or_white == 2)
-	        		if(b0==255)
-		        	{
-		        		all_row = true;
-		        	}
-		        	else 
-		        	{
-		        		all_row = false;
-		        		break;
-		        	}*/
-	        	else
-	        	{
+
 	        		if(b0 < treshold )
 	        		{
 	        			all_row = true;
@@ -262,8 +184,7 @@ public class ObligatoryFunction1 {
 	        			all_row = false;
 	        			break;
 	        		}
-	        	}
- 	
+
 	        }
 		if(all_row==true)
 			width_to_cut++; // one row is all white
@@ -273,7 +194,7 @@ public class ObligatoryFunction1 {
 		}
 		
 		if(width_to_cut>0)
-		img1 = img1.getSubimage(width_to_cut+1, 0, (img1.getWidth()-1)-width_to_cut, img1.getHeight()-1);
+		img1 = img1.getSubimage(width_to_cut-1, 0, (img1.getWidth())-width_to_cut+1, img1.getHeight());
 		
 		/////////////////////////////////
 					// from right
@@ -289,30 +210,7 @@ public class ObligatoryFunction1 {
 	        	// as for 'brightness' :-)
 	        	int b0 = argb0 & 0xFF;
 	        	
-	        	if(black_or_white == 1) // black
-	        	{
-		        	if(b0==0)
-		        	{
-		        		all_row = true;
-		        	}
-		        	else 
-		        	{
-		        		all_row = false;
-		        		break;
-		        	}
-	        	}
-	        /*	else if (black_or_white == 2) // white
-	        		if(b0==255)
-		        	{
-		        		all_row = true;
-		        	}
-		        	else 
-		        	{
-		        		all_row = false;
-		        		break;
-		        	}*/
-	        	else
-	        	{
+	        	
 	        		if(b0 < treshold )
 	        		{
 	        			all_row = true;
@@ -323,7 +221,7 @@ public class ObligatoryFunction1 {
 	        			all_row = false;
 	        			break;
 	        		}
-	        	}
+	        	
  	
 	        }
 		if(all_row==true)
@@ -333,7 +231,7 @@ public class ObligatoryFunction1 {
 			
 		}
 		if(width_to_cut>0)
-		img1 = img1.getSubimage(0, 0, (img1.getWidth()-1)-width_to_cut, img1.getHeight()-1);
+		img1 = img1.getSubimage(0, 0, (img1.getWidth())-width_to_cut, img1.getHeight());
 		
 	return img1;
 		
@@ -374,8 +272,12 @@ public class ObligatoryFunction1 {
 		 all_images = ObligatoryFunction1.saveImagesToList();
 		 int counter =0;	
 		 for(BufferedImage tmp : all_images)
-		 {
-			 BufferedImage result = cutFrame(tmp);
+		 {	
+			 BufferedImage result;
+			 if(black_or_white==1 || black_or_white == 2)
+				result = getCroppedImage(tmp,0.8);
+			 else
+			 result = cutFrame(tmp);
 			//BufferedImage result = getCroppedImage(tmp,treshold); //????????????????????????????????
 			
 			File f;
@@ -409,8 +311,11 @@ public class ObligatoryFunction1 {
 		 all_images = ObligatoryFunction1.saveImagesToList();
 		 for(BufferedImage tmp : all_images)
 		 {
-			 //BufferedImage result = getCroppedImage(tmp,treshold);  //????????????????????????????????
-			 BufferedImage result = cutFrame(tmp);
+			 BufferedImage result;
+			 if(black_or_white==1 || black_or_white == 2)
+				result = getCroppedImage(tmp,0.8);
+			 else
+			 result = cutFrame(tmp);
 			all_images_after_list.add(result);
 		 }
 

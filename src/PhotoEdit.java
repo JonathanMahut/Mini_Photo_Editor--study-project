@@ -872,6 +872,7 @@ import javax.swing.JRadioButton;
            
             SetButton.addActionListener(new ActionListener() {
                 public void actionPerformed(ActionEvent arg0) {
+                	black_or_white = 0;
                 	
                 	if(AddDirectory.all_chosen.size()>=1)
                 	{

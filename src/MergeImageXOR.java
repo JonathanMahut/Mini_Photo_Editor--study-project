@@ -39,7 +39,7 @@ public class MergeImageXOR {
 		list_of_images=images;
 		input = new BufferedImage[list_of_images.size()]; 
 		different_sizes = mode;
-		MergeImageXOR.main(null);
+		//MergeImageXOR.main(null);
 		
 	}
 	/**
@@ -253,15 +253,7 @@ public class MergeImageXOR {
 		
 
 
-	public static File getF() {
-		return f;
-	}
-
-	public static void setF(File f) {
-		MergeImageXOR.f = f;
-	}
-
-	private static File f;
+	
 	
 	
 	public static BufferedImage returnImage() // 
@@ -271,22 +263,4 @@ public class MergeImageXOR {
 		return img;
 	}
 	
-	public static void main(String[] args) 
-	 {  
-		BufferedImage final_img;
-		 getImagesFromHashmapIntoArray();
-		 
-		final_img=mergeAll();
-		 
-		f = new File( "image.png" );  
-         try {  
-             ImageIO.write( final_img, "PNG", f );  
-             
-         }  
-         catch ( IOException x ) {  
-             // Complain if there was any problem writing   
-             // the output file.  
-             x.printStackTrace();  
-         }         
-	 }
 }

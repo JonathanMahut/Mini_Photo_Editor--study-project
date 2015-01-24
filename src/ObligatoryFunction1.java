@@ -267,7 +267,7 @@ public class ObligatoryFunction1 {
 	 * The method which perform cutting the background on all images saved in the list(as files) with selected images.
 	 * @return List of the images as files without the background.
 	 */
-	 static List<File> cutOut()
+	/* static List<File> cutOut()
 	 {	
 		 all_images = ObligatoryFunction1.saveImagesToList();
 		 int counter =0;	
@@ -300,7 +300,7 @@ public class ObligatoryFunction1 {
 		 
 		 
 		 return all_images_after;
-	 }
+	 }*/
 	 /**
 		 * 
 		 * The method which perform cutting the background on all images saved in the list(as BufferedImage) with selected images.

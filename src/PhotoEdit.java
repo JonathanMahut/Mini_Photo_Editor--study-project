@@ -676,8 +676,8 @@ import javax.swing.JRadioButton;
                                                 MergeImageAND mergeImage1 = new MergeImageAND(AddDirectory.all_chosen,different_sizes);
                                                 merged_image = MergeImageAND.returnImage();
                                                 if (quest_see_the_result.GetSelectedOption() == JOptionPane.YES_OPTION) {
-                                                File one= MergeImageAND.getF().getAbsoluteFile();
-                                                disp.createFrame(center, one, merged_image); //create new frame with image
+                                            
+                                                disp.createFrame(center,merged_image); //create new frame with image
                                                 }
                                                 else
                                                 {  
@@ -695,9 +695,9 @@ import javax.swing.JRadioButton;
                                                             merged_image = MergeImageXOR.returnImage();
                                                 if (quest_see_the_result.GetSelectedOption() == JOptionPane.YES_OPTION) {
                                                    
-                                                File two= MergeImageXOR.getF().getAbsoluteFile();
                                                
-                                                disp.createFrame(center, two,merged_image); //create new frame with image
+                                               
+                                                disp.createFrame(center, merged_image); //create new frame with image
                                                 }
                                                 else
                                                 {  
@@ -718,9 +718,9 @@ import javax.swing.JRadioButton;
                                                            
                                                 if (quest_see_the_result.GetSelectedOption() == JOptionPane.YES_OPTION) {
                                                    
-                                                File three= MergeImageOR.getF().getAbsoluteFile();
+                                                
                                                
-                                                disp.createFrame(center, three,merged_image); //create new frame with image
+                                                disp.createFrame(center, merged_image); //create new frame with image
                                                 }
                                                 else
                                                 {  
@@ -820,18 +820,18 @@ import javax.swing.JRadioButton;
                      {
                 	int treshold=0;
                 	ObligatoryFunction1 fun = new ObligatoryFunction1(black_or_white,treshold); 
-                	List<File> all_images_as_file  = fun.cutOut();
+                	//List<File> all_images_as_file  = fun.cutOut();
                 	List<BufferedImage> all_images_as_buffered = fun.cutOut1();
                 	OptionFrame.main(null); // ask if user wants to see?
                     OptionFrame quest_see_the_result=new OptionFrame(); // get answer from OptionFrame class
                     
                 	Display disp = new Display();
                 	if (quest_see_the_result.GetSelectedOption() == JOptionPane.YES_OPTION)
-                	for(int i = 0; i<all_images_as_file.size();i++)
+                	for(int i = 0; i<all_images_as_buffered.size();i++)
                 	{
-                		disp.createFrame(center, all_images_as_file.get(i), all_images_as_buffered.get(i));
+                		disp.createFrame(center, all_images_as_buffered.get(i));
                 	}
-                	all_images_as_file.clear();
+                	//all_images_as_file.clear();
                 	all_images_as_buffered.clear();
                 	
                 }
@@ -885,18 +885,18 @@ import javax.swing.JRadioButton;
                      	JOptionPane.showMessageDialog(null, "The value must be a numeric value. " );
                      	}
                 	ObligatoryFunction1 fun = new ObligatoryFunction1(black_or_white,treshold); 
-                	List<File> all_images_as_file  = fun.cutOut();
+                //	List<File> all_images_as_file  = fun.cutOut();
                 	List<BufferedImage> all_images_as_buffered = fun.cutOut1();
                 	OptionFrame.main(null); // ask if user wants to see?
                     OptionFrame quest_see_the_result=new OptionFrame(); // get answer from OptionFrame class
                     
                 	Display disp = new Display();
                 	if (quest_see_the_result.GetSelectedOption() == JOptionPane.YES_OPTION)	
-                	for(int i = 0; i<all_images_as_file.size();i++)
+                	for(int i = 0; i<all_images_as_buffered.size();i++)
                 	{
-                		disp.createFrame(center, all_images_as_file.get(i), all_images_as_buffered.get(i));
+                		disp.createFrame(center, all_images_as_buffered.get(i));
                 	}
-                	all_images_as_file.clear();
+                	//all_images_as_file.clear();
                 	all_images_as_buffered.clear();
                 	//funkcja
                 	
@@ -1046,7 +1046,7 @@ import javax.swing.JRadioButton;
                     if (quest_see_the_result.GetSelectedOption() == JOptionPane.YES_OPTION) {
                 File one= ObligatoryFunction3.getF().getAbsoluteFile();
                
-                disp.createFrame(center, one,merged_image); //create new frame with image
+                disp.createFrame(center, merged_image); //create new frame with image
                 }
                 else
                 {  
@@ -1208,7 +1208,7 @@ import javax.swing.JRadioButton;
                             for(File i : all_chosen_images.values()){
                                     try{
                                     kk = ImageIO.read(new File(i.getAbsolutePath()));
-                                    disp.createFrame(center, i, kk); //create new frame with image 
+                                    disp.createFrame(center, kk); //create new frame with image 
                                     }
                                     catch (IOException es){
                                             es.printStackTrace();

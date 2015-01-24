@@ -39,7 +39,7 @@ public class MergeImageAND {
 		System.out.println(list_of_images.values());
 		input = new BufferedImage[list_of_images.size()]; 
 		this.different_sizes = mode;
-		MergeImageAND.main(null);
+		
 		
 	}
 	/**
@@ -261,38 +261,12 @@ public class MergeImageAND {
 		}
 		
 
-	public static File getF() {
-		return f;
-	}
-
-	public static void setF(File f) {
-		MergeImageAND.f = f;
-	}
-
-	private static File f;
-
+	
 	public static BufferedImage returnImage() // 
 	{
 		getImagesFromHashmapIntoArray();
 		BufferedImage img = mergeAll();
 		return img;
 	}	
-	 public static void main(String[] args) 
-	 {  
-		BufferedImage final_img;
-		 getImagesFromHashmapIntoArray();
-		 
-		final_img=mergeAll();
-		 
-		setF(new File( "image.png" ));  
-         try {  
-             ImageIO.write( final_img, "PNG", getF() );  
-             
-         }  
-         catch ( IOException x ) {  
-             // Complain if there was any problem writing   
-             // the output file.  
-             x.printStackTrace();  
-         }  
-	 }
+	
 }

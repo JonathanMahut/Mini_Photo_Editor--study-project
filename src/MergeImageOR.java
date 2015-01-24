@@ -39,7 +39,7 @@ public class MergeImageOR {
 		list_of_images=images;
 		input = new BufferedImage[list_of_images.size()]; 
 		this.different_sizes = mode;
-		MergeImageOR.main(null);
+	
 		
 	}
 	/**
@@ -261,14 +261,6 @@ public class MergeImageOR {
 	}
 	
 
-	public static File getF() {
-		return f;
-	}
-	public static void setF(File f) {
-		MergeImageOR.f = f;
-	}
-	private static File f;
-	
 
 	public static BufferedImage returnImage() // 
 	{
@@ -276,22 +268,5 @@ public class MergeImageOR {
 		BufferedImage img = mergeAll();
 		return img;
 	}
-	 public static void main(String[] args) 
-	 {  
-		BufferedImage final_img;
-		getImagesFromHashmapIntoArray();
-		 
-		final_img=mergeAll();
-		 
-		setF( new File( "image.png" ));  //// DELETE THIS LATER!! AND STUFF BELOW
-         try {  
-             ImageIO.write( final_img, "PNG", getF());  
-             
-         }  
-         catch ( IOException x ) {  
-             // Complain if there was any problem writing   
-             // the output file.  
-             x.printStackTrace();  
-         }         
-	 }
+	
 }

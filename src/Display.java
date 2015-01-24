@@ -53,10 +53,10 @@ public class Display extends JFrame implements InternalFrameListener, ActionList
         
 	}
 	
-	void createFrame(JDesktopPane where, File what, BufferedImage merged_image) {
+	void createFrame(JDesktopPane where, BufferedImage merged_image) {
         MyInternalFrame frame = new MyInternalFrame();
         where_global=where;
-        frame.setTitle(what.getName());
+        frame.setTitle("Image");
         //JScrollPane pane = new JScrollPane(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
         //frame.setContentPane(pane);
         
@@ -66,14 +66,14 @@ public class Display extends JFrame implements InternalFrameListener, ActionList
         container.add(image);
         JScrollPane jsp = new JScrollPane(container);
         frame.add(jsp);
-        BufferedImage img = null;
+        //BufferedImage img = null;
         merge_image=merged_image;
-		try {
+		/*try {
 			img = ImageIO.read(what);
 		} catch (IOException e) {
 			e.printStackTrace();
-		}
-    	        ImageIcon icon=new ImageIcon(img);;
+		}*/
+    	        ImageIcon icon=new ImageIcon(merge_image);;
     	        JLabel lbl=new JLabel();
     	        lbl.setIcon(icon);
     	        image.add(lbl);

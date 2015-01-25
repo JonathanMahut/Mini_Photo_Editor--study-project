@@ -893,7 +893,7 @@ import javax.swing.JRadioButton;
                      	JOptionPane.showMessageDialog(null, "The value must be a numeric value. " );
                      	}
                 	
-                	if(treshold>0&&treshold<255)
+                	if(treshold>=0&&treshold<=255)
                 	
                 	{
                 	ObligatoryFunction1 fun = new ObligatoryFunction1(black_or_white,treshold); 
@@ -911,7 +911,6 @@ import javax.swing.JRadioButton;
                 	}
                 	//all_images_as_file.clear();
                 	all_images_as_buffered.clear();
-                	//funkcja
                 	}
                 	
                 	else

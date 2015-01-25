@@ -5,23 +5,30 @@ import java.awt.image.BufferedImage;
 import java.awt.image.ImageObserver;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
- 
+ /**
+  * The class for the obligatory function 2 ( rotating an image). 
+  * @author Adam Mickiewicz
+  *
+  */
  
 public class RotateFunction{
        
         HashMap<JButton,File> map;
         Image spiral;
+        static List<BufferedImage> list_with_images = new ArrayList<BufferedImage>();
         
 
        
-         public void main(){
-
+         public List<BufferedImage> main(){
+        	 list_with_images.clear();
         	 map = AddDirectory.all_chosen;
                 int counter = 0;
                
@@ -40,22 +47,13 @@ public class RotateFunction{
                         	rotateImage1(PhotoEdit.deg, null);
                         	System.out.println("Rotating image "+counter+" by "+PhotoEdit.deg+" degrees (bigger frame)"); 	
                         }
+                        
                        BufferedImage tmp = toBufferedImage(spiral);
-                       File f;
-                       f = new File( "image.png" );  
-                       try
-                       {  
-                          
-                        ImageIO.write( tmp, "PNG", f );  
-                
-                       }  
-                       catch ( IOException x )
-                       {  
-                           // Complain if there was any problem writing  
-                           // the output file.  
-                           x.printStackTrace();  
-                       }        
-                        map.put(entry.getKey(), f);
+                       list_with_images.add(tmp);
+                            
+                       
+                       
+                        
                     }
                     catch (Exception e) {
                             // TODO Auto-generated catch block
@@ -64,11 +62,15 @@ public class RotateFunction{
                    
                         } 
                         PhotoEdit.all_chosen_images.clear();
-                        PhotoEdit.all_chosen_images.putAll(map);  //Putting HashMap with rotated images into global HashMap
+                        //PhotoEdit.all_chosen_images.putAll(map);  //Putting HashMap with rotated images into global HashMap
                         System.out.println("Images have been successfully rotated");
                 }
+                return list_with_images;
         }
-       
+      /* static public List<BufferedImage> returnImages ()
+       {
+    	   return list_with_images;
+       }*/
         public Image getImage(String path){
                 Image tempImage = null;
                 try

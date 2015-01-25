@@ -1201,19 +1201,15 @@ import javax.swing.JRadioButton;
                                options[0]);}
                 	else
                 	{RotateFunction rot = new RotateFunction();
-                    rot.main();
-                    BufferedImage kk = null;
+                	List <BufferedImage> list_with_images;
+                   list_with_images =  rot.main();
+                   // BufferedImage kk = null;
                             Display disp= new Display(); // invoke Display class
                            
-                            for(File i : all_chosen_images.values()){
-                                    try{
-                                    kk = ImageIO.read(new File(i.getAbsolutePath()));
-                                    disp.createFrame(center, kk); //create new frame with image 
-                                    }
-                                    catch (IOException es){
-                                            es.printStackTrace();
-                                    }
-                    
+                            for(BufferedImage i: list_with_images){
+
+                                    disp.createFrame(center, i); //create new frame with image 
+             
                             }
                             }
                 }

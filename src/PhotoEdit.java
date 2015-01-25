@@ -825,10 +825,11 @@ import javax.swing.JRadioButton;
                 	OptionFrame.main(null); // ask if user wants to see?
                     OptionFrame quest_see_the_result=new OptionFrame(); // get answer from OptionFrame class
                     
-                	Display disp = new Display();
+                	
                 	if (quest_see_the_result.GetSelectedOption() == JOptionPane.YES_OPTION)
                 	for(int i = 0; i<all_images_as_buffered.size();i++)
                 	{
+                		Display disp = new Display();
                 		disp.createFrame(center, all_images_as_buffered.get(i));
                 	}
                 	//all_images_as_file.clear();
@@ -890,10 +891,11 @@ import javax.swing.JRadioButton;
                 	OptionFrame.main(null); // ask if user wants to see?
                     OptionFrame quest_see_the_result=new OptionFrame(); // get answer from OptionFrame class
                     
-                	Display disp = new Display();
+                	
                 	if (quest_see_the_result.GetSelectedOption() == JOptionPane.YES_OPTION)	
                 	for(int i = 0; i<all_images_as_buffered.size();i++)
                 	{
+                		Display disp = new Display();
                 		disp.createFrame(center, all_images_as_buffered.get(i));
                 	}
                 	//all_images_as_file.clear();
@@ -1204,11 +1206,13 @@ import javax.swing.JRadioButton;
                 	List <BufferedImage> list_with_images;
                    list_with_images =  rot.main();
                    // BufferedImage kk = null;
-                            Display disp= new Display(); // invoke Display class
+                             // invoke Display class
                            
                             for(BufferedImage i: list_with_images){
+                            	Display disp= new Display();
+                            	merged_image = i;
 
-                                    disp.createFrame(center, i); //create new frame with image 
+                                    disp.createFrame(center, merged_image); //create new frame with image 
              
                             }
                             }

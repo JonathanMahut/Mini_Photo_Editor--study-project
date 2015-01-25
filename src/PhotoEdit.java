@@ -855,9 +855,10 @@ import javax.swing.JRadioButton;
             panel_2b.add(Frames_black_white);
           
             JLabel Set  = new JLabel("Set threshold");
-            JPanel GrayscalePanel   = new JPanel();
-            GrayscalePanel.setBorder(BorderFactory.createTitledBorder(BorderFactory.createEtchedBorder(EtchedBorder.RAISED, Color.GRAY, Color.DARK_GRAY), "Grayscale"));
-            
+            JPanel GrayscalePanel_all   = new JPanel();
+            GrayscalePanel_all.setLayout(new BoxLayout(GrayscalePanel_all, BoxLayout.Y_AXIS));
+            GrayscalePanel_all.setBorder(BorderFactory.createTitledBorder(BorderFactory.createEtchedBorder(EtchedBorder.RAISED, Color.GRAY, Color.DARK_GRAY), "Grayscale"));
+            JPanel GrayscalePanel  = new JPanel();
            
             inSet.setColumns(3);
             inSet.setFocusLostBehavior(JFormattedTextField.PERSIST);
@@ -866,7 +867,13 @@ import javax.swing.JRadioButton;
             GrayscalePanel.add(Set);
             GrayscalePanel.add(inSet);
             GrayscalePanel.add(SetButton);
-            panel_2b.add(GrayscalePanel);
+            GrayscalePanel_all.add(GrayscalePanel);
+            JPanel gray_label_panel=new JPanel();
+            JLabel gray_label  = new JLabel("You can set treshold between 0 and 255");
+            gray_label_panel.add(gray_label);
+            GrayscalePanel_all.add(gray_label_panel);
+            
+            panel_2b.add(GrayscalePanel_all);
             
             //SetButton.setBackground(Color.DARK_GRAY);
             //SetButton.setForeground(Color.WHITE);
@@ -885,6 +892,10 @@ import javax.swing.JRadioButton;
                      	catch ( NumberFormatException e1 ) {
                      	JOptionPane.showMessageDialog(null, "The value must be a numeric value. " );
                      	}
+                	
+                	if(treshold>0&&treshold<255)
+                	
+                	{
                 	ObligatoryFunction1 fun = new ObligatoryFunction1(black_or_white,treshold); 
                 //	List<File> all_images_as_file  = fun.cutOut();
                 	List<BufferedImage> all_images_as_buffered = fun.cutOut1();
@@ -901,7 +912,10 @@ import javax.swing.JRadioButton;
                 	//all_images_as_file.clear();
                 	all_images_as_buffered.clear();
                 	//funkcja
+                	}
                 	
+                	else
+                	{JOptionPane.showMessageDialog(null, "Please insert a valid value (0-255)!" );}
                 	}
                 	 else
                 	 {  Object[] options = {"OK"};
@@ -912,6 +926,7 @@ import javax.swing.JRadioButton;
                                 null,
                                 options,
                                 options[0]);}
+                	
                 }
             });
             

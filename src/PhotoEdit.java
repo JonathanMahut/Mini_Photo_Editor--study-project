@@ -272,11 +272,6 @@ import javax.swing.JRadioButton;
                            
                             //END OF LEFT SIDE
                            
-                           
-                    //I think that we shouldn't add scrollpane to the frame
-                    //JScrollPane scrollPane = new JScrollPane(panel);             
-                    //panel.setLayout(new GridLayout(0, 5, 0,0));
-                    //frame.getContentPane().add(scrollPane);
                    
                     JMenuBar menuBar = new JMenuBar();
                     frame.setJMenuBar(menuBar);

@@ -324,15 +324,17 @@ import javax.swing.JRadioButton;
                     mntmOpen.addActionListener(new ActionListener()
                     {
                                           
-                                            String chooser_title;
-                                            File file_from_given_directory[];
+                                            String chooser_title = "";
+                                            String img_extensions [] = {"jpg", "png", "jpeg","tiff","tif","bmp"};
+                                            File file_from_given_directory[] = null;
+                                            
                                            
                                            
                                     public void actionPerformed(ActionEvent e) {
                                            
-                                           
+                                           System.out.println(ImageIO.getReaderFileSuffixes());
                                         FileFilter imageFilter = new FileNameExtensionFilter(
-                                                "Image files", ImageIO.getReaderFileSuffixes());
+                                                "Image files", img_extensions);
                                
                                        
                                         //chooser.setCurrentDirectory(new java.io.File("."));

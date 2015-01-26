@@ -343,7 +343,7 @@ public class SaveImage extends JFrame {
       			image1.setRGB(x, y, new Color(pixels[x][y], pixels[x][y], pixels[x][y]).getRGB());
       		}
       	}
-      	System.out.println(chosen_depth + "WYBRANA DEPTH");
+      
       	image_to_save = image1;
 
       }
@@ -364,7 +364,7 @@ public class SaveImage extends JFrame {
       			image16.setRGB(x, y, new Color(pixels[x][y], pixels[x][y], pixels[x][y]).getRGB());
       		}
       	}
-      	System.out.println(chosen_depth + "WYBRANA DEPTH");
+      	
       	image_to_save = image16;
 
       }
@@ -541,7 +541,7 @@ public class SaveImage extends JFrame {
     	        			image1.setRGB(x, y, new Color(pixels[x][y], pixels[x][y], pixels[x][y]).getRGB());
     	        		}
     	        	}
-    	        	System.out.println(chosen_depth + "WYBRANA DEPTH");
+    	        	
     	        	image_to_save = image1;
 
     	        }
@@ -562,7 +562,7 @@ public class SaveImage extends JFrame {
     	        			image16.setRGB(x, y, new Color(pixels[x][y], pixels[x][y], pixels[x][y]).getRGB());
     	        		}
     	        	}
-    	        	System.out.println(chosen_depth + "WYBRANA DEPTH");
+    	        	
     	        	image_to_save = image16;
 
     	        }
@@ -658,7 +658,7 @@ public class SaveImage extends JFrame {
     	    	  {
     	    		  try 			
   	    	        {  
-    	    			  System.out.println("TIFFFFFFFFFFFFFFFF");
+    	    			 
   	    	            ImageIO.write(image_to_save, "TIF", new File(c.getCurrentDirectory().toString()+ '\\' +c.getSelectedFile().getName()+".tiff"));  
   	    	          if(which_mode == 1)
 	          		  	{

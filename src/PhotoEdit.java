@@ -332,7 +332,7 @@ import javax.swing.JRadioButton;
                                            
                                     public void actionPerformed(ActionEvent e) {
                                            
-                                           System.out.println(ImageIO.getReaderFileSuffixes());
+                                           
                                         FileFilter imageFilter = new FileNameExtensionFilter(
                                                 "Image files", img_extensions);
                                
@@ -394,7 +394,7 @@ import javax.swing.JRadioButton;
                                          if(licznik<=5&&flag==0)
                                          {
                                           for(int i =0; i<file_from_given_directory.length; i++)
-                                          { System.out.println(file_from_given_directory.length);
+                                          { 
                                         	  
                                               Image image = null;
                                                                     try {
@@ -1046,7 +1046,7 @@ import javax.swing.JRadioButton;
      	catch ( NumberFormatException e1 ) {
      	JOptionPane.showMessageDialog(null, "The value must be a numeric value bigger than 0. " );
      	}
-                  System.out.println(different_sizes1 + "Mode w photoedit");
+                  
                     inSet1.setText("");
                     	if(horizontal_or_vertical!=null&&n_of_stripes!=0)
                     	{

@@ -1154,6 +1154,7 @@ import javax.swing.JRadioButton;
             JRadioButton black_rdbutton = new JRadioButton("Black background");
             black_rdbutton.addActionListener(new ActionListener() {
                     public void actionPerformed(ActionEvent arg0) {
+                    	System.out.println("Black background selected");
                            black = true;
                     }
             });
@@ -1167,6 +1168,7 @@ import javax.swing.JRadioButton;
             white_rdbutton.setSelected(true);
             white_rdbutton.addActionListener(new ActionListener() {
                     public void actionPerformed(ActionEvent arg0) {
+                    	System.out.println("White background selected");
                           black = false;
                     }
             });
@@ -1220,18 +1222,13 @@ import javax.swing.JRadioButton;
                 	else
                 	{RotateFunction rot = new RotateFunction();
                 	List <BufferedImage> list_with_images;
-                   list_with_images =  rot.main();
-                   // BufferedImage kk = null;
-                             // invoke Display class
-                           
+                    list_with_images =  rot.main();
                             for(BufferedImage i: list_with_images){
                             	Display disp= new Display();
                             	merged_image = i;
-
-                                    disp.createFrame(center, merged_image); //create new frame with image 
-             
+                                disp.createFrame(center, merged_image); //create new frame with image 
                             }
-                            }
+                    }
                 }
             });
             

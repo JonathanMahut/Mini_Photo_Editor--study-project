@@ -101,6 +101,7 @@ public class RotateFunction{
                 	g2.setColor(Color.BLACK);
                 else
                 	g2.setColor(Color.WHITE);
+                g2.fillRect(0, 0, icon.getIconWidth(), icon.getIconHeight());
                 g2.rotate(Math.toRadians(degrees), icon.getIconWidth()/2, icon.getIconHeight()/2);
                 g2.drawImage(this.spiral, 0, 0, o);
                 this.spiral = blankCanvas;
@@ -125,6 +126,7 @@ public class RotateFunction{
             	g2.setColor(Color.BLACK);
             else
             	g2.setColor(Color.WHITE);
+            g2.fillRect(0, 0, neww, newh);
             g2.translate((neww-w)/2, (newh-h)/2);
             g2.rotate(Math.toRadians(degrees), icon.getIconWidth()/2, icon.getIconHeight()/2);
            

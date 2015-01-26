@@ -29,7 +29,7 @@ public class RotateFunction{
         * Main method of RotateFunction
         * Takes images from global HashMap, rotate them
         * and put them into the list.
-        * @return
+        * @return list
         */
          public List<BufferedImage> main(){
         	 list_with_images.clear();

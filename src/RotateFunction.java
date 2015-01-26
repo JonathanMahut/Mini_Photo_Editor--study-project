@@ -1,3 +1,4 @@
+import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.Toolkit;
@@ -92,6 +93,10 @@ public class RotateFunction{
                 ImageIcon icon = new ImageIcon(this.spiral);
                 BufferedImage blankCanvas = new BufferedImage(icon.getIconWidth(), icon.getIconHeight(), BufferedImage.TYPE_INT_ARGB);
                 Graphics2D g2 = (Graphics2D)blankCanvas.getGraphics();
+                if(PhotoEdit.black)
+                	g2.setColor(Color.BLACK);
+                else
+                	g2.setColor(Color.WHITE);
                 g2.rotate(Math.toRadians(degrees), icon.getIconWidth()/2, icon.getIconHeight()/2);
                 g2.drawImage(this.spiral, 0, 0, o);
                 this.spiral = blankCanvas;
@@ -107,8 +112,14 @@ public class RotateFunction{
             int newh = (int)Math.floor(h*cos+w*sin);
             BufferedImage blankCanvas = new BufferedImage(neww, newh, BufferedImage.TYPE_INT_ARGB);
             Graphics2D g2 = (Graphics2D)blankCanvas.getGraphics();
+            if(PhotoEdit.black)
+            	g2.setColor(Color.BLACK);
+            else
+            	g2.setColor(Color.WHITE);
             g2.translate((neww-w)/2, (newh-h)/2);
+            g2.setBackground(Color.WHITE);
             g2.rotate(Math.toRadians(degrees), icon.getIconWidth()/2, icon.getIconHeight()/2);
+           
             g2.drawImage(this.spiral, 0, 0, o);
             this.spiral = blankCanvas;
     }
